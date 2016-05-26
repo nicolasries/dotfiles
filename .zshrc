@@ -62,7 +62,7 @@ alias rm='rm -iv'
 
 # History {{{
 
-HISTFILE=~/.config/zsh/history
+HISTFILE=~/.zsh_history
 HISTSIZE=1024                   # big history
 SAVEHIST=1024                   # big history
 # setopt append_history           # append
