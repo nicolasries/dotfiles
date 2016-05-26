@@ -51,6 +51,8 @@ alias docker-ip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" $@'
 
 # colored grep
 alias grep='grep --color'
+# colored ls
+alias ls='ls --color'
 # interactive and verboose
 alias mv='mv -iv'
 alias cp='cp -iv'
