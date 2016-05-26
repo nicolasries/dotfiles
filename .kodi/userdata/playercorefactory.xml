@@ -1,0 +1,14 @@
+<playercorefactory>
+ <players>
+   <player name="mpv" type="ExternalPlayer" audio="false" video="true">
+     <filename>mpv</filename>
+     <args></args>
+     <hidexbmc>false</hidexbmc>
+     <hideconsole>false</hideconsole>
+     <warpcursor>none</warpcursor>
+   </player>
+ </players>
+ <rules action="prepend">
+   <rule filetypes="*" player="mpv"/>
+ </rules>
+</playercorefactory>

@@ -1,0 +1,71 @@
+# General {{{
+
+[options]
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = true
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = Source Code Pro 12
+scrollback_lines = 10000
+search_wrap = true
+#icon_name = terminal
+#geometry = 640x480
+
+# "system", "on" or "off"
+cursor_blink = off
+
+# "block", "underline" or "ibeam"
+cursor_shape = underline
+
+# set size hints for the window
+#size_hints = false
+
+# emit escape sequences for other keys modified by Control
+#modify_other_keys = false
+# }}}
+
+# Colors {{{
+
+[colors]
+# special
+foreground      = #f8f8f2
+foreground_bold = #f8f8f2
+cursor          = #f8f8f2
+background      = #000000
+
+# black
+color0  = #272822
+color8  = #75715e
+
+# red
+color1  = #f92672
+color9  = #f92672
+
+# green
+color2  = #a6e22e
+color10 = #a6e22e
+
+# yellow
+color3  = #f4bf75
+color11 = #f4bf75
+
+# blue
+color4  = #66d9ef
+color12 = #66d9ef
+
+# magenta
+color5  = #ae81ff
+color13 = #ae81ff
+
+# cyan
+color6  = #a1efe4
+color14 = #a1efe4
+
+# white
+color7  = #f8f8f2
+color15 = #f9f8f5
+# }}}
