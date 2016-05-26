@@ -45,7 +45,7 @@ autoload -U colors && colors
 # edit shortcut
 alias e=$EDITOR
 # workaround for terminal bug
-alias ssh='TERM=xterm ssh'
+alias ssh='TERM=xterm-256color ssh'
 # docker ip address
 alias docker-ip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" $@'
 
