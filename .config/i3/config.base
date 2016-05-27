@@ -53,6 +53,7 @@ assign [class="^Thunderbird$" instance="^Mail$"] $wsp3
 assign [class="^JDownloader$"] $wsp3
 assign [class="^Remmina$" instance="^remmina$"] $wsp3
 assign [class="^sun-awt-X11-XFramePeer$" instance="^NetBeans IDE 8.1$"] $wsp3
+assign [title="XMind"] $wsp3
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp4
 assign [class="^mpv$" instance="^gl$"] $wsp4
