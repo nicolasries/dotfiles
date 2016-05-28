@@ -37,12 +37,12 @@ font pango:monospace 10
 
 # Workspaces {{{
 
-set $wsp1 "1: home"
-set $wsp2 "2: console"
-set $wsp3 "3: misc"
-set $wsp4 "4: media"
-set $wsp5 "5: games"
-set $wsp6 "6: vm"
+set $wsp1 "1 "
+set $wsp2 "2 "
+set $wsp3 "3 "
+set $wsp4 "4 "
+set $wsp5 "5 "
+set $wsp6 "6: "
 set $wsp7 "7: "
 set $wsp8 "8: "
 set $wsp9 "9: "
@@ -201,8 +201,8 @@ bar {
 
 # startup programs {{{
 
-exec --no-startup-id i3-msg 'workspace $wsp1; exec firefox; workspace $wsp1'
-exec --no-startup-id i3-msg 'workspace $wsp2; exec termite; workspace $wsp1'
+exec --no-startup-id i3-msg 'exec termite'
+exec --no-startup-id i3-msg 'workspace $wsp2; exec firefox; workspace $wsp1'
 
 # }}}
 
