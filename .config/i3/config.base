@@ -42,11 +42,11 @@ set $wsp2 "2 "
 set $wsp3 "3 "
 set $wsp4 "4 "
 set $wsp5 "5 "
-set $wsp6 "6: "
-set $wsp7 "7: "
-set $wsp8 "8: "
-set $wsp9 "9: "
-set $wsp10 "10: "
+set $wsp6 "6 "
+set $wsp7 "7 "
+set $wsp8 "8 "
+set $wsp9 "9 "
+set $wsp10 "10 "
 
 # assignments
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp3
@@ -190,10 +190,10 @@ bar {
     modifier $mod
     colors {
         #color class       border  back.   text
-        # focused_workspace  #007030 #007030 #ffffff
-        # active_workspace   #555555 #555555 #ffffff
+        focused_workspace #000000 #000000 #ffffff
         inactive_workspace #000000 #000000 #888888
-        # urgent_workspace   #2f343a #900000 #ffffff
+        active_workspace #212121 #212121 #ffffff
+        urgent_workspace #a30000 #000000 #ffffff
     }
 }
 
