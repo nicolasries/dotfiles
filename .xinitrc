@@ -19,6 +19,5 @@ compton --backend glx --paint-on-overlay --vsync opengl-swc &
 sleep 2s &
 
 # i3
-~/.config/i3/merge-config.sh
 exec i3
 
