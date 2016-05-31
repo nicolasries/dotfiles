@@ -1,6 +1,6 @@
-" Plugins {{{
+" Plugins {
 
-" Install {{{
+" Install {
 
 " vim plug
 call plug#begin('~/.config/nvim/plugged')
@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " automatic folds and position restore
-Plug 'vim-scripts/restore_view.vim'
+" Plug 'vim-scripts/restore_view.vim'
 
 " Syntax checking
 Plug 'benekastah/neomake'
@@ -41,7 +41,7 @@ Plug 'tpope/vim-commentary'
 "Plugin 'majutsushi/tagbar'
 "Plugin 'Valloric/YouCompleteMe'
 
-" Autocompletion {{{
+" Autocompletion {
 Plug 'Shougo/deoplete.nvim'
 
 " deoplete include support
@@ -74,7 +74,7 @@ Plug 'zchee/deoplete-jedi'
 " Go autocomplete daemon
 " Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
-" }}}
+" }
 
 " Git Wrapper Methods
 Plug 'tpope/vim-fugitive'
@@ -107,9 +107,9 @@ Plug 'tpope/vim-characterize'
 
 call plug#end()
 
-" }}}
+" }
 
-" Config {{{
+" Config {
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -120,26 +120,28 @@ let g:deoplete#enable_refresh_always = 1
 let g:deoplete#max_abbr_width = 200
 let g:deoplete#max_menu_width = 200
 
-" }}}
+" }
 
-" }}}
+" }
 
-" Keybindings {{{
+" Keybindings {
 
 " no selection loss after visual indenting
 vnoremap > >gv
 vnoremap < <gv
 
-" }}}
+" }
 
-" UI {{{
+" UI {
 
 " syntax highlighting
 syntax enable
 
 " folding
-set foldmethod=marker
-set foldmarker={{{,}}}
+set foldmethod=syntax
+au FileType vim,conf,zsh
+            \ setlocal foldmethod=marker | 
+            \ set foldmarker={,}
 
 " Colors and stuff
 
@@ -172,9 +174,9 @@ filetype plugin on
 " " center buffer around cursor when opening files
 " autocmd BufRead * normal zz
 
-" " }}}
+" " }
 
-" Text editing {{{
+" Text editing {
 
 " Spaces instead of Tabs
 set expandtab
@@ -200,5 +202,5 @@ set laststatus=2
 " show entered commands
 set showcmd
 
-" }}}
+" }
 
