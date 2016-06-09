@@ -39,28 +39,29 @@ font pango:monospace 10
 
 set $wsp1 "1 "
 set $wsp2 "2 "
-set $wsp3 "3 "
-set $wsp4 "4 "
-set $wsp5 "5 "
-set $wsp6 "6 "
-set $wsp7 "7 "
+set $wsp3 "3 "
+set $wsp4 "4 "
+set $wsp5 "5 "
+set $wsp6 "6 "
+set $wsp7 "7 "
 set $wsp8 "8 "
 set $wsp9 "9 "
 set $wsp10 "10 "
 
 # assignments
-assign [class="^Thunderbird$" instance="^Mail$"] $wsp3
-assign [class="^JDownloader$"] $wsp3
-assign [class="^Remmina$" instance="^remmina$"] $wsp3
 assign [class="^sun-awt-X11-XFramePeer$" instance="^NetBeans IDE 8.1$"] $wsp3
-assign [title="XMind"] $wsp3
 
-assign [class="^Kodi$" instance="^Kodi$"] $wsp4
-assign [class="^mpv$" instance="^gl$"] $wsp4
+assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
+assign [class="^JDownloader$"] $wsp4
+assign [title="XMind"] $wsp4
 
-assign [class="^Steam$" instance="^Steam$"] $wsp5
+assign [class="^Kodi$" instance="^Kodi$"] $wsp5
+assign [class="^mpv$" instance="^gl$"] $wsp5
 
-assign [class="^VirtualBox$" instance="^VirtualBox$"] $wsp6
+assign [class="^Steam$" instance="^Steam$"] $wsp6
+
+assign [class="^VirtualBox$" instance="^VirtualBox$"] $wsp7
+assign [class="^Remmina$" instance="^remmina$"] $wsp7
 
 # }
 
