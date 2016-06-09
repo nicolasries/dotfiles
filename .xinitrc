@@ -14,10 +14,6 @@ xset -b
 # source local X startup config
 [ -f ~/.xinitrc.local ] && source ~/.xinitrc.local
 
-# start compton composite manager
-compton --backend glx --paint-on-overlay --vsync opengl-swc &
-sleep 2s &
-
 # i3
 exec i3
 

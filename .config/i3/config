@@ -49,7 +49,7 @@ set $wsp9 "9 "
 set $wsp10 "10 "
 
 # assignments
-assign [class="^sun-awt-X11-XFramePeer$" instance="^NetBeans IDE 8.1$"] $wsp3
+assign [class="NetBeans IDE"] $wsp3
 
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
 assign [class="^JDownloader$"] $wsp4
