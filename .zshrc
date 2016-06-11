@@ -1,18 +1,5 @@
 # General {
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-PATH=~/bin:$PATH
-
-export COMPOSER_HOME="$XDG_CONFIG_HOME"/composer
-export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME"/composer
-
-# Vim as standard editor
-export EDITOR="nvim"
-export VISUAL="nvim"
-
-export BROWSER="firefox"
 
 # vi keybindings in command line
 bindkey -v
@@ -25,16 +12,12 @@ promptinit
 # enable colors
 autoload -U colors && colors 
 
-
 # }
 
 # FZF {
 
 # add FZF keybindings to zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
-# ag as default source for fzf
-# export FZF_DEFAULT_COMMAND='ag -g ""'
-# export FZF_COMPLETION_TRIGGER=''
 # bindkey '^F' fzf-completion
 # bindkey '^I' $fzf_default_completion
 
