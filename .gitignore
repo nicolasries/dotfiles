@@ -1,2 +1,9 @@
 /*
 !/.gitignore
+!/.config/i3
+!/.config/fontconfig
+!/.config/mpv
+!/.config/ncmpcpp
+!/.config/surfraw
+!/.config/termite
+!/.spacemacs.d
