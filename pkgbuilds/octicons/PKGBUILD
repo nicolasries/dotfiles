@@ -1,0 +1,14 @@
+pkgname=octicons
+pkgrel=1
+pkgver=3.5.0
+pkgdesc="Github Octicons"
+arch=(any)
+depends=(fontconfig xorg-font-utils)
+source=("https://github.com/github/octicons/releases/download/v$pkgver/$pkgname.zip")
+install=$pkgname.install
+
+package()
+{
+install -Dm644 $pkgname-local.ttf "$pkgdir"/usr/share/fonts/octicons/font.otf
+}
+md5sums=('729a022f154af5c55250eaa47bec4d58')
