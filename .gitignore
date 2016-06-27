@@ -7,3 +7,8 @@
 !/.config/surfraw
 !/.config/termite
 !/.spacemacs.d
+!/pkgbuilds
+/pkgbuilds/*/src
+/pkgbuilds/*/pkg
+/pkgbuilds/*/*.xz
+/pkgbuilds/*/*.zip
