@@ -47,7 +47,7 @@ set $wsp2 "2 "
 set $wsp3 "3 "
 set $wsp4 "4 "
 set $wsp5 "5 "
-set $wsp6 "6 "
+set $wsp6 "6 "
 set $wsp7 "7 "
 set $wsp8 "8 "
 set $wsp9 "9 "
@@ -60,11 +60,13 @@ assign [class="Emacs"] $wsp3
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
 assign [class="^JDownloader$"] $wsp4
 assign [title="XMind"] $wsp4
+assign [class="libreoffice"] $wsp4
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp5
 assign [class="^mpv$" instance="^gl$"] $wsp5
 
 assign [class="^Steam$" instance="^Steam$"] $wsp6
+assign [class="Dolphin-emu"] $wsp6
 
 assign [class="^VirtualBox$" instance="^VirtualBox$"] $wsp7
 assign [class="^Remmina$" instance="^remmina$"] $wsp7
