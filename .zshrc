@@ -1,4 +1,4 @@
-# General {
+# General {{{
 
 
 # vi keybindings in command line
@@ -12,18 +12,18 @@ promptinit
 # enable colors
 autoload -U colors && colors 
 
-# }
+# }}}
 
-# FZF {
+# FZF {{{
 
 # add FZF keybindings to zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
 # bindkey '^F' fzf-completion
 # bindkey '^I' $fzf_default_completion
 
-# }
+# }}}
 
-# Aliases {
+# Aliases {{{
 
 # edit shortcut
 alias e=$EDITOR
@@ -43,9 +43,9 @@ alias rm='rm -iv'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 
-# }
+# }}}
 
-# History {
+# History {{{
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1024                   # big history
@@ -64,14 +64,14 @@ setopt hist_ignore_space
 # setopt inc_append_history
 setopt share_history # share command history data
 
-# }
+# }}}
 
-# Prompt {
+# Prompt {{{
 
 setopt prompt_subst
 [ -z $HOST_COLOR ] && HOST_COLOR="blue"
 PROMPT='%F{$HOST_COLOR}%2~ > %f'
 RPROMPT='%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$HOST_COLOR}%m%f'
 
-# }
+# }}}
 

@@ -1,6 +1,6 @@
-" Plugins {
+" Plugins {{{
 
-" Install {
+" Install {{{
 
 " vim plug
 call plug#begin('~/.config/nvim/plugged')
@@ -107,9 +107,9 @@ Plug 'tpope/vim-characterize'
 
 call plug#end()
 
-" }
+" }}}
 
-" Config {
+" Config {{{
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -120,19 +120,19 @@ let g:deoplete#enable_refresh_always = 1
 let g:deoplete#max_abbr_width = 200
 let g:deoplete#max_menu_width = 200
 
-" }
+" }}}
 
-" }
+" }}}
 
-" Keybindings {
+" Keybindings {{{
 
 " no selection loss after visual indenting
 vnoremap > >gv
 vnoremap < <gv
 
-" }
+" }}}
 
-" UI {
+" UI {{{
 
 " syntax highlighting
 syntax enable
@@ -141,7 +141,7 @@ syntax enable
 set foldmethod=syntax
 au FileType vim,conf,zsh
             \ setlocal foldmethod=marker | 
-            \ set foldmarker={,}
+            \ set foldmarker={{{,}}}
 
 " Colors and stuff
 
@@ -174,9 +174,9 @@ filetype plugin on
 " " center buffer around cursor when opening files
 " autocmd BufRead * normal zz
 
-" " }
+" " }}}
 
-" Text editing {
+" Text editing {{{
 
 " Spaces instead of Tabs
 set expandtab
@@ -202,5 +202,5 @@ set laststatus=2
 " show entered commands
 set showcmd
 
-" }
+" }}}
 

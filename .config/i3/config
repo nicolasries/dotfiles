@@ -1,4 +1,4 @@
-# General {
+# General {{{
 
 # no mouse focus
 focus_follows_mouse no
@@ -6,9 +6,9 @@ focus_follows_mouse no
 # disable mouse switch when focusing different window
 mouse_warping none
 
-#}
+#}}}
 
-# Visuals {
+# Visuals {{{
 
 # no borders
 hide_edge_borders both
@@ -38,9 +38,9 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-# }
+# }}}
 
-# Workspaces {
+# Workspaces {{{
 
 set $wsp1 "1 "
 set $wsp2 "2 "
@@ -61,6 +61,7 @@ assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
 assign [class="^JDownloader$"] $wsp4
 assign [title="XMind"] $wsp4
 assign [class="libreoffice"] $wsp4
+assign [class="^Skype$"] $wsp4
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp5
 assign [class="^mpv$" instance="^gl$"] $wsp5
@@ -71,9 +72,9 @@ assign [class="Dolphin-emu"] $wsp6
 assign [class="^VirtualBox$" instance="^VirtualBox$"] $wsp7
 assign [class="^Remmina$" instance="^remmina$"] $wsp7
 
-# }
+# }}}
 
-# Keybindings {
+# Keybindings {{{
 
 # Mod Key == Alt
 set $mod Mod1
@@ -187,9 +188,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# }
+# }}}
 
-# Bar {
+# Bar {{{
 
 bar {
     mode hide
@@ -205,12 +206,12 @@ bar {
     }
 }
 
-# }
+# }}}
 
-# startup programs {
+# startup programs {{{
 
 exec --no-startup-id i3-msg 'exec termite'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec firefox; workspace $wsp1'
 
-# }
+# }}}
 
