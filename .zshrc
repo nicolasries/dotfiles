@@ -18,6 +18,7 @@ autoload -U colors && colors
 
 # add FZF keybindings to zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && . /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && . /usr/share/fzf/completion.zsh
 # bindkey '^F' fzf-completion
 # bindkey '^I' $fzf_default_completion
 
@@ -40,6 +41,8 @@ alias ls='ls --color'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias rm='rm -iv'
+alias g='git'
+alias calc='python -i -c "from math import *"'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 

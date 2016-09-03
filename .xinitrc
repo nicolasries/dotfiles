@@ -11,6 +11,8 @@ setxkbmap -option caps:escape
 # no pc beep
 xset -b
 
+xbindkeys
+
 # source local X startup config
 [ -f ~/.xinitrc.local ] && source ~/.xinitrc.local
 

@@ -88,8 +88,8 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-# start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
+# bindsym $mod+d exec dmenu_run
 
 # variables for directions
 set $left h
@@ -187,6 +187,8 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+bindsym $mod+Shift+s sticky toggle
 
 # }}}
 

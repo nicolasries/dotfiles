@@ -16,3 +16,6 @@ export BROWSER="firefox"
 # export FZF_DEFAULT_COMMAND='ag -g ""'
 # export FZF_COMPLETION_TRIGGER=''
 
+# Go
+export GOPATH=~/go
+export PATH="$PATH:$GOPATH/bin"
