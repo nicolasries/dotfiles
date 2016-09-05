@@ -1,7 +1,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
-export PATH="~/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 export COMPOSER_HOME="$XDG_CONFIG_HOME"/composer
 export COMPOSER_CACHE_DIR="$XDG_CACHE_HOME"/composer
