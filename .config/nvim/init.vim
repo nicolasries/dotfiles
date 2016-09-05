@@ -138,10 +138,10 @@ vnoremap < <gv
 syntax enable
 
 " folding
-set foldmethod=syntax
-au FileType vim,conf,zsh
-            \ setlocal foldmethod=marker | 
-            \ set foldmarker={{{,}}}
+" set foldmethod=syntax
+" au FileType vim,conf,zsh
+"             \ setlocal foldmethod=marker | 
+"             \ set foldmarker={{{,}}}
 
 " Colors and stuff
 
