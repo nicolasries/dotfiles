@@ -6,7 +6,9 @@
 !/.config/ncmpcpp
 !/.config/surfraw
 !/.config/termite
-!/.spacemacs.d
+!/.spacemacs.d/init.el
+!/.spacemacs.d/layers
+!/.spacemacs.d/snippets
 !/pkgbuilds
 /pkgbuilds/*/src
 /pkgbuilds/*/pkg

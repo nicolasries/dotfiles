@@ -168,6 +168,52 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+
+bindsym $mod+r mode "resize"
+bindsym $mod+s mode "$system_mode"
+bindsym $mod+i mode "Inert"
+
+bindsym $mod+Shift+s sticky toggle
+
+# }}}
+
+# {{{ Modes
+
+set $system_mode (p) power | (m) media
+mode "$system_mode" {
+    bindsym p mode "$power"
+    bindsym m mode "$media"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+set $Locker i3lock --color 000000 && sleep 1
+set $power (l) lock | (e) logout | (s) suspend | (h) hibernate | (r) reboot | (Shift+s) shutdown
+mode "$power" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+set $media (j) vol- | (k) vol+ | (m) mute | (h) back | (l) next
+mode "$media" {
+    bindsym j exec --no-startup-id amixer -c 0 sset Master 3-, mode "$media"
+    bindsym k exec --no-startup-id amixer -c 0 sset Master 3+, mode "$media"
+    bindsym m exec --no-startup-id amixer -c 0 sset Master toggle, mode "$media"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -186,9 +232,12 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#### Inert mode ####
+# This mode bypasses all i3wm keys in case of compabillity problems:
+mode "Inert" {
+        bindsym $mod+Escape mode "default"
+}
 
-bindsym $mod+Shift+s sticky toggle
 
 # }}}
 
@@ -212,7 +261,7 @@ bar {
 
 # startup programs {{{
 
-exec --no-startup-id i3-msg 'exec termite'
+exec --no-startup-id i3-msg 'workspace $wsp1; exec termite'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec firefox; workspace $wsp1'
 
 # }}}

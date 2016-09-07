@@ -78,3 +78,4 @@ RPROMPT='%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %
 
 # }}}
 
+export PATH=$PATH:$HOME/go/bin
