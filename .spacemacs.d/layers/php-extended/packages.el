@@ -11,26 +11,44 @@
 
 (setq php-extended-packages
       '(
+        ac-php
         company
+        feature-mode
         drupal-mode
         eldoc
         flycheck
         ggtags
         helm-gtags
         php-auto-yasnippets
-        (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
         php-mode
         phpcbf
         phpunit
         ))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun php/post-init-company ()
-    (spacemacs|add-company-hook php-mode)))
+  (defun php-extended/post-init-company ()
+    (spacemacs|add-company-hook php-mode))
+
+  ;; (defun php-extended/post-init-ac-php ()
+  ;;   (push 'company-ac-php-backend company-backends-php-mode)))
+  )
+
+(defun php-extended/init-feature-mode ()
+  "Initialize feature mode for Behat"
+  (use-package feature-mode
+    :mode (("\\.feature\\'" . feature-mode))))
 
 (defun php-extended/init-drupal-mode ()
   (use-package drupal-mode
     :defer t))
+
+(defun php-extended/init-ac-php ()
+  (use-package ac-php
+    :defer t
+    :init (progn
+            (use-package ac-php-company
+              :defer t)
+            )))
 
 (defun php-extended/post-init-eldoc ()
   (add-hook 'php-mode-hook 'eldoc-mode)
@@ -50,10 +68,6 @@
   (use-package php-auto-yasnippets
     :defer t))
 
-(defun php-extended/init-php-extras ()
-  (use-package php-extras
-    :defer t))
-
 (defun php-extended/init-php-mode ()
   (use-package php-mode
     :defer t
@@ -65,4 +79,4 @@
 
 (defun php-extended/init-phpunit ()
   (use-package phpunit
-:defer t))
+    :defer t))
