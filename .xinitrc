@@ -16,6 +16,7 @@ xbindkeys
 # source local X startup config
 [ -f ~/.xinitrc.local ] && source ~/.xinitrc.local
 ~/.config/i3/merge-config.sh
+~/.config/mopidy/merge-config.sh
 
 # i3
 exec i3
