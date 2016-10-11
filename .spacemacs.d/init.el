@@ -28,11 +28,13 @@ values."
                       auto-completion-enable-snippets-in-popup
                       )
      ;; colors
-     dockerfile
+     c-c++
+     docker
      emacs-lisp
      git
      go
      gtags
+     html
      latex
      markdown
      (org :variables
