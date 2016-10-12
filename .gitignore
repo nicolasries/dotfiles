@@ -1,11 +1,14 @@
 /*
 !/.gitignore
-!/.config/i3
+!/.config/
+/.config/*
 !/.config/fontconfig
 !/.config/mpv
-!/.config/ncmpcpp
+!/.config/rofi
 !/.config/surfraw
 !/.config/termite
+!/.spacemacs.d/
+/.spacemacs.d/*
 !/.spacemacs.d/init.el
 !/.spacemacs.d/layers
 !/.spacemacs.d/snippets

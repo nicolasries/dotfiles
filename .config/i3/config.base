@@ -92,7 +92,7 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run"
 # bindsym $mod+d exec dmenu_run
 
 # variables for directions
