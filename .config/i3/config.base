@@ -101,6 +101,8 @@ set $down j
 set $up k
 set $right l
 
+set $refresh_bar exec "killall -s USR1 py3status"
+
 # change focus
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -208,9 +210,9 @@ mode "$power" {
 
 set $media (j) vol- | (k) vol+ | (m) mute | (h) back | (l) next
 mode "$media" {
-    bindsym j exec --no-startup-id amixer -c 0 sset Master 3-, mode "$media"
-    bindsym k exec --no-startup-id amixer -c 0 sset Master 3+, mode "$media"
-    bindsym m exec --no-startup-id amixer -c 0 sset Master toggle, mode "$media"
+    bindsym j exec --no-startup-id amixer -c 0 sset Master 3-, $refresh_bar, mode "$media"
+    bindsym k exec --no-startup-id amixer -c 0 sset Master 3+, $refresh_bar, mode "$media"
+    bindsym m exec --no-startup-id amixer -c 0 sset Master toggle, $refresh_bar, mode "$media"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -248,10 +250,10 @@ mode "Inert" {
 # Bar {{{
 
 bar {
-    mode hide
+    # mode hide
     status_command py3status
     tray_output primary
-    modifier $mod
+    # modifier $mod
     colors {
         #color class       border  back.   text
         focused_workspace #000000 #000000 #ffffff

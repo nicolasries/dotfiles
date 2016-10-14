@@ -22,6 +22,7 @@ order += "load"
 order += "tztime local"
 order += "arch_updates"
 order += "keyboard_layout"
+order += "volume_status"
 
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
