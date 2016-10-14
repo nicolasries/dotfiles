@@ -250,10 +250,10 @@ mode "Inert" {
 # Bar {{{
 
 bar {
-    # mode hide
+    mode hide
     status_command py3status
     tray_output primary
-    # modifier $mod
+    modifier $mod
     colors {
         #color class       border  back.   text
         focused_workspace #000000 #000000 #ffffff
