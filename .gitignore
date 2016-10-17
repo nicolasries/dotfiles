@@ -17,3 +17,4 @@
 /pkgbuilds/*/pkg
 /pkgbuilds/*/*.xz
 /pkgbuilds/*/*.zip
+!/.config/archlinux
