@@ -65,6 +65,7 @@ assign [class="^JDownloader$"] $wsp4
 assign [title="XMind"] $wsp4
 assign [class="libreoffice"] $wsp4
 assign [class="^Skype$"] $wsp4
+assign [class="^Anki$"] $wsp4
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp5
 assign [class="^chromium$" instance="^chromium$"] $wsp5
