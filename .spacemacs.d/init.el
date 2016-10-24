@@ -36,6 +36,7 @@ values."
      evil-snipe
      git
      github
+     imenu-list
      go
      gtags
      haskell
