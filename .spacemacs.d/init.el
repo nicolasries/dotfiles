@@ -31,7 +31,8 @@ values."
      c-c++
      docker
      (elfeed :variables
-             rmh-elfeed-org-files (list "~/Dropbox/elfeeds.org"))
+             elfeed-db-directory "~/Dropbox/emacs/elfeed/database"
+             rmh-elfeed-org-files (list "~/Dropbox/emacs/elfeed/feeds.org"))
      emacs-lisp
      evil-snipe
      git
