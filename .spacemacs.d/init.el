@@ -33,21 +33,25 @@ values."
      (elfeed :variables
              rmh-elfeed-org-files (list "~/Dropbox/elfeeds.org"))
      emacs-lisp
+     evil-snipe
      git
+     github
      go
      gtags
      haskell
      html
+     (ibuffer :variables
+              ibuffer-group-buffers-by 'projects)
      javascript
      latex
      markdown
      (org :variables
           org-enable-github-support t)
-     php-extended
      python
+     ranger
      (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-shell 'multiterm
+            shell-default-term-shell "/usr/bin/zsh")
      shell-scripts
      ;; (spell-checking :variables
      ;;                 spell-checking-enable-auto-dictionary t)
@@ -61,8 +65,6 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
-   ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -124,7 +126,7 @@ values."
                          molokai
                          alect-black
                          ;; leuven
-                         ;; monokai
+                         monokai
                          ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -169,7 +171,7 @@ values."
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.

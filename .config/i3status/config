@@ -58,3 +58,8 @@ load {
 disk "/" {
         format = "%avail"
 }
+
+volume_status {
+    threshold_degraded = 20
+    threshold_bad = 5
+}
