@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion :variables
                       ;; auto-completion-tab-key-behavior 'cycle
-                      auto-completion-enable-snippets-in-popup
+                      ;; auto-completion-enable-snippets-in-popup
                       )
      ;; colors
      c-c++
@@ -120,15 +120,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(monokai
                          ;; spacemacs-light
                          ;; solarized-light
-                         cherry-blossom
+                         ;; cherry-blossom
+                         spacemacs-dark
                          solarized-dark
-                         molokai
-                         alect-black
+                         ;; molokai
+                         ;; alect-black
                          ;; leuven
-                         monokai
                          ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -173,7 +173,7 @@ values."
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts t
+   dotspacemacs-auto-resume-layouts nil
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -289,6 +289,9 @@ you should place your code here."
 
   ;; jump forward like vim
   (global-set-key (kbd "C-i") 'evil-jump-forward)
+  ;; number incrementing
+  ;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
+  ;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
 
   ;; php stuff
   (add-hook 'php-mode-hook
