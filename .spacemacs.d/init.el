@@ -294,17 +294,6 @@ you should place your code here."
   ;; number incrementing
   ;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
   ;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
-
-  ;; php stuff
-  (add-hook 'php-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php ) )
-               (yas-global-mode 1)
-               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
-               ))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
