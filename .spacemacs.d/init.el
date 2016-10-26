@@ -51,6 +51,8 @@ values."
           org-enable-github-support t)
      python
      ranger
+     ruby
+     ruby-on-rails
      (shell :variables
             shell-default-shell 'multiterm
             shell-default-term-shell "/usr/bin/zsh")
