@@ -252,7 +252,7 @@ mode "Inert" {
 
 bar {
     mode hide
-    status_command py3status
+    status_command i3status
     tray_output primary
     modifier $mod
     colors {

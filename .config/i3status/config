@@ -9,6 +9,7 @@
 general {
         colors = true
         interval = 10
+        output_format = "i3bar"
 }
 
 # order += "ipv6"
@@ -18,11 +19,9 @@ general {
 # order += "wireless _first_"
 # order += "ethernet _first_"
 # order += "battery 0"
+order += "volume master"
 order += "load"
 order += "tztime local"
-order += "arch_updates"
-order += "keyboard_layout"
-order += "volume_status"
 
 wireless _first_ {
         format_up = "W: (%quality at %essid) %ip"
@@ -58,8 +57,11 @@ load {
 disk "/" {
         format = "%avail"
 }
-
-volume_status {
-    threshold_degraded = 20
-    threshold_bad = 5
+volume master {
+                   format = "♪: %volume"
+                   format_muted = "♪: muted (%volume)"
+                   device = "default"
+                   mixer = "Master"
+                   mixer_idx = 0
 }
+
