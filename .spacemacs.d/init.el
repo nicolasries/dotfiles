@@ -97,7 +97,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -143,14 +143,9 @@ values."
    dotspacemacs-themes '(monokai
                          ;; spacemacs-light
                          ;; solarized-light
-                         ;; cherry-blossom
                          spacemacs-dark
-                         dracula
                          solarized-dark
                          ;; molokai
-                         ;; alect-black
-                         ;; leuven
-                         ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -332,22 +327,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;; mode line
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-hud-off)
-  (spaceline-toggle-minor-modes-off)
-  ;; (defadvice vc-mode-line (after strip-backend () activate)
-  ;;   (when (stringp vc-mode)
-  ;;     (let ((noback (replace-regexp-in-string
-  ;;                    (format "^ %s" (vc-backend buffer-file-name))
-  ;;                    " " vc-mode)))
-  ;;       (setq vc-mode noback))))        ;
-
-  ;; jump forward like vim
-  (global-set-key (kbd "C-i") 'evil-jump-forward)
-  ;; number incrementing
-  ;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
-  ;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
+  (org-babel-load-file "~/.spacemacs.d/config.org")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

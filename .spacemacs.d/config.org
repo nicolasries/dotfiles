@@ -1,0 +1,48 @@
+#+TITLE: Configuration
+#+SUBTITLE: Some additional configuration
+* Mode line
+disable spaceline modules
+#+BEGIN_SRC emacs-lisp
+(spaceline-toggle-buffer-size-off)
+(spaceline-toggle-hud-off)
+(spaceline-toggle-minor-modes-off)
+#+END_SRC
+
+format git status
+#+BEGIN_SRC emacs-lisp
+;; (defadvice vc-mode-line (after strip-backend () activate)
+;;   (when (stringp vc-mode)
+;;     (let ((noback (replace-regexp-in-string
+;;                    (format "^ %s" (vc-backend buffer-file-name))
+;;                    " " vc-mode)))
+;;       (setq vc-mode noback))))        ;
+#+END_SRC
+* Keybindings
+Number incrementing
+#+BEGIN_SRC emacs-lisp
+;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
+;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
+#+END_SRC
+jump forward like vim
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-i") 'evil-jump-forward)
+#+END_SRC
+quit ediff without prompt
+#+BEGIN_SRC emacs-lisp
+(defun disable-y-or-n-p (orig-fun &rest args)
+  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+    (apply orig-fun args)))
+(advice-add 'ediff-quit :around #'disable-y-or-n-p) 
+#+END_SRC
+* Org
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file "~/Dropbox/emacs/org/notes.org")
+#+END_SRC
+* Terminal
+- make URLs clickable
+#+BEGIN_SRC emacs-lisp
+(add-hook 'term-mode-hook
+          (lambda ()
+            (goto-address-mode)))
+#+END_SRC
+
