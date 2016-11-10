@@ -45,4 +45,8 @@ quit ediff without prompt
           (lambda ()
             (goto-address-mode)))
 #+END_SRC
-
+* Git
+Start editing the commit message in insert state
+#+BEGIN_SRC emacs-lisp
+(add-hook 'git-commit-mode-hook 'evil-insert-state)
+#+END_SRC

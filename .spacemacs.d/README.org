@@ -1,0 +1,4 @@
+#+TITLE: Spacemacs Configuration
+- [[init.el][Spacemacs init file]]
+- [[config.org][Spacemacs configuration file]]
+- [[layers/php][custom php layer]]
