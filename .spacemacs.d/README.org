@@ -1,4 +1,5 @@
 #+TITLE: Spacemacs Configuration
 - [[init.el][Spacemacs init file]]
 - [[config.org][Spacemacs configuration file]]
+- [[local-config-example.org][Local configuration file]]
 - [[layers/php][custom php layer]]

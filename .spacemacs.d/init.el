@@ -328,6 +328,8 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (org-babel-load-file "~/.spacemacs.d/config.org")
+  (defconst local-config-path "~/.spacemacs.d/local-config.org")
+  (if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
