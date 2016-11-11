@@ -102,7 +102,7 @@ set $down j
 set $up k
 set $right l
 
-set $refresh_bar exec "killall -s USR1 py3status"
+set $refresh_bar exec "killall -s USR1 i3status"
 
 # change focus
 bindsym $mod+$left focus left
