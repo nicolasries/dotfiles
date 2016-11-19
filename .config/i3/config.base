@@ -82,7 +82,7 @@ assign [class="^Remmina$" instance="^remmina$"] $wsp7
 # Keybindings {{{
 
 # Mod Key == Alt
-set $mod Mod1
+set $mod Mod4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
