@@ -1,0 +1,7 @@
+[user]
+	email = nicolas.ries@t-online.de
+	name = Nicolas Ries
+[core]
+	autocrlf = false
+[include]
+    path = config.local
