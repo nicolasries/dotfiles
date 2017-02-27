@@ -59,6 +59,7 @@ set $wsp10 "10 "
 # assignments
 assign [class="NetBeans IDE"] $wsp3
 assign [class="Emacs"] $wsp3
+assign [class="^jetbrains-.*$"] $wsp3
 
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
 assign [class="^JDownloader$"] $wsp4
@@ -66,6 +67,7 @@ assign [title="XMind"] $wsp4
 assign [class="libreoffice"] $wsp4
 assign [class="^Skype$"] $wsp4
 assign [class="^Anki$"] $wsp4
+assign [class="^calibre$"] $wsp4
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp5
 assign [class="^Chromium$" instance="^chromium$"] $wsp5
@@ -93,7 +95,7 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run"
+bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run -matching fuzzy"
 # bindsym $mod+d exec dmenu_run
 
 # variables for directions
