@@ -37,11 +37,14 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (auto-completion :variables
-                      ;; auto-completion-tab-key-behavior 'cycle
-                      ;; auto-completion-enable-snippets-in-popup
+                      auto-completion-tab-key-behavior 'complete
+                      auto-completion-return-key-behavior nil
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
                       )
      ;; colors
-     c-c++
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      docker
      (elfeed :variables
              elfeed-db-directory "~/Dropbox/emacs/elfeed/database"
@@ -52,6 +55,7 @@ values."
      github
      imenu-list
      go
+     graphviz
      gtags
      haskell
      html
@@ -61,7 +65,9 @@ values."
      latex
      markdown
      (org :variables
-          org-enable-github-support t)
+          org-enable-github-support t
+          org-enable-reveal-js-support t)
+     ;; php
      python
      ranger
      ruby
@@ -82,7 +88,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      (lsp-mode)
+                                      (php-mode)
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -340,10 +349,27 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'lsp-mode)
+
+  ;; auto completion
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  (setq company-tooltip-limit 5)
+  (setq company-tooltip-align-annotations t)
+  (setq company-go-show-annotation t)
+  (setq company-tooltip-minimum 5)
 
   (org-babel-load-file "~/.spacemacs.d/config.org")
   (defconst local-config-path "~/.spacemacs.d/local-config.org")
   (if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
+
+  ;; lsp php
+  (lsp-define-client 'php-mode "php" 'stdio #' (lambda () default-directory)
+                     :command '("/usr/bin/php" "~/bin/php-language-server.php")
+                     :name "PHP Language Server")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

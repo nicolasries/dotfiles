@@ -1,7 +1,55 @@
 # #+TITLE: Configuration
 #+SUBTITLE: Some additional configuration
+* Keybindings
+** General
+
+   Number incrementing
+
+   #+BEGIN_SRC emacs-lisp
+;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
+;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
+   #+END_SRC
+
+   jump forward like vim
+
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-i") 'evil-jump-forward)
+   #+END_SRC
+
+   quit ediff without prompt
+
+   #+BEGIN_SRC emacs-lisp
+(defun disable-y-or-n-p (orig-fun &rest args)
+  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+    (apply orig-fun args)))
+(advice-add 'ediff-quit :around #'disable-y-or-n-p) 
+   #+END_SRC
+
+   kill processes without prompt
+
+   #+BEGIN_SRC emacs-lisp
+;; not implemented yet, probably coming in version 25.3 or 26
+;; (setq confirm-kill-process nil)
+
+;; using this for now
+(setq kill-buffer-query-functions
+  (remq 'process-kill-buffer-query-function
+         kill-buffer-query-functions))
+   #+END_SRC
+
+   no annoying prompts when creating a new file
+
+   #+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil
+   helm-ff-newfile-prompt-p nil
+  ido-create-new-buffer 'always)
+   #+END_SRC
+** Modes
+*** Org
 * Mode line
+
   disable spaceline modules
+
   #+BEGIN_SRC emacs-lisp
 (spaceline-toggle-buffer-size-off)
 (spaceline-toggle-hud-off)
@@ -9,6 +57,7 @@
   #+END_SRC
 
   format git status
+
   #+BEGIN_SRC emacs-lisp
 ;; (defadvice vc-mode-line (after strip-backend () activate)
 ;;   (when (stringp vc-mode)
@@ -17,52 +66,37 @@
 ;;                    " " vc-mode)))
 ;;       (setq vc-mode noback))))        ;
   #+END_SRC
-* Keybindings
-  Number incrementing
-  #+BEGIN_SRC emacs-lisp
-;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
-;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
-  #+END_SRC
-  jump forward like vim
-  #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-i") 'evil-jump-forward)
-  #+END_SRC
-  quit ediff without prompt
-  #+BEGIN_SRC emacs-lisp
-(defun disable-y-or-n-p (orig-fun &rest args)
-  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
-    (apply orig-fun args)))
-(advice-add 'ediff-quit :around #'disable-y-or-n-p) 
-  #+END_SRC
-  kill processes without prompt
-  #+BEGIN_SRC emacs-lisp
-;; not implemented yet, probably coming in version 25.3 or 26
-;; (setq confirm-kill-process nil)
+* UI
 
-;; using this for now
-(setq kill-buffer-query-functions
-  (remq 'process-kill-buffer-query-function
-         kill-buffer-query-functions))
-  #+END_SRC
-  no annoying prompts when creating a new file
+  show eldoc near point
+
   #+BEGIN_SRC emacs-lisp
-  (setq confirm-nonexistent-file-or-buffer nil
-   helm-ff-newfile-prompt-p nil
-  ido-create-new-buffer 'always)
+ (defun nri/eldoc-display-near-point (format-string &rest args)
+  "Display eldoc message near point."
+  (when format-string
+    (pos-tip-show (apply 'format format-string args) nil nil nil)))
+;;(setq eldoc-message-function #'nri/eldoc-display-near-point)
   #+END_SRC
 * Org
+
+  default note file
+
   #+BEGIN_SRC emacs-lisp
 (setq org-default-notes-file "~/Dropbox/emacs/org/notes.org")
   #+END_SRC
 * Terminal
+
   - make URLs clickable
+
   #+BEGIN_SRC emacs-lisp
 (add-hook 'term-mode-hook
           (lambda ()
             (goto-address-mode)))
   #+END_SRC
 * Git
-  Start editing the commit message in insert state
+
+  start commit message in insert mode
+
   #+BEGIN_SRC emacs-lisp
 (add-hook 'git-commit-mode-hook 'evil-insert-state)
   #+END_SRC
