@@ -1,7 +1,10 @@
 [user]
-	email = nicolas.ries@t-online.de
-	name = Nicolas Ries
+    email = nicolas.ries@t-online.de
+    name = Nicolas Ries
 [alias]
-    l = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    l =log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
+    d = diff
+    c = commit
+    s = status
 [include]
     path = config.local
