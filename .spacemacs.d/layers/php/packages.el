@@ -38,6 +38,7 @@
 (defun php/init-ac-php()
   (add-hook 'php-mode-hook
             '(lambda ()
+               (company-mode -1)
                (auto-complete-mode t)
                (require 'ac-php)
                (setq ac-sources  '(ac-source-php ) )

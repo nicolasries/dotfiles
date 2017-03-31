@@ -1,9 +1,10 @@
+#!/bin/bash
 ### Keyboard Layout selection through rofi
 
-if [ -z $@ ]
+if [ -z "$@" ]
 then
     echo 'us'
     echo 'de'
 else
-    setxkbmap -layout $@
+    setxkbmap -layout "$@"
 fi

@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ "$1" == "core" ]
 then
     pacman -S - < core.txt

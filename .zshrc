@@ -1,5 +1,6 @@
 # General {{{
 
+# set -eu
 
 # vi keybindings in command line
 bindkey -v
@@ -27,11 +28,10 @@ autoload -U colors && colors
 # Aliases {{{
 
 # edit shortcut
-alias e=$EDITOR
+alias e="$EDITOR"
 # workaround for terminal bug
 alias ssh='TERM=xterm-256color ssh'
 # docker ip address
-alias docker-ip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" $@'
 
 # colored grep
 alias grep='grep --color'
@@ -51,9 +51,9 @@ alias pacupgr='sudo pacman -Syu'
 
 # History {{{
 
-HISTFILE=~/.zsh_history
-HISTSIZE=1024                   # big history
-SAVEHIST=1024                   # big history
+export HISTFILE=~/.zsh_history
+export HISTSIZE=1024                   # big history
+export SAVEHIST=1024                   # big history
 # setopt append_history           # append
 # unsetopt hist_ignore_space      # ignore space prefixed commands
 # setopt hist_reduce_blanks       # trim blanks
@@ -73,10 +73,17 @@ setopt share_history # share command history data
 # Prompt {{{
 
 setopt prompt_subst
-[ -z $HOST_COLOR ] && HOST_COLOR="blue"
-PROMPT='%F{$HOST_COLOR}%2~ > %f'
-RPROMPT='%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$HOST_COLOR}%m%f'
+[ -z "$HOST_COLOR" ] && HOST_COLOR="blue"
+export PROMPT="%F{$HOST_COLOR}%2~ > %f"
+export RPROMPT="%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$HOST_COLOR}%m%f"
 
 # }}}
 
 export PATH=$PATH:$HOME/go/bin
+
+# Functions {{{
+
+function docker-ip {
+    docker inspect --format "{{ .NetworkSettings.IPAddress }}" "$@"
+}
+# }}}
