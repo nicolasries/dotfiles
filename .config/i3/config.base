@@ -65,6 +65,8 @@ set $wsp9 "9 "
 set $wsp10 "10 "
 
 # assignments
+assign [class="^Chromium$" instance="^chromium$"] $wsp2
+
 assign [class="NetBeans IDE"] $wsp3
 assign [class="Emacs"] $wsp3
 assign [class="^jetbrains-.*$"] $wsp3
@@ -79,7 +81,6 @@ assign [class="^Anki$"] $wsp4
 assign [class="^calibre$"] $wsp4
 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp5
-assign [class="^Chromium$" instance="^chromium$"] $wsp5
 assign [class="^mpv$" instance="^gl$"] $wsp5
 assign [class="^spotify$"] $wsp5
 
