@@ -11,7 +11,8 @@ addons:
     - shellcheck
 
 script:
- - ./bin/test_dotfiles.sh
+ - find . -name '*.sh' | xargs shellcheck
+ - shellcheck -s bash .zshenv .zshrc .xinitrc .xinitrc.local.example
 
 matrix:
   fast_finish: true
