@@ -1,0 +1,14 @@
+[1]
+Description=Unnamed entry
+clientmachine=neptun
+clientmachinematch=0
+desktop=2
+desktoprule=3
+title=termite
+titlematch=0
+wmclass=termite
+wmclasscomplete=false
+wmclassmatch=1
+
+[General]
+count=1
