@@ -106,7 +106,7 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run -matching fuzzy"
+# bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run -matching fuzzy"
 # bindsym $mod+d exec dmenu_run
 
 # variables for directions
@@ -263,21 +263,36 @@ mode "Inert" {
 
 # Bar {{{
 
-bar {
-    mode hide
-    status_command i3status
-    tray_output primary
-    modifier $mod
-    colors {
-        #color class       border  back.   text
-        focused_workspace #000000 #000000 #ffffff
-        inactive_workspace #000000 #000000 #888888
-        active_workspace #212121 #212121 #ffffff
-        urgent_workspace #a30000 #000000 #ffffff
-    }
-}
+# bar {
+#     mode hide
+#     status_command i3status
+#     tray_output primary
+#     modifier $mod
+#     colors {
+#         #color class       border  back.   text
+#         focused_workspace #000000 #000000 #ffffff
+#         inactive_workspace #000000 #000000 #888888
+#         active_workspace #212121 #212121 #ffffff
+#         urgent_workspace #a30000 #000000 #ffffff
+#     }
+# }
 
 # }}}
 
+# {{{ Plasma Integration
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
+exec --no-startup-id wmctrl -c Plasma
+
+## Avoid tiling popups, dropdown windows from plasma
+# for the first time, manually resize them, i3 will remember the setting for floating windows
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+
+# }}}
 ### base config end
 
