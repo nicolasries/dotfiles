@@ -73,9 +73,9 @@ setopt share_history # share command history data
 # Prompt {{{
 
 setopt prompt_subst
-[ -z "$HOST_COLOR" ] && HOST_COLOR="blue"
-export PROMPT="%F{$HOST_COLOR}%2~ > %f"
-export RPROMPT="%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$HOST_COLOR}%m%f"
+COLOR="blue"
+export PROMPT="%F{$COLOR}%2~ > %f"
+export RPROMPT="%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$COLOR}%m%f"
 
 # }}}
 
