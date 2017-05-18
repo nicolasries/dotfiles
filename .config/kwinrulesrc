@@ -1,8 +1,6 @@
 [1]
-Description=Unnamed entry
-clientmachine=neptun
-clientmachinematch=0
-desktop=2
+Description=1: termite
+desktop=1
 desktoprule=3
 title=termite
 titlematch=0
@@ -10,5 +8,37 @@ wmclass=termite
 wmclasscomplete=false
 wmclassmatch=1
 
+[2]
+Description=2: Firefox
+desktop=2
+desktoprule=3
+wmclass=firefox
+wmclasscomplete=false
+wmclassmatch=1
+
+[3]
+Description=4: XMind
+desktop=4
+desktoprule=3
+wmclass=xmind
+wmclasscomplete=false
+wmclassmatch=1
+
+[4]
+Description=4: Thunderbird
+desktop=4
+desktoprule=3
+wmclass=thunderbird
+wmclasscomplete=false
+wmclassmatch=1
+
+[5]
+Description=5: Chromium
+desktop=5
+desktoprule=3
+wmclass=chromium
+wmclasscomplete=false
+wmclassmatch=1
+
 [General]
-count=1
+count=5
