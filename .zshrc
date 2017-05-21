@@ -13,6 +13,8 @@ promptinit
 # enable colors
 autoload -U colors && colors 
 
+setopt autocd
+
 # }}}
 
 # FZF {{{
