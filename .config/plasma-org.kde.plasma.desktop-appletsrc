@@ -6,33 +6,6 @@ wheel:Vertical;NoModifier=org.kde.switchdesktop
 [ActionPlugins][1]
 RightButton;NoModifier=org.kde.contextmenu
 
-[Containments][1]
-activityId=71585dfe-c8b0-4219-9a01-d5bb56f32a51
-formfactor=0
-immutability=1
-lastScreen=0
-location=0
-plugin=org.kde.desktopcontainment
-wallpaperplugin=org.kde.color
-
-[Containments][1][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
-
-[Containments][1][Wallpaper][General]
-Color=invalid
-FillMode=2
-
-[Containments][1][Wallpaper][org.kde.color][General]
-Color=54,68,108
-
-[Containments][1][Wallpaper][org.kde.image][General]
-Image=file:///usr/share/wallpapers/Next/contents/images/1920x1080.png
-
-[Containments][1][Wallpaper][org.kde.potd][General]
-Color=invalid
-FillMode=2
-
 [Containments][2]
 activityId=
 formfactor=2
@@ -45,6 +18,10 @@ wallpaperplugin=org.kde.image
 [Containments][2][Applets][27]
 immutability=1
 plugin=org.kde.plasma.taskmanager
+
+[Containments][2][Applets][27][Configuration][ConfigDialog]
+DialogHeight=480
+DialogWidth=640
 
 [Containments][2][Applets][28]
 immutability=1
@@ -67,14 +44,6 @@ global=Alt+F1
 [Containments][2][Applets][3][Shortcuts]
 global=Alt+F1
 
-[Containments][2][Applets][4]
-immutability=1
-plugin=org.kde.plasma.pager
-
-[Containments][2][Applets][4][Configuration][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
-
 [Containments][2][Applets][4][Configuration][General]
 showWindowIcons=true
 
@@ -86,11 +55,11 @@ plugin=org.kde.plasma.systemtray
 SystrayContainmentId=7
 
 [Containments][2][ConfigDialog]
-DialogHeight=84
+DialogHeight=82
 DialogWidth=1920
 
 [Containments][2][General]
-AppletOrder=3;4;27;28;6
+AppletOrder=3;27;6;28
 
 [Containments][23]
 activityId=
@@ -136,6 +105,24 @@ plugin=org.kde.plasma.networkmanagement
 [Containments][23][General]
 extraItems=org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.bluetooth,org.kde.plasma.devicenotifier,org.kde.plasma.volume,org.kde.discovernotifier,org.kde.kdeconnect,org.kde.plasma.clipboard,org.kde.plasma.battery
 knownItems=org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.bluetooth,org.kde.plasma.devicenotifier,org.kde.plasma.volume,org.kde.discovernotifier,org.kde.kdeconnect,org.kde.plasma.clipboard,org.kde.plasma.battery
+
+[Containments][29]
+activityId=c8f1af86-cfa7-45b3-8b25-e3609aa24686
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.desktopcontainment
+wallpaperplugin=org.kde.image
+
+[Containments][30]
+activityId=c8f1af86-cfa7-45b3-8b25-e3609aa24686
+formfactor=0
+immutability=1
+lastScreen=1
+location=0
+plugin=org.kde.desktopcontainment
+wallpaperplugin=org.kde.image
 
 [Containments][7]
 activityId=
@@ -192,4 +179,4 @@ knownItems=org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.k
 showAllItems=true
 
 [General]
-immutability=2
+immutability=1

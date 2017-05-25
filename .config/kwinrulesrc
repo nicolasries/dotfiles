@@ -41,6 +41,14 @@ wmclasscomplete=false
 wmclassmatch=1
 
 [6]
+Description=4: JDownloader
+desktop=4
+desktoprule=3
+wmclass=jdownloader
+wmclasscomplete=false
+wmclassmatch=1
+
+[7]
 Description=5: Chromium
 desktop=5
 desktoprule=3
@@ -48,5 +56,13 @@ wmclass=chromium
 wmclasscomplete=false
 wmclassmatch=1
 
+[8]
+Description=6: Steam
+desktop=6
+desktoprule=3
+wmclass=steam
+wmclasscomplete=false
+wmclassmatch=1
+
 [General]
-count=6
+count=8
