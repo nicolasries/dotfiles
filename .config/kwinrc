@@ -91,7 +91,7 @@ CenterSnapZone=0
 ClickRaise=true
 DelayFocusInterval=300
 ElectricBorderCooldown=350
-ElectricBorderCornerRatio=0.25
+ElectricBorderCornerRatio=0.01
 ElectricBorderDelay=150
 ElectricBorderMaximize=true
 ElectricBorderTiling=true
@@ -115,5 +115,8 @@ TitlebarDoubleClickCommand=Maximize
 WindowSnapZone=10
 
 [org.kde.kdecoration2]
+BorderSize=None
+ButtonsOnLeft=MS
+ButtonsOnRight=HIAX
+CloseOnDoubleClickOnMenu=false
 library=org.kde.breeze
-theme=

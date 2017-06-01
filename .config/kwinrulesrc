@@ -1,4 +1,36 @@
 [1]
+Description=1: Konsole
+desktop=1
+desktoprule=3
+wmclass=konsole
+wmclasscomplete=false
+wmclassmatch=1
+
+[10]
+Description=5: Chromium
+desktop=5
+desktoprule=3
+wmclass=chromium
+wmclasscomplete=false
+wmclassmatch=1
+
+[11]
+Description=5: Spotify
+desktop=5
+desktoprule=4
+wmclass=spotify
+wmclasscomplete=false
+wmclassmatch=2
+
+[12]
+Description=6: Steam
+desktop=6
+desktoprule=3
+wmclass=steam
+wmclasscomplete=false
+wmclassmatch=1
+
+[2]
 Description=1: termite
 desktop=1
 desktoprule=3
@@ -8,7 +40,7 @@ wmclass=termite
 wmclasscomplete=false
 wmclassmatch=1
 
-[2]
+[3]
 Description=2: Firefox
 desktop=2
 desktoprule=3
@@ -16,7 +48,7 @@ wmclass=firefox
 wmclasscomplete=false
 wmclassmatch=1
 
-[3]
+[4]
 Description=3: Emacs
 desktop=3
 desktoprule=3
@@ -24,7 +56,23 @@ wmclass=emacs
 wmclasscomplete=false
 wmclassmatch=1
 
-[4]
+[5]
+Description=3: Eclipse
+desktop=3
+desktoprule=3
+wmclass=eclipse
+wmclasscomplete=false
+wmclassmatch=1
+
+[6]
+Description=3: Netbeans
+desktop=3
+desktoprule=3
+wmclass=netbeans ide 8.2
+wmclasscomplete=false
+wmclassmatch=1
+
+[7]
 Description=4: XMind
 desktop=4
 desktoprule=3
@@ -32,7 +80,7 @@ wmclass=xmind
 wmclasscomplete=false
 wmclassmatch=1
 
-[5]
+[8]
 Description=4: Thunderbird
 desktop=4
 desktoprule=3
@@ -40,7 +88,7 @@ wmclass=thunderbird
 wmclasscomplete=false
 wmclassmatch=1
 
-[6]
+[9]
 Description=4: JDownloader
 desktop=4
 desktoprule=3
@@ -48,21 +96,5 @@ wmclass=jdownloader
 wmclasscomplete=false
 wmclassmatch=1
 
-[7]
-Description=5: Chromium
-desktop=5
-desktoprule=3
-wmclass=chromium
-wmclasscomplete=false
-wmclassmatch=1
-
-[8]
-Description=6: Steam
-desktop=6
-desktoprule=3
-wmclass=steam
-wmclasscomplete=false
-wmclassmatch=1
-
 [General]
-count=8
+count=12

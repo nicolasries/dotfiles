@@ -1,5 +1,17 @@
 # #+TITLE: Configuration
 #+SUBTITLE: Some additional configuration
+* Modes
+** Org
+
+   default note file
+
+   #+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file "~/Dropbox/emacs/org/notes.org")
+   #+END_SRC
+** Plantuml
+   #+BEGIN_SRC emacs-lisp
+  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+   #+END_SRC
 * Keybindings
 ** General
 
@@ -22,7 +34,7 @@
 (defun disable-y-or-n-p (orig-fun &rest args)
   (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
     (apply orig-fun args)))
-(advice-add 'ediff-quit :around #'disable-y-or-n-p) 
+(advice-add 'ediff-quit :around #'disable-y-or-n-p)
    #+END_SRC
 
    kill processes without prompt
@@ -77,12 +89,20 @@
     (pos-tip-show (apply 'format format-string args) nil nil nil)))
 ;;(setq eldoc-message-function #'nri/eldoc-display-near-point)
   #+END_SRC
-* Org
 
-  default note file
+  Company Mode Formatting
 
   #+BEGIN_SRC emacs-lisp
-(setq org-default-notes-file "~/Dropbox/emacs/org/notes.org")
+  ;; auto completion
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  (setq company-tooltip-limit 5
+   company-tooltip-align-annotations t
+   company-go-show-annotation t
+   company-tooltip-minimum 5)
   #+END_SRC
 * Terminal
 
@@ -99,4 +119,13 @@
 
   #+BEGIN_SRC emacs-lisp
 (add-hook 'git-commit-mode-hook 'evil-insert-state)
+  #+END_SRC
+
+* Misc
+
+  load local config file
+
+  #+BEGIN_SRC emacs-lisp
+  (defconst local-config-path "~/.spacemacs.d/local-config.org")
+  (if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
   #+END_SRC

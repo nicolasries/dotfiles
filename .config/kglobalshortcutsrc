@@ -29,7 +29,6 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
-{1fdb023a-eeaa-4162-90b8-23077846d60a}=Meta+T,none,Run Konsole
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=Search,none,Search
 
 [kmix]
@@ -62,7 +61,7 @@ ExposeAll=Ctrl+F10\tLaunch (C),Ctrl+F10\tLaunch (C),Toggle Present Windows (All 
 ExposeClass=Ctrl+F7,Ctrl+F7,Toggle Present Windows (Window class)
 Increase Opacity=none,none,Increase Opacity of Active Window by 5 %
 Invert Screen Colors=none,none,Invert Screen Colors
-Kill Window=Ctrl+Alt+Esc,Ctrl+Alt+Esc,Kill Window
+Kill Window=Meta+Shift+Q,Ctrl+Alt+Esc,Kill Window
 MoveMouseToCenter=Meta+F6,Meta+F6,Move Mouse to Center
 MoveMouseToFocus=Meta+F5,Meta+F5,Move Mouse to Focus
 MoveZoomDown=,Meta+Down,Move Zoomed Area Downwards
@@ -100,7 +99,7 @@ Switch to Desktop 4=Meta+4,Ctrl+F4,Switch to Desktop 4
 Switch to Desktop 5=Meta+5,none,Switch to Desktop 5
 Switch to Desktop 6=Meta+6,none,Switch to Desktop 6
 Switch to Desktop 7=Meta+7,none,Switch to Desktop 7
-Switch to Desktop 8=none,none,Switch to Desktop 8
+Switch to Desktop 8=Meta+8,none,Switch to Desktop 8
 Switch to Desktop 9=Meta+9,none,Switch to Desktop 9
 Switch to Next Desktop=none,none,Switch to Next Desktop
 Switch to Next Screen=Meta+G,none,Switch to Next Screen
@@ -136,7 +135,7 @@ Window Fullscreen=Meta+F,none,Make Window Fullscreen
 Window Grow Horizontal=none,none,Pack Grow Window Horizontally
 Window Grow Vertical=none,none,Pack Grow Window Vertically
 Window Lower=none,none,Lower Window
-Window Maximize=none,none,Maximize Window
+Window Maximize=Meta+M,none,Maximize Window
 Window Maximize Horizontal=none,none,Maximize Window Horizontally
 Window Maximize Vertical=none,none,Maximize Window Vertically
 Window Minimize=none,none,Minimize Window

@@ -68,6 +68,7 @@ values."
           org-enable-github-support t
           org-enable-reveal-js-support t)
      ;; php
+     plantuml
      python
      ranger
      ruby
@@ -89,8 +90,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      (lsp-mode)
-                                      (php-mode)
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -332,7 +331,8 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'all
+
    ))
 
 (defun dotspacemacs/user-init ()
@@ -359,27 +359,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (require 'lsp-mode)
 
-  ;; auto completion
-  (custom-set-faces
-   '(company-tooltip-common
-     ((t (:inherit company-tooltip :weight bold :underline nil))))
-   '(company-tooltip-common-selection
-     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-  (setq company-tooltip-limit 5)
-  (setq company-tooltip-align-annotations t)
-  (setq company-go-show-annotation t)
-  (setq company-tooltip-minimum 5)
+
 
   (org-babel-load-file "~/.spacemacs.d/config.org")
-  (defconst local-config-path "~/.spacemacs.d/local-config.org")
-  (if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
-
-  ;; lsp php
-  (lsp-define-client 'php-mode "php" 'stdio #' (lambda () default-directory)
-                     :command '("/usr/bin/php" "~/bin/php-language-server.php")
-                     :name "PHP Language Server")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
