@@ -67,7 +67,7 @@ values."
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t)
-     ;; php
+     php
      plantuml
      python
      ranger
