@@ -29,7 +29,11 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
+{46967644-8cac-40f8-ac7e-91a28cfbe53b}=Meta+Print,none,Take Active Window Screenshot
+{4ed7f41e-fac5-465d-afda-9a47c6bc753a}=Meta+Shift+Print,none,Take Rectangular Region Screenshot
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=Search,none,Search
+{d466ca57-f725-44d3-8777-e36aafc74ae0}=Print,none,Start Screenshot Tool
+{ef41ae88-d6f6-4b9f-9af2-1dd2ef82b1f0}=Shift+Print,none,Take Full Screen Screenshot
 
 [kmix]
 _k_friendly_name=Audio Volume
@@ -54,7 +58,7 @@ Reboot Without Confirmation=Ctrl+Alt+Shift+PgUp,none,Reboot Without Confirmation
 _k_friendly_name=ksmserver
 
 [kwin]
-Activate Window Demanding Attention=Ctrl+Alt+A,Ctrl+Alt+A,Activate Window Demanding Attention
+Activate Window Demanding Attention=none,Ctrl+Alt+A,Activate Window Demanding Attention
 Decrease Opacity=none,none,Decrease Opacity of Active Window by 5 %
 Expose=Ctrl+F9,Ctrl+F9,Toggle Present Windows (Current desktop)
 ExposeAll=Ctrl+F10\tLaunch (C),Ctrl+F10\tLaunch (C),Toggle Present Windows (All desktops)
