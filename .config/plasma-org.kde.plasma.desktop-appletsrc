@@ -27,6 +27,10 @@ DialogWidth=640
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
+[Containments][2][Applets][28][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
 [Containments][2][Applets][3]
 immutability=1
 plugin=org.kde.plasma.kickoff
@@ -50,8 +54,11 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][2][Applets][35][Configuration][ConfigDialog]
-DialogHeight=540
-DialogWidth=720
+DialogHeight=829
+DialogWidth=1040
+
+[Containments][2][Applets][35][Shortcuts]
+global=Meta+V
 
 [Containments][2][Applets][37]
 immutability=1
@@ -71,6 +78,13 @@ showWindowIcons=true
 [Containments][2][Applets][40]
 immutability=1
 plugin=org.kde.plasma.mediacontroller
+
+[Containments][2][Applets][40][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][2][Applets][40][Shortcuts]
+global=Meta+N
 
 [Containments][2][Applets][41]
 immutability=1

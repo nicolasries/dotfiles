@@ -70,9 +70,9 @@ values."
      php
      plantuml
      python
-     ranger
-     ruby
-     ruby-on-rails
+     ;; ranger
+     ;; ruby
+     ;; ruby-on-rails
      (shell :variables
             shell-default-shell 'multiterm
             shell-default-term-shell "/usr/bin/zsh")
@@ -94,7 +94,10 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    ;; no need for docker management
+                                    docker
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
