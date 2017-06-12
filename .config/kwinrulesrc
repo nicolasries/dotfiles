@@ -7,6 +7,14 @@ wmclasscomplete=false
 wmclassmatch=1
 
 [10]
+Description=4: JDownloader
+desktop=4
+desktoprule=3
+wmclass=jdownloader
+wmclasscomplete=false
+wmclassmatch=1
+
+[11]
 Description=5: Chromium
 desktop=5
 desktoprule=3
@@ -14,7 +22,7 @@ wmclass=chromium
 wmclasscomplete=false
 wmclassmatch=1
 
-[11]
+[12]
 Description=5: Spotify
 desktop=5
 desktoprule=4
@@ -22,7 +30,7 @@ wmclass=spotify
 wmclasscomplete=false
 wmclassmatch=2
 
-[12]
+[13]
 Description=6: Steam
 desktop=6
 desktoprule=3
@@ -73,6 +81,14 @@ wmclasscomplete=false
 wmclassmatch=1
 
 [7]
+Description=4: Libreoffice
+desktop=4
+desktoprule=3
+wmclass=libreoffice.*
+wmclasscomplete=false
+wmclassmatch=3
+
+[8]
 Description=4: XMind
 desktop=4
 desktoprule=3
@@ -80,7 +96,7 @@ wmclass=xmind
 wmclasscomplete=false
 wmclassmatch=1
 
-[8]
+[9]
 Description=4: Thunderbird
 desktop=4
 desktoprule=3
@@ -88,13 +104,5 @@ wmclass=thunderbird
 wmclasscomplete=false
 wmclassmatch=1
 
-[9]
-Description=4: JDownloader
-desktop=4
-desktoprule=3
-wmclass=jdownloader
-wmclasscomplete=false
-wmclassmatch=1
-
 [General]
-count=12
+count=13
