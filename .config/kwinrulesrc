@@ -38,6 +38,14 @@ wmclass=steam
 wmclasscomplete=false
 wmclassmatch=1
 
+[14]
+Description=7: remmina
+desktop=7
+desktoprule=3
+wmclass=remmina
+wmclasscomplete=false
+wmclassmatch=1
+
 [2]
 Description=1: termite
 desktop=1
@@ -105,4 +113,4 @@ wmclasscomplete=false
 wmclassmatch=1
 
 [General]
-count=13
+count=14
