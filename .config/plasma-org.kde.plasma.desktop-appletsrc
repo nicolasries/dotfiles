@@ -15,13 +15,8 @@ location=4
 plugin=org.kde.panel
 wallpaperplugin=org.kde.image
 
-[Containments][2][Applets][27]
-immutability=1
-plugin=org.kde.plasma.taskmanager
-
-[Containments][2][Applets][27][Configuration][ConfigDialog]
-DialogHeight=480
-DialogWidth=640
+[Containments][2][Applets][27][Configuration][General]
+showOnlyCurrentDesktop=true
 
 [Containments][2][Applets][28]
 immutability=1
@@ -94,6 +89,27 @@ plugin=org.kde.plasma.notifications
 immutability=1
 plugin=org.kde.kdeconnect
 
+[Containments][2][Applets][43]
+immutability=1
+plugin=org.kde.plasma.pager
+
+[Containments][2][Applets][43][Configuration][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
+[Containments][2][Applets][43][Configuration][General]
+showWindowIcons=true
+
+[Containments][2][Applets][43][Shortcuts]
+global=Meta+Z
+
+[Containments][2][Applets][45]
+immutability=1
+plugin=org.kde.plasma.panelspacer
+
+[Containments][2][Applets][45][Configuration][General]
+length=388
+
 [Containments][2][Applets][6]
 immutability=1
 plugin=org.kde.plasma.systemtray
@@ -106,7 +122,7 @@ DialogHeight=84
 DialogWidth=1920
 
 [Containments][2][General]
-AppletOrder=3;27;6;41;42;38;37;39;40;35;28
+AppletOrder=3;43;45;6;41;42;38;37;39;40;35;28
 
 [Containments][23]
 activityId=
@@ -199,4 +215,4 @@ knownItems=org.kde.plasma.networkmanagement,org.kde.plasma.mediacontroller,org.k
 showAllItems=true
 
 [General]
-immutability=1
+immutability=2
