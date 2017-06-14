@@ -98,6 +98,7 @@ DialogHeight=540
 DialogWidth=720
 
 [Containments][2][Applets][43][Configuration][General]
+showOnlyCurrentScreen=true
 showWindowIcons=true
 
 [Containments][2][Applets][43][Shortcuts]
@@ -178,8 +179,13 @@ location=0
 plugin=org.kde.desktopcontainment
 wallpaperplugin=org.kde.image
 
+[Containments][31][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
 [Containments][31][General]
 pressToMoveHelp=false
+showToolbox=false
 
 [Containments][32]
 activityId=6ca63c49-8bd3-44dc-9035-dd0af78522b1
@@ -190,8 +196,13 @@ location=0
 plugin=org.kde.desktopcontainment
 wallpaperplugin=org.kde.image
 
+[Containments][32][ConfigDialog]
+DialogHeight=540
+DialogWidth=720
+
 [Containments][32][General]
 pressToMoveHelp=false
+showToolbox=false
 
 [Containments][7]
 activityId=
