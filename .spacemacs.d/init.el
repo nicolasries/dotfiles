@@ -47,8 +47,8 @@ values."
             c-c++-enable-clang-support t)
      docker
      (elfeed :variables
-             elfeed-db-directory "~/Dropbox/emacs/elfeed/database"
-             rmh-elfeed-org-files (list "~/Dropbox/emacs/elfeed/feeds.org"))
+             elfeed-db-directory "~/nextcloud/dotfiles/elfeed/database"
+             rmh-elfeed-org-files (list "~/nextcloud/dotfiles/elfeed/feeds.org"))
      emacs-lisp
      evil-snipe
      git

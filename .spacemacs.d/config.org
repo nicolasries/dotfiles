@@ -6,7 +6,7 @@
    default note file
 
    #+BEGIN_SRC emacs-lisp
-(setq org-default-notes-file "~/Dropbox/emacs/org/notes.org")
+(setq org-default-notes-file "~/nextcloud/dotfiles/org/notes.org")
    #+END_SRC
 ** Plantuml
    #+BEGIN_SRC emacs-lisp
