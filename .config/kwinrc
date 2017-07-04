@@ -1,5 +1,5 @@
 [Compositing]
-AnimationSpeed=3
+AnimationSpeed=2
 Backend=OpenGL
 Enabled=true
 GLCore=false
@@ -11,14 +11,15 @@ WindowsBlockCompositing=true
 XRenderSmoothScale=false
 
 [Desktops]
-Name_1=Terminal
+Name_1=Term
 Name_2=Browser
-Name_3=Dev
-Name_4=Misc
-Name_5=Media
-Name_6=Games
-Name_7=VM
-Number=7
+Name_3=Development
+Name_4=Kontact
+Name_5=Misc
+Name_6=Media
+Name_7=Games
+Name_8=VM
+Number=10
 Rows=1
 
 [Effect-Cube]
