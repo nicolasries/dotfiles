@@ -106,8 +106,27 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-# bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run -matching fuzzy"
+bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.sh -show run -matching fuzzy"
 # bindsym $mod+d exec dmenu_run
+
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec ~/bin/volume.sh up
+bindsym XF86AudioLowerVolume exec ~/bin/volume.sh down
+bindsym XF86AudioMute exec ~/bin/volume.sh toggle
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $mod+XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym $mod+XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+XF86AudioPrev exec playerctl previous
+
 
 # variables for directions
 set $left h
@@ -184,13 +203,13 @@ bindsym $mod+Shift+0 move container to workspace $wsp10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r exec "~/.config/i3/merge-config.sh"; restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 
 bindsym $mod+r mode "resize"
-bindsym $mod+s mode "$system_mode"
+bindsym $mod+m mode "$system_mode"
 bindsym $mod+i mode "Inert"
 
 bindsym $mod+Shift+s sticky toggle
@@ -199,10 +218,13 @@ bindsym $mod+Shift+s sticky toggle
 
 # {{{ Modes
 
-set $system_mode (p) power | (m) media
+set $system_mode (p) power | (m) media | (r) toggle redshift
 mode "$system_mode" {
     bindsym p mode "$power"
-    bindsym m mode "$media"
+    bindsym m exec --no-startup-id xdotool key control+alt+p;mode "$media"
+    bindsym r exec --no-startup-id "~/bin/redshift_toggle.sh"
+    bindsym t exec xdotool key control+alt+p
+
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -263,19 +285,19 @@ mode "Inert" {
 
 # Bar {{{
 
-# bar {
-#     mode hide
-#     status_command i3status
-#     tray_output primary
-#     modifier $mod
-#     colors {
-#         #color class       border  back.   text
-#         focused_workspace #000000 #000000 #ffffff
-#         inactive_workspace #000000 #000000 #888888
-#         active_workspace #212121 #212121 #ffffff
-#         urgent_workspace #a30000 #000000 #ffffff
-#     }
-# }
+bar {
+    mode hide
+    status_command i3status
+    tray_output primary
+    modifier $mod
+    colors {
+        #color class       border  back.   text
+        focused_workspace #000000 #000000 #ffffff
+        inactive_workspace #000000 #000000 #888888
+        active_workspace #212121 #212121 #ffffff
+        urgent_workspace #a30000 #000000 #ffffff
+    }
+}
 
 # }}}
 
