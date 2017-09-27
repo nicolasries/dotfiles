@@ -44,6 +44,7 @@ alias rm='rm -iv'
 alias g='git'
 alias calc='python -i -c "from math import *"'
 alias pacupgr='sudo pacman -Syu'
+alias pacin='sudo pacman -S $(pacman -Ss --quiet | fzf)'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 

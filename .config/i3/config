@@ -111,9 +111,10 @@ bindsym $mod+d exec "rofi -modi run,kbmap:/home/nri/.config/rofi/scripts/kbmap.s
 
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec ~/bin/volume.sh up
-bindsym XF86AudioLowerVolume exec ~/bin/volume.sh down
-bindsym XF86AudioMute exec ~/bin/volume.sh toggle
+set $volume_script ~/.config/scripts/volume.sh
+bindsym XF86AudioRaiseVolume exec $volume_script up
+bindsym XF86AudioLowerVolume exec $volume_script down
+bindsym XF86AudioMute exec $volume_script toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -301,3 +302,4 @@ bar {
 
 # }}}
 
+exec --no-startup-id kdeconnect-indicator
