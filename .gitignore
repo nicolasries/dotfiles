@@ -6,6 +6,7 @@
 !/.config/rofi
 !/.config/surfraw
 !/.config/termite
+!/.idea/
 !/.spacemacs.d/
 /.spacemacs.d/*
 !/.spacemacs.d/init.el
