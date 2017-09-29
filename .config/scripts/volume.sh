@@ -8,17 +8,19 @@ function toggle_notify() {
     notify-send -t $notification_duration -u low -i /usr/share/icons/breeze-dark/actions/24/player-volume-muted.svg " "
 }
 
+sink=$(pactl list sinks short | grep RUNNING | grep -Eo "[0-9]" | head -n 1 )
+
 case $1 in
     "up")
-        pactl set-sink-volume 0 +5%
+        pactl set-sink-volume $sink +5%
         volume_notify
         ;;
     "down")
-        pactl set-sink-volume 0 -5%
+        pactl set-sink-volume $sink -5%
         volume_notify
         ;;
     "toggle")
-        pactl set-sink-mute 0 toggle
+        pactl set-sink-mute $sink toggle
         toggle_notify
         ;;
 esac
