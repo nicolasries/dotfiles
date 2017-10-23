@@ -1,14 +1,21 @@
 #!/bin/bash
 notification_duration=200
+notification_urgency="low"
+summary="Volume"
 function volume_notify() {
-    notify-send -t $notification_duration -u low -i /usr/share/icons/breeze-dark/actions/24/player-volume.svg "$(amixer get Master|tail -n1|sed -E 's/.*\[([0-9]+)\%\].*/\1/')"
+    volume="$(amixer get Master|tail -n1|sed -E 's/.*\[([0-9]+)\%\].*/\1/')"
+    icon="/usr/share/icons/breeze-dark/actions/24/player-volume.svg"
+    notify-send -h "int:value:$volume" -t $notification_duration -u $notification_urgency -i $icon $summary
 }
 
 function toggle_notify() {
-    notify-send -t $notification_duration -u low -i /usr/share/icons/breeze-dark/actions/24/player-volume-muted.svg " "
+    text="muted"
+    icon="/usr/share/icons/breeze-dark/actions/24/player-volume-muted.svg"
+    notify-send -t $notification_duration -u $notification_urgency -i $icon $summary $text
 }
 
-sink=$(pactl list sinks short | grep RUNNING | grep -Eo "[0-9]" | head -n 1 )
+
+sink=$(pacmd list-sinks | grep "* index:" | grep -Eo "[0-9]")
 
 case $1 in
     "up")
