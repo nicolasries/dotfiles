@@ -17,4 +17,5 @@
 /pkgbuilds/*/pkg
 /pkgbuilds/*/*.xz
 /pkgbuilds/*/*.zip
-!/.config/archlinux
+!/.config/archlinux/
+!/.config/polybar/

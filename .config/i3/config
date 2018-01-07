@@ -46,23 +46,13 @@ client.background       #ffffff
 # Workspaces {{{
 
 # terminal
-set $wsp1 "1 "
-# browser
-set $wsp2 "2 "
-# programming
-set $wsp3 "3 "
-# misc
-set $wsp4 "4 "
-# media
-set $wsp5 "5 "
-# social
-set $wsp6 "6 "
-# gaming
-set $wsp7 "7 "
-# VMs
-set $wsp8 "8 "
-set $wsp9 "9 "
-set $wsp10 "10 "
+set_from_resource $wsp1 workspace.1.name
+set_from_resource $wsp2 workspace.2.name
+set_from_resource $wsp3 workspace.3.name
+set_from_resource $wsp4 workspace.4.name
+set_from_resource $wsp5 workspace.5.name
+set_from_resource $wsp6 workspace.6.name
+set_from_resource $wsp7 workspace.7.name
 
 # assignments
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
@@ -72,6 +62,7 @@ assign [class="NetBeans IDE"] $wsp3
 assign [class="Emacs"] $wsp3
 assign [class="^jetbrains-.*$"] $wsp3
 assign [class="^QtCreator$"] $wsp3
+assign [class="Godot"] $wsp3
 
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
 assign [class="^JDownloader$"] $wsp4
@@ -248,16 +239,6 @@ mode "$power" {
     bindsym Escape mode "default"
 }
 
-set $media (j) vol- | (k) vol+ | (m) mute | (h) back | (l) next
-mode "$media" {
-    bindsym j exec --no-startup-id amixer -c 0 sset Master 3-, $refresh_bar, mode "$media"
-    bindsym k exec --no-startup-id amixer -c 0 sset Master 3+, $refresh_bar, mode "$media"
-    bindsym m exec --no-startup-id amixer -c 0 sset Master toggle, $refresh_bar, mode "$media"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
 
 
 # resize window (you can also use the mouse for that)
@@ -291,7 +272,7 @@ mode "Inert" {
 
 bar {
     mode hide
-    status_command i3status
+    status_command polybar
     tray_output primary
     modifier $mod
     colors {
@@ -307,10 +288,25 @@ bar {
 
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
-exec --no-startup-id redshift-gtk
+# exec --no-startup-id redshift-gtk
 exec --no-startup-id ~/.config/scripts/keyboard_settings.sh
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
 exec --no-startup-id termite
-exec --no-startup-id i3-msg 'workspace $wsp5; exec spotify'
+exec --no-startup-id i3-msg 'workspace $wsp5; exec spotify; workspace $wsp1'
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+
+for_window [class="^.*"] border pixel 0 
+
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable

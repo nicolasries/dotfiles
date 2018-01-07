@@ -5,3 +5,6 @@
     s = status
 [include]
     path = config.local
+[user]
+	email = nicolas.ries@t-online.de
+	name = Nico Ries
