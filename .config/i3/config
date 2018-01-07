@@ -213,33 +213,6 @@ bindsym $mod+Shift+s sticky toggle
 
 # {{{ Modes
 
-set $system_mode (p) power | (m) media | (r) toggle redshift
-mode "$system_mode" {
-    bindsym p mode "$power"
-    bindsym m exec --no-startup-id xdotool key control+alt+p;mode "$media"
-    bindsym r exec --no-startup-id "~/bin/redshift_toggle.sh"
-    bindsym t exec xdotool key control+alt+p
-
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-set $Locker i3lock --color 000000 && sleep 1
-set $power (l) lock | (e) logout | (s) suspend | (h) hibernate | (r) reboot | (Shift+s) shutdown
-mode "$power" {
-    bindsym l exec --no-startup-id $Locker, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -270,19 +243,19 @@ mode "Inert" {
 
 # Bar {{{
 
-bar {
-    mode hide
-    status_command polybar
-    tray_output primary
-    modifier $mod
-    colors {
-        #color class       border  back.   text
-        focused_workspace #000000 #000000 #ffffff
-        inactive_workspace #000000 #000000 #888888
-        active_workspace #212121 #212121 #ffffff
-        urgent_workspace #a30000 #000000 #ffffff
-    }
-}
+#bar {
+#    mode hide
+#    status_command polybar
+#    tray_output primary
+#    modifier $mod
+#    colors {
+#        #color class       border  back.   text
+#        focused_workspace #000000 #000000 #ffffff
+#        inactive_workspace #000000 #000000 #888888
+#        active_workspace #212121 #212121 #ffffff
+#        urgent_workspace #a30000 #000000 #ffffff
+#    }
+#}
 
 # }}}
 
