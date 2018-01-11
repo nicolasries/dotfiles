@@ -103,6 +103,7 @@ ws-icon-3 = ${xrdb:workspace.4.icon}
 ws-icon-4 = ${xrdb:workspace.5.icon}
 ws-icon-5 = ${xrdb:workspace.6.icon}
 ws-icon-6 = ${xrdb:workspace.7.icon}
+ws-icon-7 = ${xrdb:workspace.8.icon}
 
 ; Only show workspaces on the same output as the bar
  pin-workspaces = true

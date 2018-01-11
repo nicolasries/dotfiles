@@ -53,34 +53,41 @@ set_from_resource $wsp4 workspace.4.name
 set_from_resource $wsp5 workspace.5.name
 set_from_resource $wsp6 workspace.6.name
 set_from_resource $wsp7 workspace.7.name
+set_from_resource $wsp8 workspace.8.name
 
 # assignments
+# browser
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
 assign [class="Firefox"] $wsp2
 
+# dev stuff
 assign [class="NetBeans IDE"] $wsp3
 assign [class="Emacs"] $wsp3
 assign [class="^jetbrains-.*$"] $wsp3
 assign [class="^QtCreator$"] $wsp3
 assign [class="Godot"] $wsp3
 
+# mail
 assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
-assign [class="^JDownloader$"] $wsp4
-assign [title="XMind"] $wsp4
-assign [class="libreoffice"] $wsp4
-assign [class="^Skype$"] $wsp4
-assign [class="^Anki$"] $wsp4
-assign [class="^calibre$"] $wsp4
 
-assign [class="^Kodi$" instance="^Kodi$"] $wsp5
-assign [class="^mpv$" instance="^gl$"] $wsp5
-assign [class="^spotify$"] $wsp5
+# misc
+assign [class="^JDownloader$"] $wsp5
+assign [title="XMind"] $wsp5
+assign [class="libreoffice"] $wsp5
+assign [class="^Skype$"] $wsp5
+assign [class="^Anki$"] $wsp5
+assign [class="^calibre$"] $wsp5
 
-assign [class="^Steam$" instance="^Steam$"] $wsp7
-assign [class="Dolphin-emu"] $wsp7
+# media 
+assign [class="^Kodi$" instance="^Kodi$"] $wsp6
+assign [class="^mpv$" instance="^gl$"] $wsp6
 
-assign [class="^VirtualBox$" instance="^VirtualBox$"] $wsp8
-assign [class="^Remmina$" instance="^remmina$"] $wsp8
+# music
+assign [class="^spotify$"] $wsp7
+
+# games
+assign [class="^Steam$" instance="^Steam$"] $wsp8
+assign [class="Dolphin-emu"] $wsp8
 
 # }}}
 
@@ -180,8 +187,8 @@ bindsym $mod+5 workspace $wsp5
 bindsym $mod+6 workspace $wsp6
 bindsym $mod+7 workspace $wsp7
 bindsym $mod+8 workspace $wsp8
-bindsym $mod+9 workspace $wsp9
-bindsym $mod+0 workspace $wsp10
+# bindsym $mod+9 workspace $wsp9
+# bindsym $mod+0 workspace $wsp10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $wsp1
@@ -192,8 +199,8 @@ bindsym $mod+Shift+5 move container to workspace $wsp5
 bindsym $mod+Shift+6 move container to workspace $wsp6
 bindsym $mod+Shift+7 move container to workspace $wsp7
 bindsym $mod+Shift+8 move container to workspace $wsp8
-bindsym $mod+Shift+9 move container to workspace $wsp9
-bindsym $mod+Shift+0 move container to workspace $wsp10
+# bindsym $mod+Shift+9 move container to workspace $wsp9
+# bindsym $mod+Shift+0 move container to workspace $wsp10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

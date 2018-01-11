@@ -6,18 +6,14 @@ workspace.3.name:    3:dev
 workspace.3.icon:    3:dev;
 workspace.4.name:    4:mail
 workspace.4.icon:    4:mail;
-workspace.5.name:    5:media
-workspace.5.icon:    5:media;
-workspace.6.name:    6:music
-workspace.6.icon:    6:music;
-workspace.7.name:    7:games
-workspace.7.icon:    7:games;
-workspace.8.name:    
-workspace.8.icon:   
-workspace.9.name:   
-workspace.9.icon:   
-workspace.10.name:   
-workspace.10.icon:   
+workspace.5.name:    5:misc
+workspace.5.icon:    5:misc;
+workspace.6.name:    6:media
+workspace.6.icon:    6:media;
+workspace.7.name:    7:music
+workspace.7.icon:    7:music;
+workspace.8.name:    8:games
+workspace.8.icon:    8:games;
 
 ! Special
 *background:    #142320
