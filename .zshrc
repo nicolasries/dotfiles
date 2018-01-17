@@ -81,7 +81,8 @@ export RPROMPT="%F{118} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{2
 # }}}
 
 export PATH=$PATH:$HOME/go/bin
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zsh_highlight="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source $zsh_highlight
 
 # Functions {{{
 
