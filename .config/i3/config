@@ -77,6 +77,7 @@ assign [class="libreoffice"] $wsp5
 assign [class="^Skype$"] $wsp5
 assign [class="^Anki$"] $wsp5
 assign [class="^calibre$"] $wsp5
+assign [class="^Keepassx2$"] $wsp5
 
 # media 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp6
@@ -275,6 +276,9 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
 exec --no-startup-id termite
 exec --no-startup-id i3-msg 'workspace $wsp5; exec spotify; workspace $wsp1'
+exec --no-startup-id keepassx2
+exec --no-startup-id thunderbird
+
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 

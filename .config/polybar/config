@@ -16,7 +16,8 @@ primary = ${xrdb:color6}
 secondary = ${xrdb:color13}
 alert = ${xrdb:color9}
 
-[bar/example]
+; {{{ bar/base
+[bar/base]
 bottom = false
 ;monitor = ${env:MONITOR:HDMI-1}
 monitor = ${env:MONITOR:}
@@ -26,6 +27,9 @@ height = 27
 ;offset-y = 1%
 radius = 6.0
 fixed-center = true
+
+modules-left = xwindow
+modules-center = i3
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -46,9 +50,12 @@ font-0 = FontAwesome:pixelsize=10;0
 font-1 = fixed:pixelsize=10;1
 ; font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; font-2 = siji:pixelsize=10;1
+; }}}
 
-modules-left = xwindow
-modules-center = i3
+; {{{ bar/primary
+[bar/primary]
+inherit = bar/base
+
 modules-right = music xbacklight volume xkeyboard wlan battery temperature date powermenu updates-arch-combined
 
 tray-position = right
@@ -67,7 +74,24 @@ tray-padding = 2
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+; }}}
+;
+; {{{ bar/secondary
+[bar/secondary]
+inherit = bar/base
+bottom = false
+;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:}
+width = 100%
+height = 27
+;offset-x = 1%
+;offset-y = 1%
+radius = 6.0
+fixed-center = true
 
+; }}}
+
+; {{{ modules
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
@@ -356,5 +380,6 @@ exec = ~/.config/polybar/scripts/mpris.sh
 click-left = playerctl previous
 click-middle = playerctl play-pause
 click-right = playerctl next
+; }}}
 
 ; vim:ft=dosini

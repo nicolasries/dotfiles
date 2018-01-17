@@ -1,3 +1,4 @@
+
 #!/usr/bin/env sh
 
 # Terminate already running bar instances
@@ -7,13 +8,15 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
-if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload example &
-  done
-else
-  polybar --reload example &
-fi
-
-
+xrandr --query | grep " connected" | while read -r line ; do
+    echo $MONITOR
+    if echo $line | grep -q "primary"; then
+        bar="primary"
+    else
+        bar="secondary"
+    fi
+    MONITOR=$(echo $line | cut -d" " -f1) polybar --reload $bar &
+done
 echo "Bars launched..."
+
+
