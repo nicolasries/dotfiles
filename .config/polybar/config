@@ -377,9 +377,10 @@ interval = 2
 
 label = %output:0:45:...%
 exec = ~/.config/polybar/modules/mpris/mpris.sh
-click-left = playerctl previous
-click-middle = playerctl play-pause
-click-right = playerctl next
+click-left = playerctl play-pause
+click-right = ~/.config/i3/switch_workspace.sh 7
+scroll-up= playerctl next
+scroll-down= playerctl previous
 ; }}}
 
 ; vim:ft=dosini

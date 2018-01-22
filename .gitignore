@@ -2,6 +2,7 @@
 !/.gitignore
 !/.config/
 /.config/*
+!/.config/i3/
 !/.config/mpv/scripts
 !/.config/rofi
 !/.config/surfraw
