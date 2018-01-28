@@ -44,8 +44,10 @@ alias rm='rm -iv'
 alias g='git'
 alias calc='python -i -c "from math import *"'
 
-alias upgr='trizen -Syu'
 alias pacin='sudo pacman -S'
+
+alias upd='~/bin/checkSystemUpdates.sh'
+alias upgr='trizen -Syu'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 
@@ -86,7 +88,6 @@ zsh_highlight="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlig
 source $zsh_highlight
 
 # Functions {{{
-
 function docker-ip {
     docker inspect --format "{{ .NetworkSettings.IPAddress }}" "$@"
 }

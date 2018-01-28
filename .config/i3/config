@@ -77,7 +77,6 @@ assign [class="libreoffice"] $wsp5
 assign [class="^Skype$"] $wsp5
 assign [class="^Anki$"] $wsp5
 assign [class="^calibre$"] $wsp5
-assign [class="^Keepassx2$"] $wsp5
 
 # media 
 assign [class="^Kodi$" instance="^Kodi$"] $wsp6
@@ -113,10 +112,10 @@ bindsym $mod+w exec "rofi -modi window -show window"
 
 
 # Pulse Audio controls
-set $volume_script ~/.config/scripts/volume.sh
-bindsym XF86AudioRaiseVolume exec $volume_script up
-bindsym XF86AudioLowerVolume exec $volume_script down
-bindsym XF86AudioMute exec $volume_script toggle
+set $volume_script ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
+bindsym XF86AudioRaiseVolume exec $volume_script --up
+bindsym XF86AudioLowerVolume exec $volume_script --down
+bindsym XF86AudioMute exec $volume_script --mute
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -270,7 +269,7 @@ mode "Inert" {
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
-exec --no-startup-id ~/.config/scripts/keyboard_settings.sh
+exec --no-startup-id ~/bin/keyboard_settings.sh
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
@@ -278,6 +277,7 @@ exec --no-startup-id termite
 exec --no-startup-id i3-msg 'workspace $wsp5; exec spotify; workspace $wsp1'
 exec --no-startup-id keepassx2
 exec --no-startup-id thunderbird
+exec --no-startup-id steam
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -285,16 +285,6 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 for_window [class="^.*"] border pixel 0 
 
 for_window [class="^Steam$" title="^Friends$"] floating enable
-for_window [class="^Steam$" title="Steam - News"] floating enable
-for_window [class="^Steam$" title=".* - Chat"] floating enable
-for_window [class="^Steam$" title="^Settings$"] floating enable
-for_window [class="^Steam$" title=".* - event started"] floating enable
-for_window [class="^Steam$" title=".* CD key"] floating enable
-for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
-for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
-for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
-for_window [title="^Steam Keyboard$"] floating enable
-
 
 # Gaps
 gaps inner 0

@@ -1,0 +1,3 @@
+[submodule ".emacs.d/borg/spacemacs-theme"]
+	path = .emacs.d/borg/spacemacs-theme
+	url = https://github.com/nashamri/spacemacs-theme.git

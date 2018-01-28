@@ -2,11 +2,13 @@
 !/.gitignore
 !/.config/
 /.config/*
+!/bin/
 !/.config/i3/
 !/.config/mpv/scripts
 !/.config/rofi
 !/.config/surfraw
 !/.config/termite
+!/.emacs.d/
 !/.spacemacs.d/
 /.spacemacs.d/*
 !/.spacemacs.d/init.el
