@@ -56,13 +56,15 @@ set_from_resource $wsp7 workspace.7.name
 set_from_resource $wsp8 workspace.8.name
 
 # assignments
+
+assign [class="Emacs"] $wsp1
+
 # browser
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
 assign [class="Firefox"] $wsp2
 
 # dev stuff
 assign [class="NetBeans IDE"] $wsp3
-assign [class="Emacs"] $wsp3
 assign [class="^jetbrains-.*$"] $wsp3
 assign [class="^QtCreator$"] $wsp3
 assign [class="Godot"] $wsp3

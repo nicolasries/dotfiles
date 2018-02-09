@@ -56,7 +56,7 @@ font-1 = fixed:pixelsize=10;1
 [bar/primary]
 inherit = bar/base
 
-modules-right = music xbacklight pulseaudio-tail xkeyboard wlan battery temperature powermenu updates-arch-combined date 
+modules-right = music xbacklight pulseaudio-tail xkeyboard wlan battery temperature powermenu updates date 
 
 tray-position = right
 tray-padding = 2
@@ -239,17 +239,17 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "%d.%m.%Y"
-date-alt = " %Y-%m-%d"
+date = "%d.%m."
+; date-alt = " %Y-%m-%d"
 
 time = %H:%M
-time-alt = %H:%M:%S
+; time-alt = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
-label = %time% %date%
+label = %date% %time%
 
 [module/volume]
 type = internal/volume
@@ -366,9 +366,10 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-[module/updates-arch-combined]
+[module/updates]
 type = custom/script
-exec = ~/.config/polybar/modules/updates/updates-arch-combined.sh
+exec = "~/bin/checkSystemUpdates.sh | wc -l"
+label = " %output%"
 interval = 600
 click-left = termite -e 'zsh -c "checkupdates; echo trizen -Syu ; trizen -Syu; zsh"'
 

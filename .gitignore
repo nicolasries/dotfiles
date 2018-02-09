@@ -9,7 +9,6 @@
 !/.config/surfraw
 !/.config/termite
 !/.config/windows/
-!/.emacs.d/
 !/.spacemacs.d/
 /.spacemacs.d/*
 !/.spacemacs.d/init.el

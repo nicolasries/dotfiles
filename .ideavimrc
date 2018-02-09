@@ -53,9 +53,8 @@ nmap <leader>ws :action VimWindowSplitHorizontal<cr>
 nmap <leader>wv :action VimWindowSplitVertical<cr>
 nmap <leader>wq :action VimWindowClose<cr>
 
-" 
-
 nmap <leader>ff :action GotoFile<cr>
 nmap <leader>gc :action GotoClass<cr>
 
 
+nmap <leader>' :action ActivateTerminalToolWindow<cr>
