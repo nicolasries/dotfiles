@@ -368,7 +368,7 @@ margin-bottom = 5
 
 [module/updates]
 type = custom/script
-exec = "~/bin/checkSystemUpdates.sh | wc -l"
+exec = "~/bin/check_system_updates.sh | wc -l"
 label = " %output%"
 interval = 600
 click-left = termite -e 'zsh -c "checkupdates; echo trizen -Syu ; trizen -Syu; zsh"'

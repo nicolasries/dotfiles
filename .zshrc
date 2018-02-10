@@ -46,8 +46,8 @@ alias calc='python -i -c "from math import *"'
 
 alias pacin='sudo pacman -S'
 
-alias upd='~/bin/checkSystemUpdates.sh'
-alias upgr='trizen -Syu'
+alias upd='~/bin/check_system_updates.sh'
+alias upgr='~/bin/upgrade_system.sh'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 
