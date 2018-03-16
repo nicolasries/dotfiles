@@ -12,9 +12,7 @@ imap ,. <Esc>
 vmap ,. <Esc>
 
 " Use Q for formatting the current paragraph (or visual selection)
-vmap Q gq
-nmap Q gqap
-
+vmap Q gq nmap Q gqap 
 " These create newlines like o and O but stay in normal mode
 nmap zj o<Esc>k
 nmap zk O<Esc>j
@@ -54,7 +52,12 @@ nmap <leader>wv :action VimWindowSplitVertical<cr>
 nmap <leader>wq :action VimWindowClose<cr>
 
 nmap <leader>ff :action GotoFile<cr>
+
 nmap <leader>gc :action GotoClass<cr>
 
+" Run Stuff
+nmap <leader>rr :action Run<cr>
+nmap <leader>rd :action Debug<cr>
 
+" Terminal
 nmap <leader>' :action ActivateTerminalToolWindow<cr>
