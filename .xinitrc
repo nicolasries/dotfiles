@@ -1,20 +1,5 @@
 #!/bin/bash
-
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
-
-userresources=$HOME/.Xresources
-[ -f "$userresources" ] && xrdb -merge "$userresources"
-
-~/.config/scripts/keyboard_settings.sh
-# source local X startup config
-[ -f ~/.xinitrc.local ] && source ~/.xinitrc.local
+. ~/.xprofile
 
 # i3
 exec i3

@@ -1,5 +1,0 @@
-#!/bin/bash
-# local X startup config
-xrandr --output HDMI2 --primary --right-of HDMI1
-compton --config /home/user/.config/compton.conf &
-
