@@ -280,7 +280,8 @@ exec --no-startup-id termite
 exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
 exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
 exec --no-startup-id thunderbird
-exec --no-startup-id steam
+exec --no-startup-id plasma-browser-integration-host
+# exec --no-startup-id steam
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 

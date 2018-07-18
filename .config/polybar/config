@@ -82,8 +82,6 @@ inherit = bar/base
 bottom = false
 ;monitor = ${env:MONITOR:HDMI-1}
 monitor = ${env:MONITOR:}
-width = 100%
-height = 27
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
@@ -371,7 +369,7 @@ type = custom/script
 exec = "~/bin/check_system_updates.sh | wc -l"
 label = " %output%"
 interval = 600
-click-left = termite -e 'zsh -c "checkupdates; echo trizen -Syu ; trizen -Syu; zsh"'
+click-left = termite -e 'zsh -c "checkupdates; echo trizen -Syu ; trizen -Syu; zsh" &'
 
 [module/music]
 type = custom/script

@@ -11,6 +11,7 @@
 !/.config/windows/
 !/.config/archlinux/
 !/.config/polybar/
+/.config/polybar/modules/mpris/__pycache__
 !/.spacemacs.d/
 /.spacemacs.d/*
 !/.spacemacs.d/init.el
