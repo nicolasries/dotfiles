@@ -56,7 +56,7 @@ font-1 = ${xrdb:polybar.font}
 [bar/primary]
 inherit = bar/base
 
-modules-right = music xbacklight pulseaudio-tail xkeyboard wlan battery temperature powermenu updates date 
+modules-right = i3-mode music xbacklight pulseaudio-tail xkeyboard wlan battery temperature powermenu updates date
 
 tray-position = right
 tray-padding = 2
@@ -113,7 +113,7 @@ label-indicator-underline = ${colors.secondary}
 
 [module/i3]
 type = internal/i3
-format = <label-state> <label-mode>
+format = <label-state>
 index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = true
@@ -376,7 +376,7 @@ type = custom/script
 ; interval = 2
 
 ; label = %output:0:45:...%
-exec = ~/.config/polybar/modules/mpris/mpris.py
+exec = python -u ~/.config/polybar/modules/mpris/mpris.py
 tail = true
 click-left = playerctl play-pause
 click-right = ~/.config/i3/switch_workspace.sh 7
@@ -391,6 +391,12 @@ click-right = exec pavucontrol-qt &
 click-left = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --mute
 scroll-up = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --up
 scroll-down = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --down
+
+[module/i3-mode]
+type = custom/script
+exec = python -u ~/.config/polybar/modules/i3_mode/i3_mode.py
+; exec = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
+tail = true
 
 
 ; }}}

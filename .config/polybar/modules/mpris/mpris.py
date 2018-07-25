@@ -107,16 +107,11 @@ class PlayerStatus:
         self._print_flush(
             '[{}] {}  {} - {}'.format(self._bar, self._icon, self._artist, self._title))
 
-    """
-    Seems to assure print() actually prints when no terminal is connected
-    """
-
     def _print_flush(self, status, **kwargs):
         if len(status) > 50:
             status = status[0:50] + '...'
         if status != self._last_status:
             print(status, **kwargs)
-            sys.stdout.flush()
             self._last_status = status
 
 # parser = argparse.ArgumentParser()
