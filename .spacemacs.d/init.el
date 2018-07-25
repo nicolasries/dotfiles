@@ -36,21 +36,56 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (colors :variables colors-colorize-identifiers 'all)
-     helm
-     ;; auto-completion
-     ;; better-defaults
+     (auto-completion :variables
+                      auto-completion-tab-key-behavior 'complete
+                      auto-completion-return-key-behavior nil
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      )
+     ;; colors
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
+     docker
+     (elfeed :variables
+             elfeed-db-directory "~/Cloud/dotfiles/elfeed/database"
+             rmh-elfeed-org-files (list "~/Cloud/dotfiles/elfeed/feeds.org"))
      emacs-lisp
+     evil-snipe
      git
-     ;; markdown
-     org
+     github
+     imenu-list
+     ; go
+     graphviz
+     ; gtags
+     ; haskell
+     ; html
+     (ibuffer :variables
+              ibuffer-group-buffers-by 'projects)
+     ; javascript
+     latex
+     markdown
+     (org :variables
+          org-enable-github-support t
+          org-enable-reveal-js-support t)
+     ; php
+     plantuml
+     ; python
+     ;; ranger
+     ;; ruby
+     ;; ruby-on-rails
      (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     ;; spell-checking
-     syntax-checking
-     vimscript
+            shell-default-shell 'multiterm
+            shell-default-term-shell "/usr/bin/zsh")
+     shell-scripts
+     ;; (spell-checking :variables
+     ;;                 spell-checking-enable-auto-dictionary t)
+     (syntax-checking :variables
+                      )
+     ; sql
+     (typescript :variables
+                 typescript-fmt-on-save t)
      ;; version-control
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -128,8 +163,14 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(
+                         spacemacs-dark
+                         monokai
+                         ;; spacemacs-light
+                         ;; solarized-light
+                         solarized-dark
+                         ;; molokai
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -219,10 +260,10 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -261,7 +302,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -292,7 +333,8 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'all
+
    ))
 
 (defun dotspacemacs/user-init ()
@@ -302,7 +344,16 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  ;; move auto generated package list https://github.com/syl20bnr/spacemacs/issues/5751
+  (setq custom-file "~/.emacs.d/.cache/custom-file.el")
+  (load custom-file)
+
+  ;; freeze fix https://github.com/emacs-helm/helm/issues/1000
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   )
+
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -311,21 +362,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+
+
+  (org-babel-load-file "~/.spacemacs.d/config.org")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (rainbow-mode rainbow-identifiers color-identifiers-mode flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary vimrc-mode dactyl-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor xterm-color shell-pop org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term htmlize gnuplot eshell-z eshell-prompt-extras esh-help ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
