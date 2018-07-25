@@ -15,6 +15,9 @@ workspace.7.icon:    7:music;
 workspace.8.name:    8:games
 workspace.8.icon:    8:games;
 
+font: SourceCodePro
+i3.font: pango:SourceCodePro 10
+polybar.font: SourceCodePro:pixelsize=9;1
 ! Special
 *background:    #142320
 *foreground:    #c0b99c
