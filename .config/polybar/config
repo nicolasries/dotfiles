@@ -56,7 +56,7 @@ font-1 = ${xrdb:polybar.font}
 [bar/primary]
 inherit = bar/base
 
-modules-right = i3-mode music xbacklight pulseaudio-tail xkeyboard wlan battery temperature powermenu updates date
+modules-right = i3-mode music xbacklight pulseaudio xkeyboard wlan battery temperature powermenu updates date
 
 tray-position = right
 tray-padding = 2
@@ -383,21 +383,21 @@ click-right = ~/.config/i3/switch_workspace.sh 7
 scroll-up= playerctl next
 scroll-down= playerctl previous
 
-[module/pulseaudio-tail]
-type = custom/script
-exec = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
-tail = true
-click-right = exec pavucontrol-qt &
-click-left = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --mute
-scroll-up = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --up
-scroll-down = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh --down
-
 [module/i3-mode]
 type = custom/script
 exec = python -u ~/.config/polybar/modules/i3_mode/i3_mode.py
 ; exec = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
 tail = true
 
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_14.2.analog-stereo     
+format-volume = <ramp-volume> <label-volume>
+; format-volume = <bar-volume>
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
 
 ; }}}
 
