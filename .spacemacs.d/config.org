@@ -81,13 +81,15 @@
 * UI
 
   show eldoc near point
+  buggy, doesn't display current arguments
+  disabled for now
 
   #+BEGIN_SRC emacs-lisp
- (defun nri/eldoc-display-near-point (format-string &rest args)
-  "Display eldoc message near point."
-  (when format-string
-    (pos-tip-show (apply 'format format-string args) nil nil nil)))
-;;(setq eldoc-message-function #'nri/eldoc-display-near-point)
+    ;;     (defun nri/eldoc-display-near-point (format-string &rest args)
+    ;;      "Display eldoc message near point."
+    ;;      (when format-string
+    ;;        (pos-tip-show (apply 'format format-string args) nil nil nil)))
+    ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
   #+END_SRC
 
   Company Mode Formatting

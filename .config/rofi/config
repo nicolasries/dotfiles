@@ -1,3 +1,6 @@
+rofi.modi: window,drun
+
+
 rofi.lines: 3
 rofi.hide-scrollbar: true
 rofi.bw: 0

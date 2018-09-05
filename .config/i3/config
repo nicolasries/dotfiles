@@ -111,17 +111,17 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-bindsym $mod+d exec "rofi -modi drun -show drun"
-bindsym $mod+w exec "rofi -modi window -show window"
+bindsym $mod+d exec "rofi -combi-modi window,drun -show combi"
 
 # bindsym $mod+d exec dmenu_run
 
 
 # Pulse Audio controls
 set $volume_script ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
-bindsym XF86AudioRaiseVolume exec $volume_script --up
-bindsym XF86AudioLowerVolume exec $volume_script --down
-bindsym XF86AudioMute exec $volume_script --mute
+set_from_resource $sink sound.sink
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $sink +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $sink -5%
+bindsym XF86AudioMute exec pactl set-sink-mute $sink toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -292,6 +292,7 @@ exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
 exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
 exec --no-startup-id thunderbird
 exec --no-startup-id plasma-browser-integration-host
+exec --no-startup-id owncloud
 # exec --no-startup-id steam
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

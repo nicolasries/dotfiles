@@ -43,8 +43,8 @@ border-color = #00000000
 padding-left = 0
 padding-right = 2
 
-module-margin-left = 1
-module-margin-right = 2
+module-margin-left = 3
+module-margin-right = 3
 
 font-0 = FontAwesome:pixelsize=10;0
 font-1 = ${xrdb:polybar.font}
@@ -56,7 +56,7 @@ font-1 = ${xrdb:polybar.font}
 [bar/primary]
 inherit = bar/base
 
-modules-right = i3-mode music xbacklight pulseaudio xkeyboard wlan battery temperature powermenu updates date
+modules-right = music xbacklight pulseaudio xkeyboard wlan battery temperature powermenu updates date
 
 tray-position = right
 tray-padding = 2
@@ -156,7 +156,6 @@ label-urgent = %icon%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-
 [module/xbacklight]
 type = internal/xbacklight
 
@@ -245,7 +244,7 @@ time = %H:%M
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+; format-underline = #0a6cf5
 
 label = %date% %time%
 
@@ -376,7 +375,7 @@ type = custom/script
 ; interval = 2
 
 ; label = %output:0:45:...%
-exec = python -u ~/.config/polybar/modules/mpris/mpris.py
+exec = python -u ~/.config/polybar/modules/mpris/mpris.py status
 tail = true
 click-left = playerctl play-pause
 click-right = ~/.config/i3/switch_workspace.sh 7
@@ -386,18 +385,34 @@ scroll-down= playerctl previous
 [module/i3-mode]
 type = custom/script
 exec = python -u ~/.config/polybar/modules/i3_mode/i3_mode.py
-; exec = ~/.config/polybar/modules/pulseaudio/pulseaudio-tail.sh
 tail = true
 
 [module/pulseaudio]
 type = internal/pulseaudio
-sink = alsa_output.pci-0000_00_14.2.analog-stereo     
-format-volume = <ramp-volume> <label-volume>
-; format-volume = <bar-volume>
+sink = ${xrdb:sound.sink}
+; format-volume = <ramp-volume> <label-volume>
+format-volume = <label-volume> <bar-volume>
 ; Only applies if <ramp-volume> is used
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+; ramp-volume-0 = 
+; ramp-volume-1 = 
+; ramp-volume-2 = 
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #22
+bar-volume-foreground-1 = #44
+bar-volume-foreground-2 = #66
+bar-volume-foreground-3 = #88
+bar-volume-foreground-4 = #aa
+bar-volume-foreground-5 = #cc
+bar-volume-foreground-6 = #ff
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
 
 ; }}}
 
