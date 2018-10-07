@@ -36,7 +36,7 @@ alias ssh='TERM=xterm-256color ssh'
 # colored grep
 alias grep='grep --color'
 # colored ls
-alias ls='ls --color'
+# alias ls='ls --color'
 # interactive and verboose
 alias mv='mv -iv'
 alias cp='cp -iv'

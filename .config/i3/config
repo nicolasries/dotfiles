@@ -94,6 +94,7 @@ for_window [class="Spotify"] move to workspace $wsp7
 # games
 assign [class="^Steam$" instance="^Steam$"] $wsp8
 assign [class="Dolphin-emu"] $wsp8
+assign [class="MTGA"] $wsp8
 
 # }}}
 
