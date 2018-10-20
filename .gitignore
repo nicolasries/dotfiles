@@ -10,6 +10,7 @@
 !/.config/termite
 !/.config/windows/
 !/.config/archlinux/
+!/.config/ranger/
 !/.config/polybar/
 /.config/polybar/modules/mpris/__pycache__
 !/.spacemacs.d/
