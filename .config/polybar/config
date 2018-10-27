@@ -113,7 +113,7 @@ label-indicator-underline = ${colors.secondary}
 
 [module/i3]
 type = internal/i3
-format = <label-state>
+format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = true
