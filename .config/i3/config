@@ -35,14 +35,29 @@ font $font
 # finds out, if available)
 # set $borderColor '#007030'
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+set_from_resource $fg i3wm.foreground #f0f0f0
 
-client.background       #ffffff
+set_from_resource $bg i3wm.background #f0f0f0
+set_from_resource $bg-alt i3wm.background-alt #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg-alt     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+
+# class                 border  backgr. text    indicator child_border
+# client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+# client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+# client.background       #ffffff
 
 # }}}
 
@@ -93,7 +108,7 @@ for_window [class="Spotify"] move to workspace $wsp7
 
 # games
 assign [class="^Steam$" instance="^Steam$"] $wsp8
-assign [class="Dolphin-emu"] $wsp8
+assign [class="dolphin-emu"] $wsp8
 assign [class="MTGA"] $wsp8
 
 # }}}
@@ -293,7 +308,6 @@ exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
 exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
 exec --no-startup-id thunderbird
 exec --no-startup-id plasma-browser-integration-host
-exec --no-startup-id owncloud
 # exec --no-startup-id steam
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
