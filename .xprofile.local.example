@@ -1,0 +1,5 @@
+#!/bin/bash
+# local X startup config
+xrandr --output HDMI-0 --primary --right-of DVI-D-0
+compton --config /home/user/.config/compton.conf &
+
