@@ -1,80 +1,53 @@
-# #+TITLE: Configuration
+#+TITLE: Configuration
 #+SUBTITLE: Some additional configuration
 * UI
 ** Theme
+   Xresources
+   #+BEGIN_SRC emacs-lisp
+(use-package xresources-theme
+:ensure t)
+
+   #+END_SRC
+   solarized-theme https://github.com/bbatsov/solarized-emacs
    #+BEGIN_SRC emacs-lisp
      (use-package solarized-theme
        :defer 10
        :init
        (setq solarized-use-variable-pitch nil)
        :ensure t)
+     (load-theme 'solarized-dark)
    #+END_SRC
-   solarized-theme
-* Filetree
-#+BEGIN_SRC emacs-lisp
-  (use-package treemacs
+** Scrolling
+   #+BEGIN_SRC emacs-lisp
+     (setq scroll-step 1
+           scroll-conservatively 10000)
+
+   #+END_SRC
+   color coding
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-mode
+       :init
+       (rainbow-mode t)
+       :ensure t)
+
+   #+END_SRC
+* Anki
+  #+BEGIN_SRC emacs-lisp
+(use-package anki-editor
+:ensure t)
+
+  #+END_SRC
+* Ivy/Swiper/Counsel
+  #+BEGIN_SRC emacs-lisp
+  (use-package ivy
     :ensure t
-    :defer t
-    :init
-    (with-eval-after-load 'winum
-      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :diminish ivy-mode
+    :init (ivy-mode 1)
     :config
-    (progn
-      (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-            treemacs-deferred-git-apply-delay   0.5
-            treemacs-display-in-side-window     t
-            treemacs-file-event-delay           5000
-            treemacs-file-follow-delay          0.2
-            treemacs-follow-after-init          t
-            treemacs-follow-recenter-distance   0.1
-            treemacs-goto-tag-strategy          'refetch-index
-            treemacs-indentation                2
-            treemacs-indentation-string         " "
-            treemacs-is-never-other-window      nil
-            treemacs-max-git-entries            5000
-            treemacs-no-png-images              nil
-            treemacs-project-follow-cleanup     nil
-            treemacs-persist-file               (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-            treemacs-recenter-after-file-follow nil
-            treemacs-recenter-after-tag-follow  nil
-            treemacs-show-cursor                nil
-            treemacs-show-hidden-files          t
-            treemacs-silent-filewatch           nil
-            treemacs-silent-refresh             nil
-            treemacs-sorting                    'alphabetic-desc
-            treemacs-space-between-root-nodes   t
-            treemacs-tag-follow-cleanup         t
-            treemacs-tag-follow-delay           1.5
-            treemacs-width                      35)
-
-      ;; The default width and height of the icons is 22 pixels. If you are
-      ;; using a Hi-DPI display, uncomment this to double the icon size.
-      ;;(treemacs-resize-icons 44)
-
-      (treemacs-follow-mode t)
-      (treemacs-filewatch-mode t)
-      (treemacs-fringe-indicator-mode t)
-      (pcase (cons (not (null (executable-find "git")))
-                   (not (null (executable-find "python3"))))
-        (`(t . t)
-         (treemacs-git-mode 'extended))
-        (`(t . _)
-         (treemacs-git-mode 'simple))))
-    :bind
-    (:map global-map
-          ("M-0"       . treemacs-select-window)
-          ("C-x t 1"   . treemacs-delete-other-windows)
-          ("C-x t t"   . treemacs)
-          ("C-x t B"   . treemacs-bookmark)
-          ("C-x t C-t" . treemacs-find-file)
-          ("C-x t M-t" . treemacs-find-tag)))
-
-  (use-package treemacs-evil
-    :after treemacs evil
+    )
+  (use-package counsel
     :ensure t)
-
-
-#+END_SRC
+  #+END_SRC
 * Evil
   #+BEGIN_SRC emacs-lisp
     ;; Evil Mode https://github.com/emacs-evil/evil
@@ -95,27 +68,86 @@
       :ensure t
       :config
       (evil-collection-init))
+    (use-package evil-nerd-commenter
+      :after evil
+      :ensure t
+      :config
+      (evilnc-default-hotkeys))
   #+END_SRC
 
 * Which-Key
+  https://github.com/justbur/emacs-which-key
   #+BEGIN_SRC emacs-lisp
     (use-package which-key
       :ensure t
+      :diminish 'which-key-mode
       :init
       (setq which-key-separator " ")
       (setq which-key-prefix-prefix "+")
       :config
+      (setq which-key-idle-delay 0.3)
       (which-key-mode 1))
   #+END_SRC
 
-* E-Mail
 * Org
-
-* Plantuml
   #+BEGIN_SRC emacs-lisp
- (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+    ;; show entities as UTF8 characters
+    (setq org-pretty-entities t)
+
+    ;; (setq org-ellipsis "▼")
+
   #+END_SRC
+
 * Keybindings
+  #+BEGIN_SRC emacs-lisp
+  (use-package general
+    :ensure t
+    :config
+    (general-evil-setup t)
+    (general-define-key
+     :states '(normal visual motion insert emacs)
+     :prefix "SPC"
+     "SPC" '(counsel-M-x :which-key "commands")
+     
+     "'" '(ansi-term "/bin/zsh" :which-key "term")
+     
+     "/" '(swiper :which-key "search")
+     
+     "b" '(:ignore t :which-key "buffers")
+     "b" '(counsel-ibuffer :which-key "list")
+
+     "e" '(:ignore t :which-key "emacs")
+
+     "ed" '(:ignore t :which-key "describe")
+     "edv" '(describe-variable :which-key "variable")
+     "edf" '(describe-function :which-key "function")
+     "edk" '(describe-key :which-key "key")
+     "edm" '(describe-minor-mode :which-key "minor mode")
+     "edM" '(describe-mode :which-key "all modes")
+
+     "ee" '(:ignore t :which-key "eval")
+     "eer" '(eval-region :which-key "region")
+
+
+     "f" '(:ignore t :which-key "file")
+     
+     "ff" '(counsel-find-file :which-key "find")
+     "fg" '(counsel-git :which-key "git")
+     "fs" '(save-buffer :which-key "save")
+     "fr" '(counsel-recentf :which-key "recent")
+
+     "g" '(:ignore t :which-key "git")
+     "gs" '(magit-status :which-key "status")
+
+     "w" '(:ignore t :which-key "window")
+     "wh" '(evil-window-left :which-key "left")
+     "wj" '(evil-window-down :which-key "down")
+     "wk" '(evil-window-up :which-key "up")
+     "wl" '(evil-window-right :which-key "right")
+
+    ))
+
+  #+END_SRC
 ** General
 
    Number incrementing
@@ -131,49 +163,22 @@
 (global-set-key (kbd "C-i") 'evil-jump-forward)
    #+END_SRC
 
-   Quit ediff without prompt
-
-   #+BEGIN_SRC emacs-lisp
-(defun disable-y-or-n-p (orig-fun &rest args)
-  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
-    (apply orig-fun args)))
-(advice-add 'ediff-quit :around #'disable-y-or-n-p)
-   #+END_SRC
-
-   Kill processes without prompt
-
-   #+BEGIN_SRC emacs-lisp
-     (setq confirm-kill-processes nil)
-   #+END_SRC
-
-   No annoying prompts when creating a new file
-
-   #+BEGIN_SRC emacs-lisp
-  (setq confirm-nonexistent-file-or-buffer nil
-   helm-ff-newfile-prompt-p nil
-  ido-create-new-buffer 'always)
-   #+END_SRC
-** Modes
-*** Org
-* Mode line
-
-  format git status
-
-  #+BEGIN_SRC emacs-lisp
-;; (defadvice vc-mode-line (after strip-backend () activate)
-;;   (when (stringp vc-mode)
-;;     (let ((noback (replace-regexp-in-string
-;;                    (format "^ %s" (vc-backend buffer-file-name))
-;;                    " " vc-mode)))
-;;       (setq vc-mode noback))))        ;
-  #+END_SRC
 * UI
+  relative line numbers
+  #+BEGIN_SRC emacs-lisp
+(setq display-line-numbers 'relative)
+
+  #+END_SRC  
+
+
   visual stuff
   #+BEGIN_SRC emacs-lisp
-(setq line-spacing 0.1)
-(setq left-margin-width 2)
-(setq right-margin-width 2)
+    (setq line-spacing 0.1)
+    (setq left-margin-width 2)
+    (setq right-margin-width 2)
 
+    ;; Turn off the blinking cursor
+    (blink-cursor-mode -1)
 
   #+END_SRC
 
@@ -209,22 +214,42 @@
    company-go-show-annotation t
    company-tooltip-minimum 5)
   #+END_SRC
-* Terminal
-
-  - make URLs clickable
+* Autocompletion
   #+BEGIN_SRC emacs-lisp
-    (add-hook 'term-mode-hook
-              (lambda ()
-                (goto-address-mode)))
+  (use-package company
+  :ensure t)
   #+END_SRC
-* Git
+* Misc
 
-  start commit message in insert mode
+
+  save session
   #+BEGIN_SRC emacs-lisp
-(add-hook 'git-commit-mode-hook 'evil-insert-state)
+(desktop-save-mode 1)
+
   #+END_SRC
 
-* Sane Defaults
+  Quit ediff without prompt
+
+  #+BEGIN_SRC emacs-lisp
+(defun disable-y-or-n-p (orig-fun &rest args)
+  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+    (apply orig-fun args)))
+(advice-add 'ediff-quit :around #'disable-y-or-n-p)
+  #+END_SRC
+
+  Kill processes without prompt
+
+  #+BEGIN_SRC emacs-lisp
+     (setq confirm-kill-processes nil)
+  #+END_SRC
+
+  No annoying prompts when creating a new file
+
+  #+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil
+   helm-ff-newfile-prompt-p nil
+  ido-create-new-buffer 'always)
+  #+END_SRC
   #+BEGIN_SRC emacs-lisp
     ; y/n is enough
     (defalias 'yes-or-no-p 'y-or-n-p)
@@ -237,14 +262,10 @@
     (prefer-coding-system 'utf-8) ; with sugar on top
     (setq-default indent-tabs-mode nil)
 
-    ;; Turn off the blinking cursor
-    (blink-cursor-mode -1)
     ;; unique buffer names when same file names
     (setq uniquify-buffer-name-style 'forward)   
 
   #+END_SRC
-* Misc
-
   recent files
   #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
@@ -252,7 +273,7 @@
 
   #+END_SRC  
 
-  disable lock files (.#***)
+  disable lock files
   #+BEGIN_SRC emacs-lisp
 (setq create-lockfiles nil)
   #+END_SRC
@@ -262,3 +283,111 @@
   ;;(defconst local-config-path "~/.spacemacs.d/local-config.org")
   ;;(if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
   #+END_SRC
+* Flycheck
+  #+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
+  #+END_SRC
+  
+* TODOS
+** Plantuml
+   #+BEGIN_SRC emacs-lisp
+  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+   #+END_SRC
+** Git
+
+   start commit message in insert mode
+   #+BEGIN_SRC emacs-lisp
+ (add-hook 'git-commit-mode-hook 'evil-insert-state)
+   #+END_SRC
+
+** E-Mail
+** Mode line
+
+   format git status
+
+   #+BEGIN_SRC emacs-lisp
+ ;; (defadvice vc-mode-line (after strip-backend () activate)
+ ;;   (when (stringp vc-mode)
+ ;;     (let ((noback (replace-regexp-in-string
+ ;;                    (format "^ %s" (vc-backend buffer-file-name))
+ ;;                    " " vc-mode)))
+ ;;       (setq vc-mode noback))))        ;
+   #+END_SRC
+** Filetree
+   Treemacs https://github.com/Alexander-Miller/treemacs
+   #+BEGIN_SRC emacs-lisp
+   (use-package treemacs
+     :ensure t
+     :defer t
+     :init
+     (with-eval-after-load 'winum
+       (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+     :config
+     (progn
+       (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+             treemacs-deferred-git-apply-delay   0.5
+             treemacs-display-in-side-window     t
+             treemacs-file-event-delay           5000
+             treemacs-file-follow-delay          0.2
+             treemacs-follow-after-init          t
+             treemacs-follow-recenter-distance   0.1
+             treemacs-goto-tag-strategy          'refetch-index
+             treemacs-indentation                2
+             treemacs-indentation-string         " "
+             treemacs-is-never-other-window      nil
+             treemacs-max-git-entries            5000
+             treemacs-no-png-images              nil
+             treemacs-project-follow-cleanup     nil
+             treemacs-persist-file               (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+             treemacs-recenter-after-file-follow nil
+             treemacs-recenter-after-tag-follow  nil
+             treemacs-show-cursor                nil
+             treemacs-show-hidden-files          t
+             treemacs-silent-filewatch           nil
+             treemacs-silent-refresh             nil
+             treemacs-sorting                    'alphabetic-desc
+             treemacs-space-between-root-nodes   t
+             treemacs-tag-follow-cleanup         t
+             treemacs-tag-follow-delay           1.5
+             treemacs-width                      35)
+
+       ;; The default width and height of the icons is 22 pixels. If you are
+       ;; using a Hi-DPI display, uncomment this to double the icon size.
+       ;;(treemacs-resize-icons 44)
+
+       (treemacs-follow-mode t)
+       (treemacs-filewatch-mode t)
+       (treemacs-fringe-indicator-mode t)
+       (pcase (cons (not (null (executable-find "git")))
+                    (not (null (executable-find "python3"))))
+         (`(t . t)
+          (treemacs-git-mode 'extended))
+         (`(t . _)
+          (treemacs-git-mode 'simple))))
+     :bind
+     (:map global-map
+           ("M-0"       . treemacs-select-window)
+           ("C-x t 1"   . treemacs-delete-other-windows)
+           ("C-x t t"   . treemacs)
+           ("C-x t B"   . treemacs-bookmark)
+           ("C-x t C-t" . treemacs-find-file)
+           ("C-x t M-t" . treemacs-find-tag)))
+
+   (use-package treemacs-evil
+     :after treemacs evil
+     :ensure t)
+
+
+   #+END_SRC
+** Terminal
+
+   - make URLs clickable
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'term-mode-hook
+               (lambda ()
+                 (goto-address-mode)))
+   #+END_SRC
+ 
+

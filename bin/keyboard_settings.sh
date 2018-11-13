@@ -5,6 +5,7 @@
 xset r rate 300 50
 # switch Capslock and Escape
 setxkbmap -option caps:escape
+setxkbmap us,de
 # no pc beep
 xset -b
 

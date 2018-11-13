@@ -1,4 +1,6 @@
 #!/bin/bash
+# is sourced natively by most Display Managers
+# also is sourced in ~/.xinitrc
 
 
 # unneeded??
@@ -8,12 +10,7 @@
 #  done
 #  unset f
 # fi
-
-
-userresources=$HOME/.Xresources
-[ -f "$userresources" ] && xrdb -merge "$userresources"
-
-~/.config/scripts/keyboard_settings.sh
+xrdb $HOME/.Xresources
 # source local X startup config
 [ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
