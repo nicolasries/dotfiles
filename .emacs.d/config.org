@@ -1,11 +1,48 @@
 #+TITLE: Configuration
 #+SUBTITLE: Some additional configuration
 * UI
+** Misc
+*** relative line numbers
+    #+BEGIN_SRC emacs-lisp
+     (setq display-line-numbers 'relative)
+
+    #+END_SRC  
+
+
+*** visual stuff
+    #+BEGIN_SRC emacs-lisp
+     (setq line-spacing 0.1)
+     (setq left-margin-width 2)
+     (setq right-margin-width 2)
+
+     ;; Turn off the blinking cursor
+     (blink-cursor-mode -1)
+
+    #+END_SRC
+
+*** Show matching parens
+    #+BEGIN_SRC emacs-lisp
+     (setq show-paren-delay 0)
+     (show-paren-mode 1)
+    #+END_SRC
+
+*** show eldoc near point
+    buggy, doesn't display current arguments
+    disabled for now
+
+    #+BEGIN_SRC emacs-lisp
+     ;;     (defun nri/eldoc-display-near-point (format-string &rest args)
+     ;;      "Display eldoc message near point."
+     ;;      (when format-string
+     ;;        (pos-tip-show (apply 'format format-string args) nil nil nil)))
+     ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
+    #+END_SRC
+
 ** Theme
    Xresources
    #+BEGIN_SRC emacs-lisp
-(use-package xresources-theme
-:ensure t)
+     (use-package xresources-theme
+     :ensure t)
 
    #+END_SRC
    solarized-theme https://github.com/bbatsov/solarized-emacs
@@ -27,60 +64,71 @@
    #+BEGIN_SRC emacs-lisp
      (use-package rainbow-mode
        :init
+       :diminish
        (rainbow-mode t)
        :ensure t)
 
    #+END_SRC
 * Anki
   #+BEGIN_SRC emacs-lisp
-(use-package anki-editor
-:ensure t)
+    (use-package anki-editor
+      :ensure t)
 
   #+END_SRC
 * Ivy/Swiper/Counsel
   #+BEGIN_SRC emacs-lisp
   (use-package ivy
     :ensure t
-    :diminish ivy-mode
+    :diminish
     :init (ivy-mode 1)
-    :config
-    )
+    :config)
   (use-package counsel
     :ensure t)
   #+END_SRC
 * Evil
-  #+BEGIN_SRC emacs-lisp
-    ;; Evil Mode https://github.com/emacs-evil/evil
+** [[https://github.com/emacs-evil/evil][Evil Mode]] 
+   #+BEGIN_SRC emacs-lisp
     (use-package evil
       :ensure t
       :init
       (setq evil-want-keybinding nil)
       :config
       (evil-mode 1))
-    ;; Evil Surround https://github.com/emacs-evil/evil-surround
+   #+END_SRC
+** Evil Surround
+   https://github.com/emacs-evil/evil-surround
+   #+BEGIN_SRC emacs-lisp
     (use-package evil-surround
       :after evil
       :ensure t
       :config
       (global-evil-surround-mode 1))
+   #+END_SRC
+** Evil Collection
+   https://github.com/emacs-evil/evil-collection
+   #+BEGIN_SRC emacs-lisp
     (use-package evil-collection
       :after evil
       :ensure t
       :config
       (evil-collection-init))
+   #+END_SRC
+** Evil Nerd Commenter
+   https://github.com/redguardtoo/evil-nerd-commenter
+   #+BEGIN_SRC emacs-lisp
     (use-package evil-nerd-commenter
       :after evil
       :ensure t
       :config
       (evilnc-default-hotkeys))
-  #+END_SRC
+   #+END_SRC
 
 * Which-Key
   https://github.com/justbur/emacs-which-key
   #+BEGIN_SRC emacs-lisp
     (use-package which-key
       :ensure t
-      :diminish 'which-key-mode
+      :diminish
       :init
       (setq which-key-separator " ")
       (setq which-key-prefix-prefix "+")
@@ -95,26 +143,37 @@
     (setq org-pretty-entities t)
 
     ;; (setq org-ellipsis "▼")
+    
+    (setq org-hide-emphasis-markers t)
+    
+    (use-package org-bullets
+    :ensure t
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    )
 
   #+END_SRC
 
 * Keybindings
+  https://github.com/noctuid/general.el/
   #+BEGIN_SRC emacs-lisp
   (use-package general
     :ensure t
     :config
     (general-evil-setup t)
+    ;; unset space 
     (general-define-key
      :states '(normal visual motion insert emacs)
      :prefix "SPC"
      "SPC" '(counsel-M-x :which-key "commands")
      
+     "TAB" '(mode-line-other-buffer :which-key "previous")
      "'" '(ansi-term "/bin/zsh" :which-key "term")
      
      "/" '(swiper :which-key "search")
      
      "b" '(:ignore t :which-key "buffers")
-     "b" '(counsel-ibuffer :which-key "list")
+     "bb" '(counsel-ibuffer :which-key "list")
 
      "e" '(:ignore t :which-key "emacs")
 
@@ -163,130 +222,102 @@
 (global-set-key (kbd "C-i") 'evil-jump-forward)
    #+END_SRC
 
-* UI
-  relative line numbers
-  #+BEGIN_SRC emacs-lisp
-(setq display-line-numbers 'relative)
-
-  #+END_SRC  
-
-
-  visual stuff
-  #+BEGIN_SRC emacs-lisp
-    (setq line-spacing 0.1)
-    (setq left-margin-width 2)
-    (setq right-margin-width 2)
-
-    ;; Turn off the blinking cursor
-    (blink-cursor-mode -1)
-
-  #+END_SRC
-
-  Show matching parens
-  #+BEGIN_SRC emacs-lisp
-(setq show-paren-delay 0)
-(show-paren-mode 1)
-  #+END_SRC
-
-  show eldoc near point
-  buggy, doesn't display current arguments
-  disabled for now
-
-  #+BEGIN_SRC emacs-lisp
-    ;;     (defun nri/eldoc-display-near-point (format-string &rest args)
-    ;;      "Display eldoc message near point."
-    ;;      (when format-string
-    ;;        (pos-tip-show (apply 'format format-string args) nil nil nil)))
-    ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
-  #+END_SRC
-
-  Company Mode Formatting
-
-  #+BEGIN_SRC emacs-lisp
-  ;; auto completion
-  (custom-set-faces
-   '(company-tooltip-common
-     ((t (:inherit company-tooltip :weight bold :underline nil))))
-   '(company-tooltip-common-selection
-     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-  (setq company-tooltip-limit 5
-   company-tooltip-align-annotations t
-   company-go-show-annotation t
-   company-tooltip-minimum 5)
-  #+END_SRC
 * Autocompletion
-  #+BEGIN_SRC emacs-lisp
-  (use-package company
-  :ensure t)
-  #+END_SRC
+** Company Mode
+   #+BEGIN_SRC emacs-lisp
+    (use-package company
+      :diminish
+      :ensure t)
+   #+END_SRC
+** Company Mode Formatting
+
+   #+BEGIN_SRC emacs-lisp
+   ;; auto completion
+   (custom-set-faces
+    '(company-tooltip-common
+      ((t (:inherit company-tooltip :weight bold :underline nil))))
+    '(company-tooltip-common-selection
+      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+   (setq company-tooltip-limit 5
+    company-tooltip-align-annotations t
+    company-go-show-annotation t
+    company-tooltip-minimum 5)
+   #+END_SRC
 * Misc
+** No scratch buffer at startup
+   #+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message nil)
 
+   #+END_SRC
 
-  save session
-  #+BEGIN_SRC emacs-lisp
+** Save session
+   #+BEGIN_SRC emacs-lisp
 (desktop-save-mode 1)
 
-  #+END_SRC
+   #+END_SRC
 
-  Quit ediff without prompt
-
-  #+BEGIN_SRC emacs-lisp
+** Quit ediff without prompt
+  
+   #+BEGIN_SRC emacs-lisp
 (defun disable-y-or-n-p (orig-fun &rest args)
   (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
     (apply orig-fun args)))
 (advice-add 'ediff-quit :around #'disable-y-or-n-p)
-  #+END_SRC
+   #+END_SRC
 
-  Kill processes without prompt
+** Kill processes without prompt
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
      (setq confirm-kill-processes nil)
-  #+END_SRC
+   #+END_SRC
 
-  No annoying prompts when creating a new file
+** No annoying prompts when creating a new file
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   (setq confirm-nonexistent-file-or-buffer nil
    helm-ff-newfile-prompt-p nil
   ido-create-new-buffer 'always)
-  #+END_SRC
-  #+BEGIN_SRC emacs-lisp
-    ; y/n is enough
-    (defalias 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+** y/n is enough
+   #+BEGIN_SRC emacs-lisp
+   (defalias 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+** UTF-8 Encoding
+   #+BEGIN_SRC emacs-lisp
+   (setq locale-coding-system 'utf-8) ; pretty
+   (set-terminal-coding-system 'utf-8) ; pretty
+   (set-keyboard-coding-system 'utf-8) ; pretty
+   (set-selection-coding-system 'utf-8) ; please
+   (prefer-coding-system 'utf-8) ; with sugar on top
+   (setq-default indent-tabs-mode nil)
 
-    ;; UTF-8 please
-    (setq locale-coding-system 'utf-8) ; pretty
-    (set-terminal-coding-system 'utf-8) ; pretty
-    (set-keyboard-coding-system 'utf-8) ; pretty
-    (set-selection-coding-system 'utf-8) ; please
-    (prefer-coding-system 'utf-8) ; with sugar on top
-    (setq-default indent-tabs-mode nil)
 
-    ;; unique buffer names when same file names
-    (setq uniquify-buffer-name-style 'forward)   
-
-  #+END_SRC
-  recent files
-  #+BEGIN_SRC emacs-lisp
+   #+END_SRC
+** Unique buffer names when same file names
+   #+BEGIN_SRC emacs-lisp
+   (setq uniquify-buffer-name-style 'forward)   
+   #+END_SRC
+** Recent files
+   #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
 
-  #+END_SRC  
-
-  disable lock files
-  #+BEGIN_SRC emacs-lisp
+   #+END_SRC  
+** Disable lock files
+   #+BEGIN_SRC emacs-lisp
 (setq create-lockfiles nil)
-  #+END_SRC
-  load local config file
+   #+END_SRC
+** Load local config file
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   ;;(defconst local-config-path "~/.spacemacs.d/local-config.org")
   ;;(if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
-  #+END_SRC
+   #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
+    :diminish
     :init (global-flycheck-mode))
   #+END_SRC
   
@@ -390,4 +421,28 @@
                  (goto-address-mode)))
    #+END_SRC
  
+* PDF Tools
+  #+BEGIN_SRC emacs-lisp
+(use-package pdf-tools
+:ensure t)
 
+  #+END_SRC
+* EditorConfig
+  #+BEGIN_SRC emacs-lisp
+    ;; (use-package editorconfig
+    ;;   :ensure t
+    ;;   :config
+    ;;   (editorconfig-mode 1))
+
+  #+END_SRC
+* Mode Line
+** [[https://github.com/myrjola/diminish.el][Diminish]]
+   hides minor modes in mode line
+   #+BEGIN_SRC emacs-lisp
+    (use-package diminish
+      :ensure t)
+   #+END_SRC
+** Hide Undo Tree
+   #+BEGIN_SRC emacs-lisp
+     (diminish 'undo-tree-mode)
+   #+END_SRC
