@@ -1,80 +1,17 @@
 #+TITLE: Configuration
 #+SUBTITLE: Some additional configuration
-* UI
-** Misc
-*** relative line numbers
-    #+BEGIN_SRC emacs-lisp
-     (setq display-line-numbers 'relative)
-
-    #+END_SRC  
-
-
-*** visual stuff
-    #+BEGIN_SRC emacs-lisp
-     (setq line-spacing 0.1)
-     (setq left-margin-width 2)
-     (setq right-margin-width 2)
-
-     ;; Turn off the blinking cursor
-     (blink-cursor-mode -1)
-
-    #+END_SRC
-
-*** Show matching parens
-    #+BEGIN_SRC emacs-lisp
-     (setq show-paren-delay 0)
-     (show-paren-mode 1)
-    #+END_SRC
-
-*** show eldoc near point
-    buggy, doesn't display current arguments
-    disabled for now
-
-    #+BEGIN_SRC emacs-lisp
-     ;;     (defun nri/eldoc-display-near-point (format-string &rest args)
-     ;;      "Display eldoc message near point."
-     ;;      (when format-string
-     ;;        (pos-tip-show (apply 'format format-string args) nil nil nil)))
-     ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
-    #+END_SRC
-
-** Theme
-   Xresources
+* Applications
+** Anki
    #+BEGIN_SRC emacs-lisp
-     (use-package xresources-theme
-     :ensure t)
-
-   #+END_SRC
-   solarized-theme https://github.com/bbatsov/solarized-emacs
-   #+BEGIN_SRC emacs-lisp
-     (use-package solarized-theme
-       :defer 10
-       :init
-       (setq solarized-use-variable-pitch nil)
+     (use-package anki-editor
        :ensure t)
-     (load-theme 'solarized-dark)
    #+END_SRC
-** Scrolling
+** PDF Viewer
    #+BEGIN_SRC emacs-lisp
-     (setq scroll-step 1
-           scroll-conservatively 10000)
-
-   #+END_SRC
-   color coding
-   #+BEGIN_SRC emacs-lisp
-     (use-package rainbow-mode
-       :init
-       :diminish
-       (rainbow-mode t)
+     (use-package pdf-tools
        :ensure t)
 
    #+END_SRC
-* Anki
-  #+BEGIN_SRC emacs-lisp
-    (use-package anki-editor
-      :ensure t)
-
-  #+END_SRC
 * Ivy/Swiper/Counsel
   #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -86,7 +23,8 @@
     :ensure t)
   #+END_SRC
 * Evil
-** [[https://github.com/emacs-evil/evil][Evil Mode]] 
+** Evil Mode 
+   https://github.com/emacs-evil/evi
    #+BEGIN_SRC emacs-lisp
     (use-package evil
       :ensure t
@@ -123,26 +61,12 @@
       (evilnc-default-hotkeys))
    #+END_SRC
 
-* Which-Key
-  https://github.com/justbur/emacs-which-key
-  #+BEGIN_SRC emacs-lisp
-    (use-package which-key
-      :ensure t
-      :diminish
-      :init
-      (setq which-key-separator " ")
-      (setq which-key-prefix-prefix "+")
-      :config
-      (setq which-key-idle-delay 0.3)
-      (which-key-mode 1))
-  #+END_SRC
-
 * Org
   #+BEGIN_SRC emacs-lisp
     ;; show entities as UTF8 characters
     (setq org-pretty-entities t)
 
-    ;; (setq org-ellipsis "▼")
+    ;;(setq org-ellipsis "  ")
     
     (setq org-hide-emphasis-markers t)
     
@@ -155,8 +79,9 @@
   #+END_SRC
 
 * Keybindings
-  https://github.com/noctuid/general.el/
-  #+BEGIN_SRC emacs-lisp
+** Leader Menu
+   https://github.com/noctuid/general.el/
+   #+BEGIN_SRC emacs-lisp
   (use-package general
     :ensure t
     :config
@@ -168,7 +93,7 @@
      "SPC" '(counsel-M-x :which-key "commands")
      
      "TAB" '(mode-line-other-buffer :which-key "previous")
-     "'" '(ansi-term "/bin/zsh" :which-key "term")
+     "'" '(ansi-term "zsh" :which-key "term")
      
      "/" '(swiper :which-key "search")
      
@@ -206,7 +131,7 @@
 
     ))
 
-  #+END_SRC
+   #+END_SRC
 ** General
 
    Number incrementing
@@ -220,6 +145,20 @@
 
    #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-i") 'evil-jump-forward)
+   #+END_SRC
+
+** Which-Key
+   [[[[https://github.com/justbur/emacs-which-key]]][Which Key]] shows available keybindings
+   #+BEGIN_SRC emacs-lisp
+     (use-package which-key
+       :ensure t
+       :diminish
+       :init
+       (setq which-key-separator " ")
+       (setq which-key-prefix-prefix "+")
+       :config
+       (setq which-key-idle-delay 0.3)
+       (which-key-mode 1))
    #+END_SRC
 
 * Autocompletion
@@ -321,18 +260,32 @@
     :init (global-flycheck-mode))
   #+END_SRC
   
-* TODOS
+* EditorConfig
+  #+BEGIN_SRC emacs-lisp
+     (use-package editorconfig
+       :ensure t
+       :diminish
+       :config
+       (editorconfig-mode 1))
+
+  #+END_SRC
+* Git
+** Magit
+   https://github.com/magit/magit
+   #+BEGIN_SRC emacs-lisp
+     (use-package magit
+       :ensure t)
+   #+END_SRC
+** Start commit message in insert mode
+   #+BEGIN_SRC emacs-lisp
+(add-hook 'git-commit-mode-hook 'evil-insert-state)
+   #+END_SRC
+
+* Unfinished
 ** Plantuml
    #+BEGIN_SRC emacs-lisp
-  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+     (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
    #+END_SRC
-** Git
-
-   start commit message in insert mode
-   #+BEGIN_SRC emacs-lisp
- (add-hook 'git-commit-mode-hook 'evil-insert-state)
-   #+END_SRC
-
 ** E-Mail
 ** Mode line
 
@@ -421,28 +374,81 @@
                  (goto-address-mode)))
    #+END_SRC
  
-* PDF Tools
-  #+BEGIN_SRC emacs-lisp
-(use-package pdf-tools
-:ensure t)
+* UI
+** Misc
+*** relative line numbers
+    #+BEGIN_SRC emacs-lisp
+     (setq display-line-numbers 'relative)
+    #+END_SRC  
+*** visual stuff
+    #+BEGIN_SRC emacs-lisp
+     (setq line-spacing 0.1)
+     (setq left-margin-width 2)
+     (setq right-margin-width 2)
 
-  #+END_SRC
-* EditorConfig
-  #+BEGIN_SRC emacs-lisp
-    ;; (use-package editorconfig
-    ;;   :ensure t
-    ;;   :config
-    ;;   (editorconfig-mode 1))
+     ;; Turn off the blinking cursor
+     (blink-cursor-mode -1)
+    #+END_SRC
+*** Show matching parens
+    #+BEGIN_SRC emacs-lisp
+     (setq show-paren-delay 0)
+     (show-paren-mode 1)
+    #+END_SRC
+*** show eldoc near point
+    buggy, doesn't display current arguments
+    disabled for now
 
-  #+END_SRC
-* Mode Line
-** [[https://github.com/myrjola/diminish.el][Diminish]]
-   hides minor modes in mode line
+    #+BEGIN_SRC emacs-lisp
+     ;;     (defun nri/eldoc-display-near-point (format-string &rest args)
+     ;;      "Display eldoc message near point."
+     ;;      (when format-string
+     ;;        (pos-tip-show (apply 'format format-string args) nil nil nil)))
+     ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
+    #+END_SRC
+
+** Theme
+   Xresources
    #+BEGIN_SRC emacs-lisp
-    (use-package diminish
-      :ensure t)
+     (use-package xresources-theme
+     :ensure t)
    #+END_SRC
-** Hide Undo Tree
+   solarized-theme https://github.com/bbatsov/solarized-emacs
    #+BEGIN_SRC emacs-lisp
-     (diminish 'undo-tree-mode)
+     (use-package solarized-theme
+       :defer 10
+       :init
+       (setq solarized-use-variable-pitch nil)
+       :ensure t)
+     (load-theme 'solarized-dark)
    #+END_SRC
+** Scrolling
+   #+BEGIN_SRC emacs-lisp
+     (setq scroll-step 1
+           scroll-conservatively 10000)
+
+   #+END_SRC
+   color coding
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-mode
+       :init
+       :diminish
+       (rainbow-mode t)
+       :ensure t)
+
+   #+END_SRC
+** Mode Line
+*** Diminish
+    [[https://github.com/myrjola/diminish.el][Diminish]] hides modes in the mode line
+    #+BEGIN_SRC emacs-lisp
+     (use-package diminish
+       :ensure t)
+    #+END_SRC
+**** Diminish Undo-Tree
+     #+BEGIN_SRC emacs-lisp
+       (diminish 'undo-tree-mode)
+     #+END_SRC
+**** Diminish Auto-Revert
+ #+BEGIN_SRC emacs-lisp
+ (diminish 'auto-revert-mode)
+ #+END_SRC
+
