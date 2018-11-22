@@ -62,14 +62,14 @@ client.background       $bg
 # Workspaces {{{
 
 # terminal
-set_from_resource $wsp1 workspace.1.name
-set_from_resource $wsp2 workspace.2.name
-set_from_resource $wsp3 workspace.3.name
-set_from_resource $wsp4 workspace.4.name
-set_from_resource $wsp5 workspace.5.name
-set_from_resource $wsp6 workspace.6.name
-set_from_resource $wsp7 workspace.7.name
-set_from_resource $wsp8 workspace.8.name
+set $wsp1 1:terminal
+set $wsp2 2:browser
+set $wsp3 3:dev
+set $wsp4 4:mail
+set $wsp5 5:misc
+set $wsp6 6:media
+set $wsp7 7:music
+set $wsp8 8:games
 
 # assignments
 
@@ -275,26 +275,25 @@ mode $media {
 
 # Bar {{{
 
-#bar {
-#    mode hide
-#    status_command i3blocks
-#    tray_output primary
-#    modifier $mod
-#    colors {
-#        #color class       border  back.   text
-#        focused_workspace #000000 #000000 #ffffff
-#        inactive_workspace #000000 #000000 #888888
-#        active_workspace #212121 #212121 #ffffff
-#        urgent_workspace #a30000 #000000 #ffffff
-#    }
-#}
+bar {
+    mode hide
+    status_command i3blocks
+    tray_output primary
+    modifier $mod
+    colors {
+        #color class       border  back.   text
+        focused_workspace #00000008 #00000008 #ffffff
+        inactive_workspace #00000008 #00000008 #888888
+        active_workspace #21212108 #21212108 #ffffff
+        urgent_workspace #a3000008 #00000008 #ffffff
+    }
+}
 
 # }}}
 
-exec --no-startup-id kdeconnect-indicator
+# exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
-exec --no-startup-id ~/bin/keyboard_settings.sh
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
@@ -302,10 +301,9 @@ exec --no-startup-id termite
 exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
 exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
 exec --no-startup-id thunderbird
-exec --no-startup-id plasma-browser-integration-host
+#exec --no-startup-id plasma-browser-integration-host
 # exec --no-startup-id steam
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 
 for_window [class="^.*"] border pixel 0 
