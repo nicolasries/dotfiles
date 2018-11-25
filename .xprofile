@@ -1,5 +1,5 @@
 #!/bin/bash
-# is sourced natively by most Display Managers
+# is sourced natively by most Display Managers like LightDM
 # also is sourced in ~/.xinitrc
 
 

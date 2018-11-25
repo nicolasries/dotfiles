@@ -125,8 +125,8 @@ bindsym $mod+Return exec termite
 # kill focused window
 bindsym $mod+q kill
 
-# set $menu "rofi -combi-modi window#drun#run -show combi"
-set $menu rofi -show run
+set $menu rofi -combi-modi window,drun,run -show combi
+#set $menu rofi -show run
 # bindsym $mod+d exec $menu
 bindsym $mod+d exec rofi -show run
 
@@ -278,7 +278,8 @@ mode $media {
 bar {
     mode hide
     status_command i3blocks
-    tray_output primary
+    # not working yet in sway
+    # tray_output primary
     modifier $mod
     colors {
         #color class       border  back.   text
@@ -286,14 +287,16 @@ bar {
         inactive_workspace #00000008 #00000008 #888888
         active_workspace #21212108 #21212108 #ffffff
         urgent_workspace #a3000008 #00000008 #ffffff
+        statusline #aaaaaa
+        background #00000008
     }
 }
 
 # }}}
 
+#{{{ Startup Programs
 # exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
-exec --no-startup-id redshift-gtk
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
@@ -303,6 +306,7 @@ exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
 exec --no-startup-id thunderbird
 #exec --no-startup-id plasma-browser-integration-host
 # exec --no-startup-id steam
+#}}}
 
 
 
@@ -317,12 +321,18 @@ gaps outer 0
 # smart_borders on
 new_window none
 
-
-# Keyboard Settings
-#input * {
-#xkb_layout us,de
-#xkb_options grp:alt_shift_toggle caps:escape
-#}
-
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+# keyboard settings (needs sway >1.0)
+input * {
+  repeat_rate 50
+  repeat_delay 300
+  xkb_layout us,de
+  xkb_options grp:win_space_toggle,caps:escape
+
+  # touchpad
+  tap enabled
+}
+
+
 
