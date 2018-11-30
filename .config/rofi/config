@@ -1,4 +1,4 @@
-rofi.modi: window,drun
+rofi.modi: window,drun,run,combi
 
 
 rofi.lines: 3
