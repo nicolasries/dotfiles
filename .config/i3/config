@@ -233,7 +233,7 @@ exec --no-startup-id blueman-applet
 # exec --no-startup-id firefox
 exec --no-startup-id termite
 # exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
-exec --no-startup-id i3-msg 'workspace $wsp7; exec spotify;'
+exec --no-startup-id i3-msg 'exec spotify 2> /dev/null'
 exec --no-startup-id thunderbird
 # exec --no-startup-id plasma-browser-integration-host
 # exec --no-startup-id steam
@@ -280,6 +280,7 @@ exec --no-startup-id xset r rate 300 50
 
 #}}}
 
+set $transp "#0000007e"
 # Bar {{{
 
 bar {
@@ -290,8 +291,6 @@ bar {
     status_command i3blocks
     # tray_output primary
     modifier $mod
-    i3bar_command i3bar -t
-    set $transp #0000007e
     colors {
         #color class       border  back.   text
         focused_workspace $color1 $color1 #ffffff
@@ -314,8 +313,8 @@ hide_edge_borders both
 font pango:SourceCodePro 10
 
 # class                 border  backgr. text indicator child_border
-client.focused          $color1 $color1 #ffffff  $bg       $bg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
+#client.focused          $color1 $color1 #ffffff  $bg       $bg
+#client.focused_inactive $bg     $bg     $fg  $bg       $bg
 #client.unfocused        $bg     $bg     $fg  $bg       $bg
 #client.urgent           $bg     $bg     $fg  $bg       $bg
 #client.placeholder      $bg     $bg     $fg  $bg       $bg

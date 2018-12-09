@@ -26,3 +26,4 @@ for_window [app_id="^launcher$"] floating enable, border none
 #for_window [app_id="termite"] opacity 0.3
 bindsym $mod+z opacity 0.5
 bindsym $mod+shift+z opacity 1.0
+bindsym $mod+Shift+r reload
