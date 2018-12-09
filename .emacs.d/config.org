@@ -12,6 +12,11 @@
        :ensure t)
 
    #+END_SRC
+** Ranger
+   #+BEGIN_SRC emacs-lisp
+     (use-package ranger
+       :ensure t)
+   #+END_SRC
 * Ivy/Swiper/Counsel
   #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -24,7 +29,7 @@
   #+END_SRC
 * Evil
 ** Evil Mode 
-   https://github.com/emacs-evil/evi
+   https://github.com/emacs-evil/evil
    #+BEGIN_SRC emacs-lisp
     (use-package evil
       :ensure t
@@ -45,20 +50,20 @@
 ** Evil Collection
    https://github.com/emacs-evil/evil-collection
    #+BEGIN_SRC emacs-lisp
-    (use-package evil-collection
-      :after evil
-      :ensure t
-      :config
-      (evil-collection-init))
+     (use-package evil-collection
+       :after evil
+       :ensure t
+       :config
+       (evil-collection-init))
    #+END_SRC
 ** Evil Nerd Commenter
    https://github.com/redguardtoo/evil-nerd-commenter
    #+BEGIN_SRC emacs-lisp
-    (use-package evil-nerd-commenter
-      :after evil
-      :ensure t
-      :config
-      (evilnc-default-hotkeys))
+     (use-package evil-nerd-commenter
+       :after evil
+       :ensure t
+       :config
+       (evilnc-default-hotkeys))
    #+END_SRC
 
 * Org
@@ -73,9 +78,12 @@
     (use-package org-bullets
     :ensure t
     :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    )
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  #+END_SRC
 
+  #+BEGIN_SRC emacs-lisp
+(use-package ox-reveal
+:ensure t)
   #+END_SRC
 
 * Keybindings
@@ -93,7 +101,7 @@
      "SPC" '(counsel-M-x :which-key "commands")
      
      "TAB" '(mode-line-other-buffer :which-key "previous")
-     "'" '(ansi-term "zsh" :which-key "term")
+     "'" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
      
      "/" '(swiper :which-key "search")
      
@@ -172,46 +180,43 @@
 
    #+BEGIN_SRC emacs-lisp
    ;; auto completion
-   (custom-set-faces
-    '(company-tooltip-common
-      ((t (:inherit company-tooltip :weight bold :underline nil))))
-    '(company-tooltip-common-selection
-      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-   (setq company-tooltip-limit 5
-    company-tooltip-align-annotations t
-    company-go-show-annotation t
-    company-tooltip-minimum 5)
+   ;;(custom-set-faces
+   ;;'(company-tooltip-common
+   ;;  ((t (:inherit company-tooltip :weight bold :underline nil))))
+   ;; '(company-tooltip-common-selection
+    ;;  ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+   ;;(setq company-tooltip-limit 5
+   ;; company-tooltip-align-annotations t
+   ;; company-go-show-annotation t
+   ;; company-tooltip-minimum 5)
    #+END_SRC
 * Misc
 ** No scratch buffer at startup
    #+BEGIN_SRC emacs-lisp
-(setq initial-scratch-message nil)
-
+     (setq initial-scratch-message nil)
    #+END_SRC
-
+** Seperate Custom File
+   #+BEGIN_SRC emacs-lisp
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load-file custom-file)
+   #+END_SRC
 ** Save session
    #+BEGIN_SRC emacs-lisp
-(desktop-save-mode 1)
-
+     (desktop-save-mode 1)
    #+END_SRC
-
 ** Quit ediff without prompt
-  
    #+BEGIN_SRC emacs-lisp
-(defun disable-y-or-n-p (orig-fun &rest args)
-  (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
-    (apply orig-fun args)))
-(advice-add 'ediff-quit :around #'disable-y-or-n-p)
+     (defun disable-y-or-n-p (orig-fun &rest args)
+       (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+         (apply orig-fun args)))
+     (advice-add 'ediff-quit :around #'disable-y-or-n-p)
    #+END_SRC
 
-** Kill processes without prompt
-
+** Kill processes without prompt when quitting
    #+BEGIN_SRC emacs-lisp
      (setq confirm-kill-processes nil)
    #+END_SRC
-
 ** No annoying prompts when creating a new file
-
    #+BEGIN_SRC emacs-lisp
   (setq confirm-nonexistent-file-or-buffer nil
    helm-ff-newfile-prompt-p nil
@@ -229,8 +234,6 @@
    (set-selection-coding-system 'utf-8) ; please
    (prefer-coding-system 'utf-8) ; with sugar on top
    (setq-default indent-tabs-mode nil)
-
-
    #+END_SRC
 ** Unique buffer names when same file names
    #+BEGIN_SRC emacs-lisp
@@ -240,11 +243,10 @@
    #+BEGIN_SRC emacs-lisp
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
-
    #+END_SRC  
 ** Disable lock files
    #+BEGIN_SRC emacs-lisp
-(setq create-lockfiles nil)
+     (setq create-lockfiles nil)
    #+END_SRC
 ** Load local config file
 
@@ -259,7 +261,6 @@
     :diminish
     :init (global-flycheck-mode))
   #+END_SRC
-  
 * EditorConfig
   #+BEGIN_SRC emacs-lisp
      (use-package editorconfig
@@ -267,7 +268,6 @@
        :diminish
        :config
        (editorconfig-mode 1))
-
   #+END_SRC
 * Git
 ** Magit
@@ -278,7 +278,7 @@
    #+END_SRC
 ** Start commit message in insert mode
    #+BEGIN_SRC emacs-lisp
-(add-hook 'git-commit-mode-hook 'evil-insert-state)
+     (add-hook 'git-commit-mode-hook 'evil-insert-state)
    #+END_SRC
 
 * Unfinished
@@ -406,6 +406,12 @@
      ;; (setq eldoc-message-function #'nri/eldoc-display-near-point)
     #+END_SRC
 
+*** transparency
+    #+BEGIN_SRC emacs-lisp
+ 
+;(set-frame-parameter (selected-frame) 'alpha '(85 50))
+;(add-to-list 'default-frame-alist '(alpha 85 50))
+    #+END_SRC
 ** Theme
    Xresources
    #+BEGIN_SRC emacs-lisp
@@ -430,8 +436,8 @@
    color coding
    #+BEGIN_SRC emacs-lisp
      (use-package rainbow-mode
-       :init
        :diminish
+       :config
        (rainbow-mode t)
        :ensure t)
 
@@ -448,7 +454,7 @@
        (diminish 'undo-tree-mode)
      #+END_SRC
 **** Diminish Auto-Revert
- #+BEGIN_SRC emacs-lisp
+     #+BEGIN_SRC emacs-lisp
  (diminish 'auto-revert-mode)
- #+END_SRC
+     #+END_SRC
 

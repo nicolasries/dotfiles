@@ -1,13 +1,14 @@
 rofi.modi: window,drun,run,combi
 
 
-rofi.lines: 3
+rofi.lines: 5
 rofi.hide-scrollbar: true
 rofi.bw: 0
 rofi.separator-style: none
 rofi.width: 20
 rofi.show-icons: true
-rofi.theme: arthur
+!rofi.theme: arthur
+rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
 ! rofi.drun-icon-theme: breeze-dark
 
 rofi.color-enabled: true

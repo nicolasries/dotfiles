@@ -1,3 +1,4 @@
+include $HOME/.cache/wal/colors-sway
 include $HOME/.config/i3/config
 # output * bg "~/Cloud/Bilder/Wallpapers/desktop/blade runner 2049.jpg" fill
 
@@ -23,3 +24,5 @@ output DVI-I-1 position 0 0
 bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
 for_window [app_id="^launcher$"] floating enable, border none
 #for_window [app_id="termite"] opacity 0.3
+bindsym $mod+z opacity 0.5
+bindsym $mod+shift+z opacity 1.0
