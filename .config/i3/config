@@ -11,7 +11,6 @@ workspace_layout default
 
 #}}}
 
-
 # Workspaces {{{
 
 set $wsp1 1:terminal
@@ -241,68 +240,43 @@ exec --no-startup-id emacs
 # }}}
 
 # for_window [class="^.*"] border pixel 0 
-default_border pixel 0
+#default_border pixel 0
 
 for_window [title="Android Emulator*"] floating enable
 
 
 # Gaps
-gaps inner 0
-gaps outer 0
+#smart_gaps on
+gaps inner 25
+gaps outer 25
 # smart_borders on
-new_window none
+# new_window none
 
 
-#{{{ i3 specific config
-# doesn't work on sway
-
-# Set colors from Xresources
-# Change 'color7' and 'color2' to whatever colors you want i3 to use 
-# from the generated scheme.
-# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
-# it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color7 
-set_from_resource $bg i3wm.color2
-set_from_resource $color1 i3wm.color1
-set_from_resource $color2 i3wm.color2
-set_from_resource $color3 i3wm.color3
-set_from_resource $color4 i3wm.color4
-set_from_resource $color5 i3wm.color5
-set_from_resource $color6 i3wm.color6
-set_from_resource $color7 i3wm.color7
-set_from_resource $color8 i3wm.color8
-set_from_resource $color9 i3wm.color9
-
-# Keyboard Settings
-exec --no-startup-id setxkbmap us,de -option caps:escape -option grp:win_space_toggle
-# keyboard rate 200 delay, 30hz refresh
-exec --no-startup-id xset r rate 300 50
-
-#}}}
 
 set $transp "#0000007e"
-# Bar {{{
+## Bar {{{
 
-bar {
-    # hide numbers in workspace names
-    strip_workspace_numbers yes
-    position top
-    # mode hide
-    status_command i3blocks
-    # tray_output primary
-    modifier $mod
-    colors {
-        #color class       border  back.   text
-        focused_workspace $color1 $color1 #ffffff
-        inactive_workspace $transp $transp #ffffff
-        active_workspace $color3 $color3 #ffffff
-        urgent_workspace #a30000 #000000 #ffffff
-        statusline #aaaaaa
-        background $transp
-    }
-}
+#bar {
+#    # hide numbers in workspace names
+#    strip_workspace_numbers yes
+#    position top
+#    # mode hide
+#    status_command i3blocks
+#    # tray_output primary
+#    modifier $mod
+#    colors {
+#        #color class       border  back.   text
+#        # focused_workspace $color1 $color1 #ffffff
+#        # inactive_workspace $transp $transp #ffffff
+#        # active_workspace $color3 $color3 #ffffff
+#        # urgent_workspace #a30000 #000000 #ffffff
+#        # statusline #aaaaaa
+#        # background $transp
+#    }
+#}
 
-# }}}
+## }}}
 
 # Visuals {{{
 

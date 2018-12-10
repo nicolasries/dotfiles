@@ -191,6 +191,10 @@
    ;; company-tooltip-minimum 5)
    #+END_SRC
 * Misc
+** Reload changed files automatically
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode)
+#+END_SRC
 ** No scratch buffer at startup
    #+BEGIN_SRC emacs-lisp
      (setq initial-scratch-message nil)

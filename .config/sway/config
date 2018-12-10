@@ -1,6 +1,257 @@
-include $HOME/.cache/wal/colors-sway
-include $HOME/.config/i3/config
-# output * bg "~/Cloud/Bilder/Wallpapers/desktop/blade runner 2049.jpg" fill
+# General {{{
+
+# no mouse focus
+focus_follows_mouse no
+
+# disable mouse switch when focusing different window
+mouse_warping none
+
+# split as default layout
+workspace_layout default
+
+#}}}
+
+# Workspaces {{{
+
+set $wsp1 1:terminal
+set $wsp2 2:browser
+set $wsp3 3:dev
+set $wsp4 4:mail
+set $wsp5 5:misc
+set $wsp6 6:media
+set $wsp7 7:music
+set $wsp8 8:games
+
+# assignments
+
+assign [class="Emacs"] $wsp1
+
+# browser
+assign [class="^Chromium$" instance="^chromium$"] $wsp2
+assign [class="Firefox"] $wsp2
+
+# dev stuff
+assign [class="NetBeans IDE"] $wsp3
+assign [class="^jetbrains-.*$"] $wsp3
+assign [class="^QtCreator$"] $wsp3
+assign [class="Godot"] $wsp3
+
+# mail
+assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
+
+# misc
+assign [class="^JDownloader$"] $wsp5
+assign [title="XMind"] $wsp5
+assign [class="libreoffice"] $wsp5
+assign [class="^Skype$"] $wsp5
+assign [class="^Anki$"] $wsp5
+assign [class="^calibre$"] $wsp5
+
+# media 
+assign [class="^Kodi$" instance="^Kodi$"] $wsp6
+assign [class="^mpv$" instance="^gl$"] $wsp6
+
+# music
+# workaround for spotify assignment
+for_window [class="Spotify"] move to workspace $wsp7
+
+# games
+assign [class="^Steam$" instance="^Steam$"] $wsp8
+assign [class="dolphin-emu"] $wsp8
+assign [class="MTGA"] $wsp8
+
+# }}}
+
+# Keybindings {{{
+
+# Mod Key == Alt
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec termite
+
+# kill focused window
+bindsym $mod+q kill
+
+bindsym $mod+d exec $HOME/bin/rofi_launch.sh
+
+# bindsym $mod+d exec dmenu_run
+
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $mod+XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym $mod+XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+XF86AudioPrev exec playerctl previous
+
+
+# variables for directions
+set $left h
+set $down j
+set $up k
+set $right l
+
+# change focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+
+bindsym $mod+x move workspace to output left
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $wsp1
+bindsym $mod+2 workspace $wsp2
+bindsym $mod+3 workspace $wsp3
+bindsym $mod+4 workspace $wsp4
+bindsym $mod+5 workspace $wsp5
+bindsym $mod+6 workspace $wsp6
+bindsym $mod+7 workspace $wsp7
+bindsym $mod+8 workspace $wsp8
+# bindsym $mod+9 workspace $wsp9
+# bindsym $mod+0 workspace $wsp10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wsp1
+bindsym $mod+Shift+2 move container to workspace $wsp2
+bindsym $mod+Shift+3 move container to workspace $wsp3
+bindsym $mod+Shift+4 move container to workspace $wsp4
+bindsym $mod+Shift+5 move container to workspace $wsp5
+bindsym $mod+Shift+6 move container to workspace $wsp6
+bindsym $mod+Shift+7 move container to workspace $wsp7
+bindsym $mod+Shift+8 move container to workspace $wsp8
+# bindsym $mod+Shift+9 move container to workspace $wsp9
+# bindsym $mod+Shift+0 move container to workspace $wsp10
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+bindsym $mod+r mode "resize"
+bindsym $mod+m mode $media
+bindsym $mod+i mode "Inert"
+
+bindsym $mod+Shift+s sticky toggle
+
+# }}}
+
+# {{{ Modes
+
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left resize shrink width 10 px or 10 ppt
+        bindsym $right resize grow width 10 px or 10 ppt
+        bindsym $down resize grow height 10 px or 10 ppt
+        bindsym $up resize shrink height 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#### Inert mode ####
+# This mode bypasses all i3wm keys in case of compabillity problems:
+mode "Inert" {
+        bindsym $mod+Escape mode "default"
+}
+
+
+set $media "media (h) prev (l) next"
+mode $media {
+        bindsym h exec 'playerctl pause'
+    
+        bindsym Escape mode "default"
+}
+
+
+# }}}
+
+
+# {{{ Startup Programs
+# exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id nm-applet
+# exec --no-startup-id redshift-gtk
+# exec --no-startup-id ~/bin/keyboard_settings.sh
+exec --no-startup-id dunst
+exec --no-startup-id blueman-applet
+# exec --no-startup-id firefox
+exec --no-startup-id termite
+# exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
+exec --no-startup-id i3-msg 'exec spotify 2> /dev/null'
+exec --no-startup-id thunderbird
+# exec --no-startup-id plasma-browser-integration-host
+# exec --no-startup-id steam
+exec --no-startup-id emacs
+# }}}
+
+# for_window [class="^.*"] border pixel 0 
+#default_border pixel 0
+
+for_window [title="Android Emulator*"] floating enable
+
+
+# Gaps
+smart_gaps on
+gaps inner 25
+gaps outer 25
+# smart_borders on
+new_window none
+
 
 # keyboard settings (needs sway >1.0)
 input * {
@@ -21,9 +272,53 @@ output * bg $wallpaper fill
 output HDMI-A-1 position 1920 0
 output DVI-I-1 position 0 0
 
+# Launcher
 bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
 for_window [app_id="^launcher$"] floating enable, border none
-#for_window [app_id="termite"] opacity 0.3
+
 bindsym $mod+z opacity 0.5
 bindsym $mod+shift+z opacity 1.0
 bindsym $mod+Shift+r reload
+# Visuals {{{
+
+# no borders
+#hide_edge_borders both
+# new_window pixel 1
+
+font pango:SourceCodePro 10
+
+# class                 border  backgr. text indicator child_border
+client.focused          $color1 $color1 #ffffff  $color1       $color1
+#client.focused_inactive $bg     $bg     $fg  $bg       $bg
+#client.unfocused        $bg     $bg     $fg  $bg       $bg
+#client.urgent           $bg     $bg     $fg  $bg       $bg
+#client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+#client.background       $bg
+
+
+# }}}
+# Bar {{{
+
+set $transp "#0000007e"
+bar {
+    # hide numbers in workspace names
+    strip_workspace_numbers yes
+    position top
+    # mode hide
+    status_command i3blocks
+    # tray_output primary
+    modifier $mod
+    colors {
+        #color class       border  back.   text
+        focused_workspace $color1 $color1 #ffffff
+        inactive_workspace $transp $transp #ffffff
+        active_workspace $color3 $color3 #ffffff
+        urgent_workspace #a30000 #000000 #ffffff
+        statusline #aaaaaa
+        background $transp
+    }
+}
+
+# }}}
+
