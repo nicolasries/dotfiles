@@ -94,7 +94,7 @@ function docker-ip {
 # }}}
 
 # pywal
-# cat ~/.cache/wal/sequences
+cat ~/.cache/wal/sequences
 
 # case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'

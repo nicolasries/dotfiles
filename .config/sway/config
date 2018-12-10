@@ -169,10 +169,9 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 # bindsym $mod+Shift+9 move container to workspace $wsp9
 # bindsym $mod+Shift+0 move container to workspace $wsp10
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "swaymsg exit"
 
 
 bindsym $mod+r mode "resize"
@@ -240,7 +239,7 @@ exec --no-startup-id emacs
 # }}}
 
 # for_window [class="^.*"] border pixel 0 
-#default_border pixel 0
+default_border pixel
 
 for_window [title="Android Emulator*"] floating enable
 
@@ -250,7 +249,7 @@ smart_gaps on
 gaps inner 25
 gaps outer 25
 # smart_borders on
-new_window none
+# new_window none
 
 
 # keyboard settings (needs sway >1.0)
@@ -283,12 +282,15 @@ bindsym $mod+Shift+r reload
 
 # no borders
 #hide_edge_borders both
+
+# borders if more than 1 child
+smart_borders on
 # new_window pixel 1
 
 font pango:SourceCodePro 10
 
 # class                 border  backgr. text indicator child_border
-client.focused          $color1 $color1 #ffffff  $color1       $color1
+client.focused          $color1 $color1 #ffffff  $color1       $color2
 #client.focused_inactive $bg     $bg     $fg  $bg       $bg
 #client.unfocused        $bg     $bg     $fg  $bg       $bg
 #client.urgent           $bg     $bg     $fg  $bg       $bg
