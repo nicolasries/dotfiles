@@ -34,19 +34,22 @@ align=center
 command=$HOME/.config/sway/bar/mpris/player-mpris-tail.py
 interval=persist
 
+[vol]
+command=$HOME/.config/sway/bar/pulseaudio/pa-tail.sh
+interval=persist
 
-# Volume indicator
-#
-# The first parameter sets the step (and units to display)
-# The second parameter overrides the mixer selection
-# See the script for details.
-[volume]
-label=VOL
-#label=♪
-instance=Master
-#instance=PCM
-interval=once
-signal=10
+## Volume indicator
+##
+## The first parameter sets the step (and units to display)
+## The second parameter overrides the mixer selection
+## See the script for details.
+#[volume]
+#label=VOL
+##label=♪
+#instance=Master
+##instance=PCM
+#interval=once
+#signal=10
 
 # Memory usage
 #
@@ -85,7 +88,7 @@ interval=30
 # Date Time
 #
 [time]
-command=date '+%Y-%m-%d %H:%M'
+command=date '+%d/%m/%Y %H:%M'
 interval=15
 
 # Generic media player support
@@ -118,10 +121,10 @@ interval=15
 #
 # bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 # bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-[keyindicator]
-instance=CAPS
-interval=once
-signal=11
+# [keyindicator]
+# instance=CAPS
+# interval=once
+# signal=11
 
 #[keyindicator]
 #instance=NUM

@@ -83,8 +83,6 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-
-
 # Sreen brightness controls
 bindsym XF86MonBrightnessDown exec light -U 10
 bindsym XF86MonBrightnessUp exec light -A 10
@@ -244,9 +242,8 @@ for_window [title="Android Emulator*"] floating enable
 smart_gaps on
 gaps inner 25
 gaps outer 25
-# smart_borders on
-# new_window none
 
+# {{{ Sway Settings
 
 # keyboard settings (needs sway >1.0)
 input * {
@@ -257,7 +254,12 @@ input * {
 
   # touchpad
   tap enabled
+
 }
+
+bindsym $mod+z opacity 0.5
+bindsym $mod+shift+z opacity 1.0
+bindsym $mod+Shift+r reload
 
 # Pywal
 include $HOME/.cache/wal/colors-sway
@@ -266,14 +268,13 @@ output * bg $wallpaper fill
 # Monitor
 output HDMI-A-1 position 1920 0
 output DVI-I-1 position 0 0
+# }}}
+
 
 # Launcher
 bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
 for_window [app_id="^launcher$"] floating enable, border none
 
-bindsym $mod+z opacity 0.5
-bindsym $mod+shift+z opacity 1.0
-bindsym $mod+Shift+r reload
 # Visuals {{{
 
 # no borders
@@ -312,7 +313,7 @@ bar {
         focused_workspace $color1 $color1 #ffffff
         inactive_workspace $transp $transp #ffffff
         active_workspace $color3 $color3 #ffffff
-        urgent_workspace #a30000 #000000 #ffffff
+        urgent_workspace #a30000 $transp #ffffff
         statusline #aaaaaa
         background $transp
     }

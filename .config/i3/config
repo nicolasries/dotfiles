@@ -78,17 +78,14 @@ bindsym $mod+q kill
 
 bindsym $mod+d exec $HOME/bin/rofi_launch.sh
 
-# bindsym $mod+d exec dmenu_run
-
-
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -239,45 +236,30 @@ exec --no-startup-id thunderbird
 exec --no-startup-id emacs
 # }}}
 
-# for_window [class="^.*"] border pixel 0 
-#default_border pixel 0
+default_border pixel
 
 for_window [title="Android Emulator*"] floating enable
 
 
 # Gaps
-#smart_gaps on
+smart_gaps on
 gaps inner 25
 gaps outer 25
-# smart_borders on
-# new_window none
 
+# {{{ i3 Settings
+set_from_resource $color1 i3wm.color1
+set_from_resource $color2 i3wm.color2
+set_from_resource $color3 i3wm.color3
+set_from_resource $color4 i3wm.color4
+set_from_resource $color5 i3wm.color5
+set_from_resource $color6 i3wm.color6
+set_from_resource $color7 i3wm.color7
+set_from_resource $color8 i3wm.color8
+set_from_resource $color9 i3wm.color9
+# }}}
 
 
 set $transp "#0000007e"
-## Bar {{{
-
-#bar {
-#    # hide numbers in workspace names
-#    strip_workspace_numbers yes
-#    position top
-#    # mode hide
-#    status_command i3blocks
-#    # tray_output primary
-#    modifier $mod
-#    colors {
-#        #color class       border  back.   text
-#        # focused_workspace $color1 $color1 #ffffff
-#        # inactive_workspace $transp $transp #ffffff
-#        # active_workspace $color3 $color3 #ffffff
-#        # urgent_workspace #a30000 #000000 #ffffff
-#        # statusline #aaaaaa
-#        # background $transp
-#    }
-#}
-
-## }}}
-
 # Visuals {{{
 
 # no borders
@@ -287,7 +269,7 @@ hide_edge_borders both
 font pango:SourceCodePro 10
 
 # class                 border  backgr. text indicator child_border
-#client.focused          $color1 $color1 #ffffff  $bg       $bg
+client.focused          $color1 $color1 #ffffff $color1 $color1
 #client.focused_inactive $bg     $bg     $fg  $bg       $bg
 #client.unfocused        $bg     $bg     $fg  $bg       $bg
 #client.urgent           $bg     $bg     $fg  $bg       $bg
@@ -295,5 +277,27 @@ font pango:SourceCodePro 10
 
 #client.background       $bg
 
+
+# }}}
+# Bar {{{
+
+bar {
+    # hide numbers in workspace names
+    strip_workspace_numbers yes
+    position top
+    # mode hide
+    status_command i3blocks
+    # tray_output primary
+    modifier $mod
+    colors {
+        #color class       border  back.   text
+        focused_workspace $color1 $color1 #ffffff
+        # inactive_workspace $transp $transp #ffffff
+        # active_workspace $color3 $color3 #ffffff
+        # urgent_workspace #a30000 #000000 #ffffff
+        # statusline #aaaaaa
+        # background $transp
+    }
+}
 
 # }}}
