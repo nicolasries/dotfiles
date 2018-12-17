@@ -167,6 +167,7 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 # bindsym $mod+Shift+0 move container to workspace $wsp10
 
 bindsym $mod+Shift+e exec "swaymsg exit"
+bindsym $mod+Shift+r reload
 
 
 bindsym $mod+r mode "resize"
@@ -232,7 +233,6 @@ exec --no-startup-id thunderbird
 exec --no-startup-id emacs
 # }}}
 
-# for_window [class="^.*"] border pixel 0 
 default_border pixel
 
 for_window [title="Android Emulator*"] floating enable
@@ -259,7 +259,6 @@ input * {
 
 bindsym $mod+z opacity 0.5
 bindsym $mod+shift+z opacity 1.0
-bindsym $mod+Shift+r reload
 
 # Pywal
 include $HOME/.cache/wal/colors-sway
@@ -287,7 +286,7 @@ smart_borders on
 font pango:SourceCodePro 10
 
 # class                 border  backgr. text indicator child_border
-client.focused          $color1 $color1 #ffffff  $color1       $color2
+client.focused          $color1 $color1 #ffffff $color1 $color1
 #client.focused_inactive $bg     $bg     $fg  $bg       $bg
 #client.unfocused        $bg     $bg     $fg  $bg       $bg
 #client.urgent           $bg     $bg     $fg  $bg       $bg

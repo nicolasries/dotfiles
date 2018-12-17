@@ -166,10 +166,8 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 # bindsym $mod+Shift+9 move container to workspace $wsp9
 # bindsym $mod+Shift+0 move container to workspace $wsp10
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 
 bindsym $mod+r mode "resize"
@@ -228,8 +226,7 @@ exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 # exec --no-startup-id firefox
 exec --no-startup-id termite
-# exec --no-startup-id i3-msg 'workspace $wsp5; exec keepassx2;'
-exec --no-startup-id i3-msg 'exec spotify 2> /dev/null'
+exec --no-startup-id swaymsg 'workspace $wsp7;exec spotify 2> /dev/null'
 exec --no-startup-id thunderbird
 # exec --no-startup-id plasma-browser-integration-host
 # exec --no-startup-id steam
@@ -259,7 +256,6 @@ set_from_resource $color9 i3wm.color9
 # }}}
 
 
-set $transp "#0000007e"
 # Visuals {{{
 
 # no borders
@@ -281,6 +277,7 @@ client.focused          $color1 $color1 #ffffff $color1 $color1
 # }}}
 # Bar {{{
 
+set $transp "#0000007e"
 bar {
     # hide numbers in workspace names
     strip_workspace_numbers yes
@@ -292,12 +289,13 @@ bar {
     colors {
         #color class       border  back.   text
         focused_workspace $color1 $color1 #ffffff
-        # inactive_workspace $transp $transp #ffffff
-        # active_workspace $color3 $color3 #ffffff
-        # urgent_workspace #a30000 #000000 #ffffff
-        # statusline #aaaaaa
-        # background $transp
+        inactive_workspace $transp $transp #ffffff
+        active_workspace $color3 $color3 #ffffff
+        urgent_workspace #a30000 $transp #ffffff
+        statusline #aaaaaa
+        background $transp
     }
 }
 
 # }}}
+
