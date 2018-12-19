@@ -37,7 +37,9 @@ listen() {
     volume_print
 
     pactl subscribe | while read -r event; do
+        if echo "$event" | grep -q "sink";then
             volume_print
+        fi
     done
 }
 
