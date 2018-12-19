@@ -38,6 +38,11 @@ interval=persist
 command=$HOME/.config/sway/bar/pulseaudio/pa-tail.sh
 interval=persist
 
+[light]
+command=$HOME/.config/sway/bar/light/light.sh
+interval=once
+signal=5
+
 ## Volume indicator
 ##
 ## The first parameter sets the step (and units to display)

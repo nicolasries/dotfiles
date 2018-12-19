@@ -77,24 +77,23 @@ bindsym $mod+Return exec termite
 bindsym $mod+q kill
 
 bindsym $mod+d exec $HOME/bin/rofi_launch.sh
-set $volume_script $HOME/.config/sway/bar/pulseaudio/pa-tail.sh
 
 # Pulse Audio controls
+set $volume_script $HOME/.config/sway/bar/pulseaudio/pa-tail.sh
 bindsym XF86AudioRaiseVolume exec $volume_script --up
 bindsym XF86AudioLowerVolume exec $volume_script --down
 bindsym XF86AudioMute exec $volume_script --mute
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessDown exec light -U 10
-bindsym XF86MonBrightnessUp exec light -A 10
+# Screen brightness controls
+set $light_script $HOME/.config/sway/bar/light/light.sh
+bindsym XF86MonBrightnessDown exec $light_script --down
+bindsym XF86MonBrightnessUp exec $light_script --up
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym $mod+XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym $mod+XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+XF86AudioPrev exec playerctl previous
+set $player_script $HOME/.config/sway/bar/mpris/player-mpris-tail.py
+bindsym XF86AudioPlay exec $player_script play-pause
+bindsym XF86AudioNext exec $player_script next
+bindsym XF86AudioPrev exec $player_script previous
 
 
 # variables for directions
