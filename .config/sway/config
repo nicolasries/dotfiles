@@ -179,9 +179,7 @@ bindsym $mod+Shift+s sticky toggle
 
 # }}}
 
-# {{{ Modes
-
-
+# {{{ Resize Mode
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -199,22 +197,26 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-#### Inert mode ####
+# }}}
+#
+# {{{ Inert mode
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
         bindsym $mod+Escape mode "default"
 }
+# }}}
 
-
-set $media "media (h) prev (l) next"
+# {{{ Media Mode
+set $media "media (h) prev (j) vol down (k) vol up (l) next"
 mode $media {
-        bindsym h exec 'playerctl pause'
+        bindsym h exec $player_script previous
+        bindsym j exec $volume_script --down
+        bindsym k exec $volume_script --up
+        bindsym l exec $player_script next
+
     
         bindsym Escape mode "default"
 }
-
-
 # }}}
 
 
@@ -234,15 +236,9 @@ exec --no-startup-id thunderbird
 exec --no-startup-id emacs
 # }}}
 
-default_border pixel
 
 for_window [title="Android Emulator*"] floating enable
 
-
-# Gaps
-smart_gaps on
-gaps inner 25
-gaps outer 25
 
 # {{{ Sway Settings
 
@@ -279,6 +275,13 @@ for_window [app_id="^launcher$"] floating enable, border none
 
 # no borders
 #hide_edge_borders both
+
+default_border pixel
+
+# Gaps
+smart_gaps on
+gaps inner 25
+gaps outer 25
 
 # borders if more than 1 child
 smart_borders on

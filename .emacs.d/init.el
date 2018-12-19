@@ -23,8 +23,3 @@
 
 (require 'org)
 (org-babel-load-file (expand-file-name (concat user-emacs-directory "config.org")))
-
-
-;(add-to-list 'default-frame-alist '(font . "mononoki-12"))
-;(add-to-list 'default-frame-alist '(height . 24))
-;(add-to-list 'default-frame-alist '(width . 80))
