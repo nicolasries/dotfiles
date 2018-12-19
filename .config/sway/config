@@ -77,11 +77,12 @@ bindsym $mod+Return exec termite
 bindsym $mod+q kill
 
 bindsym $mod+d exec $HOME/bin/rofi_launch.sh
+set $volume_script $HOME/.config/sway/bar/pulseaudio/pa-tail.sh
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec $volume_script --up
+bindsym XF86AudioLowerVolume exec $volume_script --down
+bindsym XF86AudioMute exec $volume_script --mute
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessDown exec light -U 10

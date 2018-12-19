@@ -4,11 +4,11 @@ sink="@DEFAULT_SINK@"
 # sink=0
 
 volume_up() {
-    pactl set-sink-volume $sink +1%
+    pactl set-sink-volume $sink +5%
 }
 
 volume_down() {
-    pactl set-sink-volume $sink -1%
+    pactl set-sink-volume $sink -5%
 }
 
 volume_mute() {
