@@ -13,7 +13,7 @@ rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
 
 rofi.color-enabled: true
 ! State:           'bg',     'fg',     'bgalt',  'hlbg',   'hlfg'
-rofi.color-normal: argb:cc000000, argb:FFffffff, argb:dd2c3311, #859900, #fdf6e3
-rofi.color-urgent: #fdf6e3,  #dc322f,  #eee8d5,  #dc322f,  #fdf6e3
-rofi.color-active: #fdf6e3,  #268bd2,  #eee8d5,  #268bd2,  #fdf6e3
+!rofi.color-normal: argb:cc000000, argb:FFffffff, argb:dd2c3311, #859900, #fdf6e3
+!rofi.color-urgent: #fdf6e3,  #dc322f,  #eee8d5,  #dc322f,  #fdf6e3
+!rofi.color-active: #fdf6e3,  #268bd2,  #eee8d5,  #268bd2,  #fdf6e3
 
