@@ -109,7 +109,7 @@
         "SPC" '(counsel-M-x :which-key "commands")
 
         "TAB" '(mode-line-other-buffer :which-key "previous")
-        "'" '(lambda ()(interactive)(ansi-term "/bin/zsh"))
+        "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
 
         "/" '(swiper :which-key "search")
 
@@ -132,6 +132,7 @@
         "edM" '(describe-mode :which-key "all modes")
 
         "ee" '(:ignore t :which-key "eval")
+        "eee" '(eval-last-sexp :which-key "expression")
         "eer" '(eval-region :which-key "region")
 
 
@@ -144,12 +145,17 @@
 
         "g" '(:ignore t :which-key "git")
         "gs" '(magit-status :which-key "status")
+        
+        "p" '(:ignore t :which-key "projectile")
+        "pf" '(projectile-find file :which-key "find file")
+
 
         "w" '(:ignore t :which-key "window")
         "wh" '(evil-window-left :which-key "left")
         "wj" '(evil-window-down :which-key "down")
         "wk" '(evil-window-up :which-key "up")
         "wl" '(evil-window-right :which-key "right")
+        "wq" '(evil-quit :which-key "quit")
 
        ))
 
@@ -206,9 +212,9 @@
    #+END_SRC
 * Misc
 ** Reload changed files automatically
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (global-auto-revert-mode)
-#+END_SRC
+   #+END_SRC
 ** No scratch buffer at startup
    #+BEGIN_SRC emacs-lisp
      (setq initial-scratch-message nil)
@@ -432,10 +438,10 @@
     #+END_SRC
 ** Theme
    Xresources
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
     ;; (use-package xresources-theme
     ;; :ensure t)
-  #+END_SRC
+   #+END_SRC
    solarized-theme https://github.com/bbatsov/solarized-emacs
    #+BEGIN_SRC emacs-lisp
      (use-package solarized-theme
@@ -476,3 +482,12 @@
  (diminish 'auto-revert-mode)
      #+END_SRC
 
+* Projectile
+  #+BEGIN_SRC emacs-lisp
+(use-package projectile
+:ensure t
+:diminish
+:config
+(setq projectile-completion-system 'ivy))
+
+  #+END_SRC
