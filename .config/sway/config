@@ -1,3 +1,5 @@
+# -*- origami-fold-style: triple-braces -*-
+
 # General {{{
 
 # no mouse focus
@@ -167,8 +169,6 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 # bindsym $mod+Shift+9 move container to workspace $wsp9
 # bindsym $mod+Shift+0 move container to workspace $wsp10
 
-bindsym $mod+Shift+e exec "swaymsg exit"
-bindsym $mod+Shift+r reload
 
 
 bindsym $mod+r mode "resize"
@@ -241,6 +241,9 @@ for_window [title="Android Emulator*"] floating enable
 
 
 # {{{ Sway Settings
+
+bindsym $mod+Shift+e exec "swaymsg exit"
+bindsym $mod+Shift+r reload
 
 # keyboard settings (needs sway >1.0)
 input * {

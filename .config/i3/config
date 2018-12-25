@@ -1,3 +1,5 @@
+# -*- origami-fold-style: triple-braces -*-
+
 # General {{{
 
 # no mouse focus
@@ -78,23 +80,24 @@ bindsym $mod+q kill
 
 bindsym $mod+d exec $HOME/bin/rofi_launch.sh
 
+set $scripts $HOME/.config/i3blocks/blocks
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_script $HOME/.config/i3blocks/blocks/pa-tail.sh
+# set $volume_script $scripts/pa-tail.sh
+bindsym XF86AudioRaiseVolume exec $volume_script --up
+bindsym XF86AudioLowerVolume exec $volume_script --down
+bindsym XF86AudioMute exec $volume_script --mute
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessDown exec light -U 10
-bindsym XF86MonBrightnessUp exec light -A 10
+# Screen brightness controls
+set $light_script $scripts/light.sh
+bindsym XF86MonBrightnessDown exec $light_script --down
+bindsym XF86MonBrightnessUp exec $light_script --up
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym $mod+XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym $mod+XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+XF86AudioPrev exec playerctl previous
-
+set $player_script $scripts/mpris-tail.py
+bindsym XF86AudioPlay exec $player_script play-pause
+bindsym XF86AudioNext exec $player_script next
+bindsym XF86AudioPrev exec $player_script previous
 
 # variables for directions
 set $left h
@@ -166,8 +169,6 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 # bindsym $mod+Shift+9 move container to workspace $wsp9
 # bindsym $mod+Shift+0 move container to workspace $wsp10
 
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-msg exit"
 
 
 bindsym $mod+r mode "resize"
@@ -178,9 +179,7 @@ bindsym $mod+Shift+s sticky toggle
 
 # }}}
 
-# {{{ Modes
-
-
+# {{{ Resize Mode
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -198,22 +197,26 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-#### Inert mode ####
+# }}}
+#
+# {{{ Inert mode
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
         bindsym $mod+Escape mode "default"
 }
+# }}}
 
-
-set $media "media (h) prev (l) next"
+# {{{ Media Mode
+set $media "media (h) prev (j) vol down (k) vol up (l) next"
 mode $media {
-        bindsym h exec 'playerctl pause'
+        bindsym h exec $player_script previous
+        bindsym j exec $volume_script --down
+        bindsym k exec $volume_script --up
+        bindsym l exec $player_script next
+
     
         bindsym Escape mode "default"
 }
-
-
 # }}}
 
 
@@ -233,7 +236,6 @@ exec --no-startup-id thunderbird
 exec --no-startup-id emacs
 # }}}
 
-default_border pixel
 
 for_window [title="Android Emulator*"] floating enable
 
@@ -244,6 +246,10 @@ gaps inner 25
 gaps outer 25
 
 # {{{ i3 Settings
+
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-msg exit"
+
 set_from_resource $color1 i3wm.color1
 set_from_resource $color2 i3wm.color2
 set_from_resource $color3 i3wm.color3
@@ -256,10 +262,23 @@ set_from_resource $color9 i3wm.color9
 # }}}
 
 
+# Launcher
+bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
+
 # Visuals {{{
 
 # no borders
-hide_edge_borders both
+#hide_edge_borders both
+
+default_border pixel
+
+# Gaps
+smart_gaps on
+gaps inner 25
+gaps outer 25
+
+# borders if more than 1 child
+smart_borders on
 # new_window pixel 1
 
 font pango:SourceCodePro 10
