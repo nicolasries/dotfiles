@@ -409,9 +409,9 @@ args = parser.parse_args()
 
 FORMAT_STRING = re.sub(r'%\{(.*?)\}(.*?)%\{(.*?)\}', r'􏿿p􏿿\1􏿿p􏿿\2􏿿p􏿿\3􏿿p􏿿', args.format)
 TRUNCATE_STRING = args.truncate_text
-ICON_PLAYING = args.icon_playing
-ICON_PAUSED = args.icon_paused
-ICON_STOPPED = args.icon_stopped
+ICON_PLAYING = ""
+ICON_PAUSED = ""
+ICON_STOPPED = ""
 ICON_NONE = args.icon_none
 
 if args.command is None:

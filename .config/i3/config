@@ -15,14 +15,14 @@ workspace_layout default
 
 # Workspaces {{{
 
-set $wsp1 1:terminal
-set $wsp2 2:browser
-set $wsp3 3:dev
-set $wsp4 4:mail
-set $wsp5 5:misc
-set $wsp6 6:media
-set $wsp7 7:music
-set $wsp8 8:games
+set $wsp1 "1:      "
+set $wsp2 "2:      "
+set $wsp3 "3:      "
+set $wsp4 "4:      "
+set $wsp5 "5:      "
+set $wsp6 "6:      "
+set $wsp7 "7:      "
+set $wsp8 "8:      "
 
 # assignments
 
@@ -298,6 +298,7 @@ client.focused          $color1 $color1 #ffffff $color1 $color1
 
 set $transp "#0000007e"
 bar {
+    height 25
     # hide numbers in workspace names
     strip_workspace_numbers yes
     position top

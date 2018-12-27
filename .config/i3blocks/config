@@ -31,10 +31,12 @@ markup=none
 align=center
 
 [mpris-tail.py]
+# color=#602e94
 interval=persist
 
 [pa-tail.sh]
 interval=persist
+format=json
 
 [light.sh]
 interval=once
@@ -89,9 +91,9 @@ interval=30
 
 # Date Time
 #
-[time]
-command=date '+%d/%m/%Y %H:%M'
+[time.sh]
 interval=30
+format=json
 
 # Generic media player support
 #
