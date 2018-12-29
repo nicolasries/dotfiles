@@ -177,6 +177,23 @@ bindsym $mod+i mode "Inert"
 
 bindsym $mod+Shift+s sticky toggle
 
+
+
+bindsym $mod+g mode "cursor"
+mode "cursor" {
+    bindsym $left seat seat0 cursor move -10 0
+    bindsym $down seat seat0 cursor move 0 10
+    bindsym $up seat seat0 cursor move 0 -10
+    bindsym $right seat seat0 cursor move 10 0
+
+    bindsym n seat seat0 cursor press left
+    bindsym m seat seat0 cursor press right
+
+
+
+    bindsym Escape mode "default"
+}
+
 # }}}
 
 # {{{ Resize Mode
@@ -312,6 +329,7 @@ bar {
     position top
     # mode hide
     status_command i3blocks
+    separator_symbol ""
     # tray_output primary
     modifier $mod
     colors {

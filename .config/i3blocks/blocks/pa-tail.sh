@@ -24,9 +24,9 @@ volume_print() {
         icon=""
     else
         icon="#3"
-        icon=""
     fi
 
+    icon=""
     muted=$(pamixer --sink $sink --get-mute)
 
     if [ "$muted" = true ]; then
