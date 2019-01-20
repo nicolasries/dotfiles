@@ -140,7 +140,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -242,9 +242,9 @@ mode $media {
 exec --no-startup-id nm-applet
 # exec --no-startup-id redshift-gtk
 # exec --no-startup-id ~/bin/keyboard_settings.sh
-exec --no-startup-id dunst
+exec --no-startup-id mako
 exec --no-startup-id blueman-applet
-# exec --no-startup-id firefox
+exec --no-startup-id firefox
 exec --no-startup-id termite
 exec --no-startup-id swaymsg 'workspace $wsp7;exec spotify 2> /dev/null'
 exec --no-startup-id thunderbird
@@ -279,7 +279,7 @@ bindsym $mod+shift+z opacity 1.0
 
 # Pywal
 include $HOME/.cache/wal/colors-sway
-output * bg $wallpaper fill
+# output * bg $wallpaper fill
 
 # Monitor
 output HDMI-A-1 position 1920 0
@@ -287,8 +287,11 @@ output DVI-I-1 position 0 0
 # }}}
 
 
+bindsym $mod+c exec "makoctl dismiss"
+
 # Launcher
-bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
+
+# bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applications -name *.desktop | xargs basename -s .desktop -a | fzf | xargs -r swaymsg -t command exec gtk-launch'"
 for_window [app_id="^launcher$"] floating enable, border none
 
 # Visuals {{{

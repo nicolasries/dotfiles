@@ -27,6 +27,9 @@ autoload -U colors && colors
 
 # Aliases {{{
 
+# simple c compile and run
+alias c="gcc -Wall main.c && ./a.out"
+
 # edit shortcut
 alias e="$EDITOR"
 # workaround for terminal bug
