@@ -120,11 +120,11 @@ bindsym $mod+Shift+$right move right
 
 bindsym $mod+x move workspace to output left
 
-# split in horizontal orientation
-bindsym $mod+b split h
+# # split in horizontal orientation
+# bindsym $mod+b split h
 
-# split in vertical orientation
-bindsym $mod+v split v
+# # split in vertical orientation
+# bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -173,6 +173,7 @@ bindsym $mod+Shift+8 move container to workspace $wsp8
 
 bindsym $mod+r mode "resize"
 bindsym $mod+m mode $media
+bindsym $mod+v mode $volume
 bindsym $mod+i mode "Inert"
 
 bindsym $mod+Shift+s sticky toggle
@@ -196,7 +197,8 @@ mode "cursor" {
 
 # }}}
 
-# {{{ Resize Mode
+# Resize Mode {{{
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -216,19 +218,19 @@ mode "resize" {
 }
 # }}}
 #
-# {{{ Inert mode
+# Inert mode {{{ 
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
         bindsym $mod+Escape mode "default"
 }
 # }}}
 
-# {{{ Media Mode
-set $media "media (h) prev (j) vol down (k) vol up (l) next"
+# Media Mode {{{ 
+set $media "media (h) prev (j) backward (k) forward (l) next"
 mode $media {
         bindsym h exec $player_script previous
-        bindsym j exec $volume_script --down
-        bindsym k exec $volume_script --up
+        bindsym j exec $player_script backward
+        bindsym k exec $player_script forward
         bindsym l exec $player_script next
 
     
@@ -236,12 +238,22 @@ mode $media {
 }
 # }}}
 
+# Volume Mode {{{ 
+set $volume "volume (j) - (k) + (m) mute"
+mode $volume {
+        bindsym j exec $volume_script --down
+        bindsym k exec $volume_script --up
+        bindsym m exec $volume_script --mute
 
-# {{{ Startup Programs
+        bindsym Escape mode "default"
+}
+# }}}
+
+
+# Startup Programs {{{ 
 # exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 # exec --no-startup-id redshift-gtk
-# exec --no-startup-id ~/bin/keyboard_settings.sh
 exec --no-startup-id mako
 exec --no-startup-id blueman-applet
 exec --no-startup-id firefox
@@ -273,12 +285,15 @@ input * {
   tap enabled
 
 }
+# hide cursor after 5 seconds
+seat seat0 hide_cursor 5000
 
 bindsym $mod+z opacity 0.5
 bindsym $mod+shift+z opacity 1.0
 
 # Pywal
 include $HOME/.cache/wal/colors-sway
+set $wallpaper /home/nri/Cloud/Bilder/Wallpapers/desktop/blade_runner_2049.jpg
 # output * bg $wallpaper fill
 
 # Monitor
@@ -311,13 +326,15 @@ smart_borders on
 # new_window pixel 1
 
 font pango:SourceCodePro 10
+# set $text #ffffff
+set $text $foreground
 
 # class                 border  backgr. text indicator child_border
-client.focused          $color1 $color1 #ffffff $color1 $color1
-#client.focused_inactive $bg     $bg     $fg  $bg       $bg
-#client.unfocused        $bg     $bg     $fg  $bg       $bg
-#client.urgent           $bg     $bg     $fg  $bg       $bg
-#client.placeholder      $bg     $bg     $fg  $bg       $bg
+client.focused          $color1 $color1 $text $color1 $color1
+# client.focused_inactive $bg     $bg     $fg  $bg       $bg
+# client.unfocused        $bg     $bg     $fg  $bg       $bg
+# client.urgent           $bg     $bg     $fg  $bg       $bg
+# client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 #client.background       $bg
 
@@ -325,7 +342,7 @@ client.focused          $color1 $color1 #ffffff $color1 $color1
 # }}}
 # Bar {{{
 
-set $transp "#0000007e"
+set $transp "#00000000"
 bar {
     # hide numbers in workspace names
     strip_workspace_numbers yes
@@ -333,18 +350,21 @@ bar {
     # mode hide
     status_command i3blocks
     separator_symbol ""
-    # tray_output primary
+    # tray_output "HDMI-A-1"
     modifier $mod
     colors {
         #color class       border  back.   text
         focused_workspace $color1 $color1 #ffffff
-        inactive_workspace $transp $transp #ffffff
-        active_workspace $color3 $color3 #ffffff
-        urgent_workspace #a30000 $transp #ffffff
-        statusline #aaaaaa
+        inactive_workspace $transp $transp $text
+        active_workspace $color3 $color3 $text
+        urgent_workspace #a30000 $transp $text
+        statusline $text
         background $transp
     }
 }
 
 # }}}
 
+include config.local
+
+bindsym $mod+o exec "~/bin/dynamic.sh"
