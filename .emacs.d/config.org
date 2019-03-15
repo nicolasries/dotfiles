@@ -1,5 +1,4 @@
 #+TITLE: Configuration
-#+SUBTITLE: Some additional configuration
 * Applications
 ** Anki
    #+BEGIN_SRC emacs-lisp
@@ -31,11 +30,11 @@
   #+END_SRC
 * Editing
 ** Folding
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (use-package origami
 :ensure t)
 
-#+END_SRC
+   #+END_SRC
 * Evil
 ** Evil Mode 
    https://github.com/emacs-evil/evil
@@ -96,6 +95,9 @@
     :ensure t
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    
+    ; table
+(setq org-latex-caption-above nil)
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
@@ -130,6 +132,8 @@
 
         "b" '(:ignore t :which-key "buffers")
         "bb" '(counsel-ibuffer :which-key "list")
+        
+        "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
 
         "e" '(:ignore t :which-key "emacs")
 
@@ -164,7 +168,7 @@
         "wj" '(evil-window-down :which-key "down")
         "wk" '(evil-window-up :which-key "up")
         "wl" '(evil-window-right :which-key "right")
-        "wq" '(evil-quit :which-key "quit")
+        "wq" '(evil-window-delete :which-key "quit")
 
        ))
 
@@ -280,12 +284,6 @@
 ** Disable lock files
    #+BEGIN_SRC emacs-lisp
      (setq create-lockfiles nil)
-   #+END_SRC
-** Load local config file
-
-   #+BEGIN_SRC emacs-lisp
-  ;;(defconst local-config-path "~/.spacemacs.d/local-config.org")
-  ;;(if (file-exists-p local-config-path) (org-babel-load-file local-config-path))
    #+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
@@ -408,6 +406,53 @@
    #+END_SRC
  
 * UI
+** Theme
+   doom
+   #+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+:ensure t)
+
+   #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+(defadvice load-theme (before theme-dont-propagate activate)
+ (mapcar #'disable-theme custom-enabled-themes))
+   
+   #+END_SRC
+   Poet
+   #+BEGIN_SRC emacs-lisp
+(use-package poet-theme
+:ensure t)
+
+   #+END_SRC
+   Spacemacs Theme
+   #+BEGIN_SRC emacs-lisp
+(use-package spacemacs-theme
+:defer t
+:ensure t
+:init
+(load-theme 'spacemacs-dark t ))
+
+   #+END_SRC
+   Dracula
+   #+BEGIN_SRC emacs-lisp
+(use-package dracula-theme
+:ensure t)
+
+   #+END_SRC
+   Xresources
+   #+BEGIN_SRC emacs-lisp
+    ;; (use-package xresources-theme
+    ;; :ensure t)
+   #+END_SRC
+   solarized-theme https://github.com/bbatsov/solarized-emacs
+   #+BEGIN_SRC emacs-lisp
+     (use-package solarized-theme
+       :defer 10
+       :init
+       (setq solarized-use-variable-pitch nil)
+       :ensure t)
+     ;; (load-theme 'solarized-dark)
+   #+END_SRC
 ** Misc
 *** relative line numbers
     #+BEGIN_SRC emacs-lisp
@@ -445,21 +490,6 @@
 ;(set-frame-parameter (selected-frame) 'alpha '(85 50))
 ;(add-to-list 'default-frame-alist '(alpha 85 50))
     #+END_SRC
-** Theme
-   Xresources
-   #+BEGIN_SRC emacs-lisp
-    ;; (use-package xresources-theme
-    ;; :ensure t)
-   #+END_SRC
-   solarized-theme https://github.com/bbatsov/solarized-emacs
-   #+BEGIN_SRC emacs-lisp
-     (use-package solarized-theme
-       :defer 10
-       :init
-       (setq solarized-use-variable-pitch nil)
-       :ensure t)
-     (load-theme 'solarized-dark)
-   #+END_SRC
 ** Scrolling
    #+BEGIN_SRC emacs-lisp
      (setq scroll-step 1
