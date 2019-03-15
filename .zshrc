@@ -36,6 +36,9 @@ alias e="$EDITOR"
 alias ssh='TERM=xterm-256color ssh'
 # docker ip address
 
+# case insensitive less
+alias less='less -i'
+
 # colored grep
 alias grep='grep --color'
 # colored ls
