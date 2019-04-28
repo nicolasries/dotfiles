@@ -20,3 +20,5 @@ export BROWSER="firefox"
 # Go
 export GOPATH=~/go
 export PATH="$PATH:$GOPATH/bin"
+
+alias c='g++ main.cpp && ./a.out'
