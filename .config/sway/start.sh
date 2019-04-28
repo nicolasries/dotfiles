@@ -5,8 +5,14 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     export QT_QPA_PLATFORM=wayland-egl
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
+    # buggy on firefox, disabled for now
+    # export GDK_BACKEND=wayland
+    
+
     # Fix for Java GUI 
     export _JAVA_AWT_WM_NONREPARENTING=1
+
+    
 
     exec sway
 fi

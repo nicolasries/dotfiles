@@ -345,11 +345,12 @@ client.focused          $color1 $color1 $text $color1 $color1
 
 set $transp "#00000000"
 bar {
+    swaybar_command waybar
     # hide numbers in workspace names
     strip_workspace_numbers yes
     position top
     # mode hide
-    status_command i3blocks
+    # status_command i3blocks
     separator_symbol ""
     # tray_output "HDMI-A-1"
     modifier $mod
