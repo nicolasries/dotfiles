@@ -345,7 +345,8 @@ client.focused          $color1 $color1 $text $color1 $color1
 
 set $transp "#00000000"
 bar {
-    swaybar_command waybar
+    # swaybar_command waybar
+    status_command i3blocks 
     # hide numbers in workspace names
     strip_workspace_numbers yes
     position top
