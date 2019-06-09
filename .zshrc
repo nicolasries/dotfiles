@@ -85,7 +85,7 @@ setopt share_history # share command history data
 setopt prompt_subst
 COLOR="blue"
 export PROMPT="%F{$COLOR}%2~ λ %f"
-export RPROMPT="%F{green} $(git rev-parse --abbrev-ref HEAD 2> /dev/null)%f%F{242} | %f%F{$COLOR}%m%f"
+export RPROMPT=""
 
 # }}}
 
