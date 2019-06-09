@@ -1,11 +1,15 @@
 #+TITLE: Configuration
 * Applications
 ** Anki
+   Edit Anki Cards in Org-Mode
+   https://github.com/louietan/anki-editor
    #+BEGIN_SRC emacs-lisp
      (use-package anki-editor
        :ensure t)
    #+END_SRC
 ** PDF Viewer
+   Display PDF Files inside Emacs
+   https://github.com/politza/pdf-tools
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
        :ensure t
@@ -18,7 +22,7 @@
      (use-package ranger
        :ensure t)
    #+END_SRC
-* Ivy/Swiper/Counsel
+* Completion Framework
   #+BEGIN_SRC emacs-lisp
   (use-package ivy
     :ensure t
@@ -36,6 +40,7 @@
 
    #+END_SRC
 * Evil
+  Vim inside Emacs
 ** Evil Mode 
    https://github.com/emacs-evil/evil
    #+BEGIN_SRC emacs-lisp
@@ -83,37 +88,36 @@
 
   #+END_SRC
   #+BEGIN_SRC emacs-lisp
-  ;; preview latex
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+    ;; latex preview larger
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
     ;; show entities as UTF8 characters
     (setq org-pretty-entities t)
 
     ;;(setq org-ellipsis "  ")
-    
+
     (setq org-hide-emphasis-markers t)
-    
+
     (use-package org-bullets
-    :ensure t
-    :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-    
-    ; table
-(setq org-latex-caption-above nil)
+      :ensure t
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+                                            ; table
+    (setq org-latex-caption-above nil)
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
 (use-package ox-reveal
 :ensure t)
   #+END_SRC
-
 ** Babel
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 ;; active Babel languages
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((gnuplot . t)))
 ;; add additional languages with '((language . t)))
-  #+END_SRC
+   #+END_SRC
 * Keybindings
 ** Leader Menu
    https://github.com/noctuid/general.el/
@@ -422,11 +426,6 @@
 :ensure t)
 
    #+END_SRC
-   #+BEGIN_SRC emacs-lisp
-(defadvice load-theme (before theme-dont-propagate activate)
- (mapcar #'disable-theme custom-enabled-themes))
-   
-   #+END_SRC
    Poet
    #+BEGIN_SRC emacs-lisp
 (use-package poet-theme
@@ -538,4 +537,10 @@
 :config
 (setq projectile-completion-system 'ivy))
 
+  #+END_SRC
+* Markdown
+
+  #+BEGIN_SRC emacs-lisp
+(use-package markdown-mode
+:ensure t)
   #+END_SRC
