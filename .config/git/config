@@ -1,7 +1,7 @@
 [alias]
-    l =log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
+    l = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
     d = diff
     c = commit
-    s = status
+    s = !git status && echo && git submodule foreach 'git status && echo '
 [include]
     path = config.local
