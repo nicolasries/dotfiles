@@ -3,5 +3,7 @@
     d = diff
     c = commit
     s = !git status && echo && git submodule foreach 'git status && echo '
+    p = pull
+    pall = !git pull && git submodule foreach 'git pull'
 [include]
     path = config.local
