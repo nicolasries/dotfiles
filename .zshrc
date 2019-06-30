@@ -36,6 +36,11 @@ alias e="$EDITOR"
 alias ssh='TERM=xterm-256color ssh'
 # docker ip address
 
+# ls stuff
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias l.='ls -a'
+
 # case insensitive less
 alias less='less -i'
 

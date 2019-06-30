@@ -15,14 +15,14 @@ workspace_layout default
 
 # Workspaces {{{
 
-set $wsp1 "1:      "
-set $wsp2 "2:      "
-set $wsp3 "3:      "
-set $wsp4 "4:      "
-set $wsp5 "5:      "
-set $wsp6 "6:      "
-set $wsp7 "7:      "
-set $wsp8 "8:      "
+set $wsp1 "1:"
+set $wsp2 "2:"
+set $wsp3 "3:"
+set $wsp4 "4:"
+set $wsp5 "5:"
+set $wsp6 "6:"
+set $wsp7 "7:"
+set $wsp8 "8:"
 
 # assignments
 
@@ -224,7 +224,7 @@ mode $media {
 # exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 # exec --no-startup-id redshift-gtk
-# exec --no-startup-id ~/bin/keyboard_settings.sh
+exec --no-startup-id ~/bin/keyboard_settings.sh
 exec --no-startup-id dunst
 exec --no-startup-id blueman-applet
 # exec --no-startup-id firefox
