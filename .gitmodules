@@ -1,3 +1,6 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule "intelli-space"]
+	path = intelli-space
+	url = git@github.com:MarcoIeni/intelli-space.git

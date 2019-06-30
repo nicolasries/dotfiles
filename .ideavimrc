@@ -1,63 +1,70 @@
-set ignorecase
-set smartcase
-set scrolloff=3         " 3 lines above/below cursor when scrolling
-set surround
+" set ignorecase
+" set smartcase
+" set scrolloff=3         " 3 lines above/below cursor when scrolling
+" set surround
 
-" Integrate with system clipboard
-set clipboard=unnamedplus,unnamed
+" " Integrate with system clipboard
+" set clipboard=unnamedplus,unnamed
 
-let mapleader = " "
+" let mapleader = " "
 
-imap ,. <Esc>
-vmap ,. <Esc>
+" imap ,. <Esc>
+" vmap ,. <Esc>
 
-" Use Q for formatting the current paragraph (or visual selection)
-vmap Q gq nmap Q gqap 
-" These create newlines like o and O but stay in normal mode
-nmap zj o<Esc>k
-nmap zk O<Esc>j
+" " Use Q for formatting the current paragraph (or visual selection)
+" vmap Q gq nmap Q gqap 
+" " These create newlines like o and O but stay in normal mode
+" nmap zj o<Esc>k
+" nmap zk O<Esc>j
 
-" key bindings for quickly moving between windows
-" h left, l right, k up, j down
-nmap <leader>h <c-w>h
-nmap <leader>l <c-w>l
-nmap <leader>k <c-w>k
-nmap <leader>j <c-w>j
+" " key bindings for quickly moving between windows
+" " h left, l right, k up, j down
+" nmap <leader>h <c-w>h
+" nmap <leader>l <c-w>l
+" nmap <leader>k <c-w>k
+" nmap <leader>j <c-w>j
 
-nmap <leader>g :action GotoDeclaration<cr>
-nmap <leader>b :action Back<cr>
-nmap <leader>f :action Forward<cr>
+" nmap <leader>g :action GotoDeclaration<cr>
+" nmap <leader>b :action Back<cr>
+" nmap <leader>f :action Forward<cr>
 
-nmap <leader>t :action GotoFile<cr>
-nmap <leader>c :action GotoClass<cr>
-nmap <leader>ns :action GotoSymbol<cr>
-nmap <leader>nm :action FileStructurePopup<cr>
-nmap <leader>d :action ShowErrorDescription<cr>
+" nmap <leader>t :action GotoFile<cr>
+" nmap <leader>c :action GotoClass<cr>
+" nmap <leader>ns :action GotoSymbol<cr>
+" nmap <leader>nm :action FileStructurePopup<cr>
+" nmap <leader>d :action ShowErrorDescription<cr>
 
-" IdeaVim uses 'a' for alt instead of Vim's 'm'
-nmap <a-j> :action m +1<cr>
-nmap <a-k> :action m -1<cr>
+" " IdeaVim uses 'a' for alt instead of Vim's 'm'
+" nmap <a-j> :action m +1<cr>
+" nmap <a-k> :action m -1<cr>
 
-" Won't work in visual mode (with vmap) for some reason.
-" Use default map of <c-/> for that.
-nmap gcc :action CommentByLineComment<cr>
+" " Won't work in visual mode (with vmap) for some reason.
+" " Use default map of <c-/> for that.
+" nmap gcc :action CommentByLineComment<cr>
 
-" window stuff
-nmap <leader>wh :action VimWindowLeft<cr>
-nmap <leader>wj :action VimWindowDown<cr>
-nmap <leader>wk :action VimWindowUp<cr>
-nmap <leader>wl :action VimWindowRight<cr>
-nmap <leader>ws :action VimWindowSplitHorizontal<cr>
-nmap <leader>wv :action VimWindowSplitVertical<cr>
-nmap <leader>wq :action VimWindowClose<cr>
+" " window stuff
+" nmap <leader>wh :action VimWindowLeft<cr>
+" nmap <leader>wj :action VimWindowDown<cr>
+" nmap <leader>wk :action VimWindowUp<cr>
+" nmap <leader>wl :action VimWindowRight<cr>
+" nmap <leader>ws :action VimWindowSplitHorizontal<cr>
+" nmap <leader>wv :action VimWindowSplitVertical<cr>
+" nmap <leader>wq :action VimWindowClose<cr>
 
-nmap <leader>ff :action GotoFile<cr>
+" nmap <leader>ff :action GotoFile<cr>
 
-nmap <leader>gc :action GotoClass<cr>
+" nmap <leader>gc :action GotoClass<cr>
 
-" Run Stuff
-nmap <leader>rr :action Run<cr>
-nmap <leader>rd :action Debug<cr>
+" " Run Stuff
+" nmap <leader>rr :action Run<cr>
+" nmap <leader>rd :action Debug<cr>
 
-" Terminal
-nmap <leader>' :action ActivateTerminalToolWindow<cr>
+" " Terminal
+" nmap <leader>' :action ActivateTerminalToolWindow<cr>
+
+source ~/intelli-space/spacemacs.vim
+source ~/intelli-space/extra.vim
+source ~/intelli-space/major.vim
+" My own vim commands
+nnoremap Y y$
+
