@@ -30,7 +30,7 @@ assign [class="Emacs"] $wsp1
 
 # browser
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
-assign [class="Firefox"] $wsp2
+assign [class="firefox"] $wsp2
 
 # dev stuff
 assign [class="NetBeans IDE"] $wsp3
@@ -286,14 +286,13 @@ input * {
   tap enabled
 
 }
-# hide cursor after 5 seconds
-seat seat0 hide_cursor 5000
+# hide cursor after 15 seconds
+seat seat0 hide_cursor 15000
 
 bindsym $mod+z opacity 0.5
 bindsym $mod+shift+z opacity 1.0
 
 # Pywal
-include $HOME/.cache/wal/colors-sway
 set $wallpaper /home/nri/Cloud/Bilder/Wallpapers/desktop/blade_runner_2049.jpg
 # output * bg $wallpaper fill
 
@@ -311,6 +310,26 @@ bindsym $mod+c exec "makoctl dismiss"
 for_window [app_id="^launcher$"] floating enable, border none
 
 # Visuals {{{
+
+set $background #0A0908
+set $foreground #dad0ce
+
+set $color0 #0A0908
+set $color1 #8B4E2F
+set $color2 #8A6F63
+set $color3 #9A8579
+set $color4 #6C898D
+set $color5 #AC9E9A
+set $color6 #C2A59C
+set $color7 #dad0ce
+set $color8 #989190
+set $color9 #8B4E2F
+set $color10 #8A6F63
+set $color11 #9A8579
+set $color12 #6C898D
+set $color13 #AC9E9A
+set $color14 #C2A59C
+set $color15 #dad0ce
 
 # no borders
 #hide_edge_borders both
@@ -376,3 +395,4 @@ bar {
 # desktop mode
 output "Goldstar Company Ltd W2443 0x00004D6C"  pos 0 1080
 output "Philips Consumer Electronics Company 273PLPH AU11430004292"  pos 1920 1080
+
