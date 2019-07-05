@@ -30,7 +30,7 @@ assign [class="Emacs"] $wsp1
 
 # browser
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
-assign [class="firefox"] $wsp2
+assign [app_id="firefox"] $wsp2
 
 # dev stuff
 assign [class="NetBeans IDE"] $wsp3
@@ -49,7 +49,7 @@ assign [class="^Skype$"] $wsp5
 assign [class="^Anki$"] $wsp5
 assign [class="^calibre$"] $wsp5
 
-# media 
+# media
 assign [class="^Kodi$" instance="^Kodi$"] $wsp6
 assign [class="^mpv$" instance="^gl$"] $wsp6
 
@@ -62,6 +62,7 @@ assign [class="^Steam$" instance="^Steam$"] $wsp8
 assign [class="dolphin-emu"] $wsp8
 assign [class="MTGA"] $wsp8
 assign [instance="gta5.exe"] $wsp8
+assign [app_id="lutris"] $wsp8
 
 # }}}
 
@@ -219,14 +220,14 @@ mode "resize" {
 }
 # }}}
 #
-# Inert mode {{{ 
+# Inert mode {{{
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
         bindsym $mod+Escape mode "default"
 }
 # }}}
 
-# Media Mode {{{ 
+# Media Mode {{{
 set $media "media (h) prev (j) backward (k) forward (l) next"
 mode $media {
         bindsym h exec $player_script previous
@@ -234,12 +235,12 @@ mode $media {
         bindsym k exec $player_script forward
         bindsym l exec $player_script next
 
-    
+
         bindsym Escape mode "default"
 }
 # }}}
 
-# Volume Mode {{{ 
+# Volume Mode {{{
 set $volume "volume (j) - (k) + (m) mute"
 mode $volume {
         bindsym j exec $volume_script --down
@@ -251,7 +252,7 @@ mode $volume {
 # }}}
 
 
-# Startup Programs {{{ 
+# Startup Programs {{{
 # exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id nm-applet
 # exec --no-startup-id redshift-gtk
@@ -365,7 +366,7 @@ client.focused          $color1 $color1 $text $color1 $color1
 set $transp "#00000000"
 bar {
     # swaybar_command waybar
-    status_command i3blocks 
+    status_command i3blocks
     # hide numbers in workspace names
     strip_workspace_numbers yes
     position top
@@ -395,4 +396,3 @@ bar {
 # desktop mode
 output "Goldstar Company Ltd W2443 0x00004D6C"  pos 0 1080
 output "Philips Consumer Electronics Company 273PLPH AU11430004292"  pos 1920 1080
-
