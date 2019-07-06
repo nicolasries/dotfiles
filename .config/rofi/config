@@ -8,7 +8,7 @@ rofi.separator-style: none
 rofi.width: 20
 rofi.show-icons: true
 !rofi.theme: arthur
-rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
+!rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
 ! rofi.drun-icon-theme: breeze-dark
 
 rofi.color-enabled: true
