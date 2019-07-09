@@ -5,7 +5,7 @@
     # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
     # buggy on firefox, disabled for now
-    # export GDK_BACKEND=wayland
+    export GDK_BACKEND=wayland
     export MOZ_ENABLE_WAYLAND=1
     
 

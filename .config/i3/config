@@ -8,8 +8,8 @@ focus_follows_mouse no
 # disable mouse switch when focusing different window
 mouse_warping none
 
-# split as default layout
-workspace_layout default
+# default layout
+workspace_layout tabbed
 
 #}}}
 
@@ -49,7 +49,7 @@ assign [class="^Skype$"] $wsp5
 assign [class="^Anki$"] $wsp5
 assign [class="^calibre$"] $wsp5
 
-# media 
+# media
 assign [class="^Kodi$" instance="^Kodi$"] $wsp6
 assign [class="^mpv$" instance="^gl$"] $wsp6
 
@@ -214,7 +214,7 @@ mode $media {
         bindsym k exec $volume_script --up
         bindsym l exec $player_script next
 
-    
+
         bindsym Escape mode "default"
 }
 # }}}
@@ -267,6 +267,26 @@ bindsym $mod+n exec termite --name=launcher -e "bash -c 'find /usr/share/applica
 
 # Visuals {{{
 
+set $background #0A0908
+set $foreground #dad0ce
+
+set $color0 #0A0908
+set $color1 #8B4E2F
+set $color2 #8A6F63
+set $color3 #9A8579
+set $color4 #6C898D
+set $color5 #AC9E9A
+set $color6 #C2A59C
+set $color7 #dad0ce
+set $color8 #989190
+set $color9 #8B4E2F
+set $color10 #8A6F63
+set $color11 #9A8579
+set $color12 #6C898D
+set $color13 #AC9E9A
+set $color14 #C2A59C
+set $color15 #dad0ce
+
 # no borders
 #hide_edge_borders both
 
@@ -318,4 +338,3 @@ bar {
 }
 
 # }}}
-
