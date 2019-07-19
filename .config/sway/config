@@ -8,21 +8,21 @@ focus_follows_mouse no
 # disable mouse switch when focusing different window
 mouse_warping none
 
-# split as default layout
-workspace_layout default
+# default layout
+workspace_layout tabbed
 
 #}}}
 
 # Workspaces {{{
 
-set $wsp1 1:terminal
-set $wsp2 2:browser
-set $wsp3 3:dev
-set $wsp4 4:mail
-set $wsp5 5:misc
-set $wsp6 6:media
-set $wsp7 7:music
-set $wsp8 8:games
+set $wsp1 "1:"
+set $wsp2 "2:"
+set $wsp3 "3:"
+set $wsp4 "4:"
+set $wsp5 "5:"
+set $wsp6 "6:"
+set $wsp7 "7:"
+set $wsp8 "8:"
 
 # assignments
 
@@ -98,6 +98,7 @@ bindsym XF86MonBrightnessUp exec $light_script --up
 # Media player controls
 set $player_script $scripts/mpris-tail.py
 bindsym XF86AudioPlay exec $player_script play-pause
+bindsym XF86AudioPause exec $player_script pause
 bindsym XF86AudioNext exec $player_script next
 bindsym XF86AudioPrev exec $player_script previous
 
@@ -189,8 +190,8 @@ mode "cursor" {
     bindsym $up seat seat0 cursor move 0 -10
     bindsym $right seat seat0 cursor move 10 0
 
-    bindsym n seat seat0 cursor press left
-    bindsym m seat seat0 cursor press right
+    bindsym n seat seat0 cursor press BTN_LEFT
+    bindsym m seat seat0 cursor press BTN_RIGHT
 
 
 
@@ -264,7 +265,7 @@ exec --no-startup-id swaymsg 'workspace $wsp7;exec spotify 2> /dev/null'
 exec --no-startup-id thunderbird
 # exec --no-startup-id plasma-browser-integration-host
 # exec --no-startup-id steam
-exec --no-startup-id emacs
+exec --no-startup-id 'gtk-launch emacs'
 # }}}
 
 
@@ -346,7 +347,7 @@ gaps outer 25
 smart_borders on
 # new_window pixel 1
 
-font pango:SourceCodePro 10
+font pango:SourceCodePro 13
 # set $text #ffffff
 set $text $foreground
 

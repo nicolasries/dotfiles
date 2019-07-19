@@ -42,7 +42,7 @@ This function should only modify configuration layer settings."
      auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
+     git
      helm
      (markdown :variables
                markdown-live-preview-engine 'vmd)
@@ -54,7 +54,7 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; spell-checking
+     (spell-checking)
      syntax-checking
      treemacs
      ;; version-control
@@ -67,7 +67,10 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(anki-editor)
+   dotspacemacs-additional-packages '(
+                                      anki-editor ;; https://github.com/louietan/anki-editor
+                                      org-noter ;; https://github.com/weirdNox/org-noter
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -186,7 +189,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-new-empty-buffer-major-mode 'text-mode
 
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'emacs-lisp-mode
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -211,10 +214,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
-   ;; quickly tweak the mode-line size to make separators look not too crappy.
+   ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 16
                                :weight normal
                                :width normal)
 
@@ -349,8 +351,11 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smooth-scrolling t
 
    ;; Control line numbers activation.
-   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
-   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
+   ;; `prog-mode' and `text-mode' derivatives. If set to `relative', line
+   ;; numbers are relative. If set to `visual', line numbers are also relative,
+   ;; but lines are only visual lines are counted. For example, folded lines
+   ;; will not be counted and wrapped lines are counted as multiple lines.
    ;; This variable can also be set to a property list for finer control:
    ;; '(:relative nil
    ;;   :visual nil
@@ -457,7 +462,6 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; move auto generated package list https://github.com/syl20bnr/spacemacs/issues/5751
-  (defconst local-config-path "~/.spacemacs.d/local-config.org")
   (setq custom-file "~/.emacs.d/.cache/custom-file.el")
   (if (file-exists-p custom-file) (load custom-file))
 
@@ -465,6 +469,15 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
+
+  ;; hunspell multiple dictionaries
+  (with-eval-after-load "ispell"
+    (setq ispell-program-name "hunspell") ;; use hunspell instead of aspell
+    ;; ispell-set-spellchecker-params has to be called
+    ;; before ispell-hunspell-add-multi-dic will work
+    (ispell-set-spellchecker-params)
+    (ispell-hunspell-add-multi-dic "de_DE,en_US")
+    (setq ispell-dictionary "de_DE,en_US"))
   )
 
 (defun dotspacemacs/user-load ()
@@ -482,14 +495,13 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   (setq markdown-enable-math t)
+  (setq org-noter-doc-property-in-notes t)
+  (require 'org-tempo)
 
-  (org-babel-load-file "~/.spacemacs.d/config.org"))
+  (org-babel-load-file "~/.spacemacs.d/config.org")
+
+  (defun nri/anki-basic-at-point () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
+
+)
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-
-  )

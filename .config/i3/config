@@ -1,5 +1,3 @@
-# -*- origami-fold-style: triple-braces -*-
-
 # General {{{
 
 # no mouse focus
@@ -80,7 +78,6 @@ bindsym $mod+q kill
 
 bindsym $mod+d exec $HOME/bin/rofi_launch.sh
 
-set $scripts $HOME/.config/i3blocks/blocks
 # Pulse Audio controls
 set $volume_script $HOME/.config/i3blocks/blocks/pa-tail.sh
 # set $volume_script $scripts/pa-tail.sh
@@ -89,13 +86,14 @@ bindsym XF86AudioLowerVolume exec $volume_script --down
 bindsym XF86AudioMute exec $volume_script --mute
 
 # Screen brightness controls
-set $light_script $scripts/light.sh
+set $light_script $HOME/.config/i3blocks/blocks/light.sh
 bindsym XF86MonBrightnessDown exec $light_script --down
 bindsym XF86MonBrightnessUp exec $light_script --up
 
 # Media player controls
-set $player_script $scripts/mpris-tail.py
+set $player_script $HOME/.config/i3blocks/blocks/mpris-tail.py
 bindsym XF86AudioPlay exec $player_script play-pause
+bindsym XF86AudioPause exec $player_script pause
 bindsym XF86AudioNext exec $player_script next
 bindsym XF86AudioPrev exec $player_script previous
 
@@ -177,45 +175,47 @@ bindsym $mod+i mode "Inert"
 
 bindsym $mod+Shift+s sticky toggle
 
+bindsym $mod+p exec $HOME/bin/toggle_layout.sh
+
 # }}}
 
 # {{{ Resize Mode
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym $left resize shrink width 10 px or 10 ppt
-        bindsym $right resize grow width 10 px or 10 ppt
-        bindsym $down resize grow height 10 px or 10 ppt
-        bindsym $up resize shrink height 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+bindsym $left resize shrink width 10 px or 10 ppt
+bindsym $right resize grow width 10 px or 10 ppt
+bindsym $down resize grow height 10 px or 10 ppt
+bindsym $up resize shrink height 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
 }
 # }}}
 #
 # {{{ Inert mode
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
-        bindsym $mod+Escape mode "default"
+bindsym $mod+Escape mode "default"
 }
 # }}}
 
 # {{{ Media Mode
 set $media "media (h) prev (j) vol down (k) vol up (l) next"
 mode $media {
-        bindsym h exec $player_script previous
-        bindsym j exec $volume_script --down
-        bindsym k exec $volume_script --up
-        bindsym l exec $player_script next
+bindsym h exec $player_script previous
+bindsym j exec $volume_script --down
+bindsym k exec $volume_script --up
+bindsym l exec $player_script next
 
 
-        bindsym Escape mode "default"
+bindsym Escape mode "default"
 }
 # }}}
 
@@ -318,23 +318,23 @@ client.focused          $color1 $color1 #ffffff $color1 $color1
 
 set $transp "#0000007e"
 bar {
-    height 25
-    # hide numbers in workspace names
-    strip_workspace_numbers yes
-    position top
-    # mode hide
-    status_command i3blocks
-    # tray_output primary
-    modifier $mod
-    colors {
-        #color class       border  back.   text
-        focused_workspace $color1 $color1 #ffffff
-        inactive_workspace $transp $transp #ffffff
-        active_workspace $color3 $color3 #ffffff
-        urgent_workspace #a30000 $transp #ffffff
-        statusline #aaaaaa
-        background $transp
-    }
+height 25
+# hide numbers in workspace names
+strip_workspace_numbers yes
+position top
+# mode hide
+status_command i3blocks
+# tray_output primary
+modifier $mod
+colors {
+#color class       border  back.   text
+focused_workspace $color1 $color1 #ffffff
+inactive_workspace $transp $transp #ffffff
+active_workspace $color3 $color3 #ffffff
+urgent_workspace #a30000 $transp #ffffff
+statusline #aaaaaa
+background $transp
+}
 }
 
 # }}}
