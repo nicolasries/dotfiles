@@ -41,53 +41,42 @@
 (use-package origami)
 
    #+END_SRC
-# ** Evil
-#    Vim inside Emacs
-# *** Evil Mode
-#     https://github.com/emacs-evil/evil
-#     #+BEGIN_SRC emacs-lisp
-#       (use-package evil
-#         :init
-#         (setq evil-want-keybinding nil)
-#         :config
-#         (evil-mode 1)
-#         (setq evil-want-C-u-scroll t) ;; TODO: doesn't work..
-#         (setq evil-want-Y-yank-to-eol t)) ;; make Y = y$
-#     #+END_SRC
-# *** Evil Surround
-#     https://github.com/emacs-evil/evil-surround
-#     #+BEGIN_SRC emacs-lisp
-#      (use-package evil-surround
-#        :after evil
-#        :config
-#        (global-evil-surround-mode 1))
-#     #+END_SRC
-# *** Evil Collection
-#     https://github.com/emacs-evil/evil-collection
-#     #+BEGIN_SRC emacs-lisp
-#       (use-package evil-collection
-#         :after evil
-#         :config
-#         (evil-collection-init))
-#     #+END_SRC
-# *** Evil Nerd Commenter
-#     https://github.com/redguardtoo/evil-nerd-commenter
-#     #+BEGIN_SRC emacs-lisp
-#       (use-package evil-nerd-commenter
-#         :after evil
-#         :config
-#         (evilnc-default-hotkeys))
-#     #+END_SRC
-# *** Evil Goggles
-#     https://github.com/edkolev/evil-goggles
-#     Show visual hints when doing vim commands.
-#     Cool package but slows editing down too much.
-#     #+BEGIN_SRC emacs-lisp
-#       ;; (use-package evil-goggles :config
-#       ;;   (setq evil-goggles-duration 0.150) ;; flash duration
-#       ;;   (setq evil-goggles-use-diff-faces nil) ;; use colors from diff-mode
-#       ;;   (evil-goggles-mode))
-#     #+END_SRC
+** Evil
+   Vim inside Emacs
+*** Evil Mode
+    https://github.com/emacs-evil/evil
+    #+BEGIN_SRC emacs-lisp
+           (use-package evil
+             :init
+             (setq evil-want-keybinding nil)
+             :config
+             (evil-mode 1)
+             (setq evil-want-C-u-scroll t)) ;; TODO: doesn't work..
+    #+END_SRC
+*** Evil Surround
+    https://github.com/emacs-evil/evil-surround
+    #+BEGIN_SRC emacs-lisp
+     (use-package evil-surround
+       :after evil
+       :config
+       (global-evil-surround-mode 1))
+    #+END_SRC
+*** Evil Collection
+    https://github.com/emacs-evil/evil-collection
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-collection
+        :after evil
+        :config
+        (evil-collection-init))
+    #+END_SRC
+*** Evil Nerd Commenter
+    https://github.com/redguardtoo/evil-nerd-commenter
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-nerd-commenter
+        :after evil
+        :config
+        (evilnc-default-hotkeys))
+    #+END_SRC
 ** Parenthesis
    Automatically insert pair of parens
    #+BEGIN_SRC emacs-lisp
@@ -96,8 +85,9 @@
        (smartparens-global-mode 1))
    #+END_SRC
 * Org
+
   #+BEGIN_SRC emacs-lisp
-(setq org-return-follows-link t)
+    (use-package org)
   #+END_SRC
 
 ** Drag & Drop files to org modes
@@ -147,7 +137,6 @@
        ;; unset space
        (general-define-key
         :states '(normal visual motion insert emacs)
-        :keymaps 'override
         :prefix "SPC"
         :non-normal-prefix "M-SPC"
         "SPC" '(counsel-M-x :which-key "commands")
@@ -218,6 +207,10 @@
    #+END_SRC
 
    Jump forward like vim
+
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-i") 'evil-jump-forward)
+   #+END_SRC
 
 ** Which-Key
    https://github.com/justbur/emacs-which-key
