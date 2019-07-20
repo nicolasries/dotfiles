@@ -25,9 +25,8 @@
 (unless (package-installed-p 'undo-tree)
   (package-install-file "~/.emacs.d/undo-tree-0.6.3.el"))
 
+;; always install packages
 (setq use-package-always-ensure t)
 
 (use-package org)
-
-;; (require 'org)
 (org-babel-load-file (expand-file-name (concat user-emacs-directory "config.org")))
