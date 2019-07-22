@@ -1,4 +1,104 @@
 #+TITLE: Configuration
+* Keybindings
+  https://github.com/noctuid/general.el/
+  Keybindings are defined using general.el
+** Leader Menu
+   #+BEGIN_SRC emacs-lisp
+     (use-package general
+       :config
+       (general-evil-setup t)
+       (general-create-definer nri/leader
+         :prefix "SPC")
+       (general-create-definer nri/major-leader
+         :prefix "SPC m")
+       (nri/leader
+         :keymaps 'override
+         :states '(normal visual motion)
+         "SPC" 'counsel-M-x
+         "TAB" '(mode-line-other-buffer :which-key "previous")
+
+         "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
+
+         "/" '(swiper :which-key "search")
+
+         "a" '(:ignore t :which-key "Applications")
+         "aa" '(:ignore t :which-key "Anki")
+         "aai" '(anki-editor-insert-note :which-key "Insert Note")
+         "aap" '(anki-editor-push-notes :which-key "Push Notes")
+         "b" '(:ignore t :which-key "buffers")
+         "bb" '(counsel-ibuffer :which-key "list")
+
+         "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
+
+         "e" '(:ignore t :which-key "emacs")
+         "ed" '(:ignore t :which-key "describe")
+         "edv" '(describe-variable :which-key "variable")
+         "edf" '(describe-function :which-key "function")
+         "edk" '(describe-key :which-key "key")
+         "edm" '(describe-minor-mode :which-key "minor mode")
+         "edM" '(describe-mode :which-key "all modes")
+
+         "ee" '(:ignore t :which-key "eval")
+         "eee" '(eval-last-sexp :which-key "expression")
+         "eer" '(eval-region :which-key "region")
+
+
+         "f" '(:ignore t :which-key "file")
+         "ff" '(find-file :which-key "find")
+         "fg" '(counsel-git :which-key "git")
+         "fs" '(save-buffer :which-key "save")
+         "fr" '(counsel-recentf :which-key "recent")
+
+         "g" '(:ignore t :which-key "git")
+         "gs" '(magit-status :which-key "status")
+         "i" '(:ignore t :which-key "insert")
+         "ic" '(insert-char :which-key "char")
+
+         "p" '(:ignore t :which-key "projectile")
+         "pf" '(projectile-find file :which-key "find file")
+
+         "s" '(:ignore t :w-k "snippets")
+
+         "w" '(:ignore t :which-key "window")
+         "wh" '(evil-window-left :which-key "left")
+         "wj" '(evil-window-down :which-key "down")
+         "wk" '(evil-window-up :which-key "up")
+         "wl" '(evil-window-right :which-key "right")
+         "wv" '(evil-window-vsplit :w-k "split vertically")
+         "ww" '(evil-window-next :w-k "next")
+         "wq" '(evil-window-delete :which-key "quit")
+         "w=" '(balance-windows :which-key "quit")
+         )
+       )
+   #+END_SRC
+** General
+
+   Number incrementing
+
+   #+BEGIN_SRC emacs-lisp
+;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
+;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
+   #+END_SRC
+
+   Jump forward like vim
+
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-i") 'evil-jump-forward)
+   #+END_SRC
+
+** Which-Key
+   https://github.com/justbur/emacs-which-key
+   Which-key shows available keybindings when pressing keys
+   #+BEGIN_SRC emacs-lisp
+     (use-package which-key
+       :diminish
+       :config
+       (setq which-key-separator " ")
+       (setq which-key-prefix-prefix "+")
+       (setq which-key-idle-delay 0.3)
+       (which-key-mode 1))
+   #+END_SRC
+
 * Applications
 ** Anki
    Edit Anki Cards in Org-Mode
@@ -6,7 +106,8 @@
    #+BEGIN_SRC emacs-lisp
      (use-package anki-editor
        :config
-       (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back"))))
+       (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
+       (defun nri/anki-basic-reverse () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic (and reversed card)" '("Front" "Back"))))
    #+END_SRC
 ** PDF Viewer
    Display PDF Files inside Emacs
@@ -20,7 +121,14 @@
 * Completion Framework
   Ivy, Counsel, Swiper
   #+BEGIN_SRC emacs-lisp
+    (use-package ivy)
+    (use-package swiper)
     (use-package counsel
+      :general
+      (:keymap ivy-minibuffer-map
+               "<escape>" 'minibuffer-keyboard-quit)
+      (:keymap swiper-map
+               "<escape>" 'minibuffer-keyboard-quit)
       :config
       (ivy-mode 1)
       (counsel-mode)
@@ -79,104 +187,6 @@
        :config
        (smartparens-global-mode 1))
    #+END_SRC
-* Keybindings
-** Leader Menu
-   https://github.com/noctuid/general.el/
-   #+BEGIN_SRC emacs-lisp
-     (use-package general
-       :config
-       (general-evil-setup t)
-       (general-create-definer nri/leader
-         :prefix "SPC")
-       (general-create-definer nri/major-leader
-         :prefix "SPC m")
-       (nri/leader
-         :keymaps 'override
-         :states '(normal visual motion)
-         "SPC" 'counsel-M-x
-         "TAB" '(mode-line-other-buffer :which-key "previous")
-
-         "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
-
-         "/" '(swiper :which-key "search")
-
-         "a" '(:ignore t :which-key "Applications")
-         "aa" '(:ignore t :which-key "Anki")
-         "aai" '(anki-editor-insert-note :which-key "Insert Note")
-         "aap" '(anki-editor-push-notes :which-key "Push Notes")
-         "b" '(:ignore t :which-key "buffers")
-         "bb" '(counsel-ibuffer :which-key "list")
-
-         "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
-
-         "e" '(:ignore t :which-key "emacs")
-         "ed" '(:ignore t :which-key "describe")
-         "edv" '(describe-variable :which-key "variable")
-         "edf" '(describe-function :which-key "function")
-         "edk" '(describe-key :which-key "key")
-         "edm" '(describe-minor-mode :which-key "minor mode")
-         "edM" '(describe-mode :which-key "all modes")
-
-         "ee" '(:ignore t :which-key "eval")
-         "eee" '(eval-last-sexp :which-key "expression")
-         "eer" '(eval-region :which-key "region")
-
-
-         "f" '(:ignore t :which-key "file")
-         "ff" '(find-file :which-key "find")
-         "fg" '(counsel-git :which-key "git")
-         "fs" '(save-buffer :which-key "save")
-         "fr" '(counsel-recentf :which-key "recent")
-
-         "g" '(:ignore t :which-key "git")
-         "gs" '(magit-status :which-key "status")
-         "i" '(:ignore t :which-key "insert")
-         "ic" '(insert-char :which-key "char")
-
-         "p" '(:ignore t :which-key "projectile")
-         "pf" '(projectile-find file :which-key "find file")
-
-
-         "w" '(:ignore t :which-key "window")
-         "wh" '(evil-window-left :which-key "left")
-         "wj" '(evil-window-down :which-key "down")
-         "wk" '(evil-window-up :which-key "up")
-         "wl" '(evil-window-right :which-key "right")
-         "wv" '(evil-window-vsplit :w-k "split vertically")
-         "ww" '(evil-window-next :w-k "next")
-         "wq" '(evil-window-delete :which-key "quit")
-         "w=" '(balance-windows :which-key "quit")
-         )
-       )
-   #+END_SRC
-** General
-
-   Number incrementing
-
-   #+BEGIN_SRC emacs-lisp
-;; (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
-;; (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt)
-   #+END_SRC
-
-   Jump forward like vim
-
-   #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-i") 'evil-jump-forward)
-   #+END_SRC
-
-** Which-Key
-   https://github.com/justbur/emacs-which-key
-   Which-key shows available keybindings when pressing keys
-   #+BEGIN_SRC emacs-lisp
-     (use-package which-key
-       :diminish
-       :config
-       (setq which-key-separator " ")
-       (setq which-key-prefix-prefix "+")
-       (setq which-key-idle-delay 0.3)
-       (which-key-mode 1))
-   #+END_SRC
-
 * Org
   #+BEGIN_SRC emacs-lisp
     (use-package org
@@ -189,6 +199,7 @@
         "n" 'org-noter
         )
       (:keymap org-mode-map
+               :keymaps 'override
                "M-h" 'outline-promote
                "M-j" 'outline-move-subtree-down
                "M-k" 'outline-move-subtree-up
@@ -200,12 +211,18 @@
   (use-package org-download)
   #+END_SRC
 
+
+
+** show entities as UTF8 characters
   #+BEGIN_SRC emacs-lisp
-    ;; show entities as UTF8 characters
     (setq org-pretty-entities t)
-    ;;(setq org-ellipsis "  ")
   #+END_SRC
 
+** store Latex preview in /tmp
+   This gets rid of the ltximg directories when using latex fragments
+   #+BEGIN_SRC emacs-lisp
+   (setq org-preview-latex-image-directory "/tmp/org/ltximg/")
+   #+END_SRC
 ** Latex preview
    #+BEGIN_SRC emacs-lisp
     ;; latex preview larger
@@ -491,3 +508,14 @@
    #+BEGIN_SRC emacs-lisp
 
    #+END_SRC
+* Snippets
+** Yasnippet
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package yasnippet)
+#+END_SRC
+** TODO auto-yasnippet
+# https://github.com/abo-abo/auto-yasnippet
+# Create Snippets on the go
+# #+BEGIN_SRC emacs-lisp
+#   (use-package auto-yasnippet)
+# #+END_SRC
