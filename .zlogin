@@ -2,9 +2,9 @@
 
 if [[ -z $DISPLAY ]]; then
     if [[ $(tty) = /dev/tty1 ]]; then
-        startx
+        exec ~/.config/sway/start.sh
     fi
     if [[ $(tty) = /dev/tty2 ]]; then
-        exec ~/.config/sway/start.sh
+        startx
     fi
 fi

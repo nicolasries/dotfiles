@@ -185,17 +185,17 @@ bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+g mode "cursor"
 mode "cursor" {
-    bindsym $left seat seat0 cursor move -10 0
-    bindsym $down seat seat0 cursor move 0 10
-    bindsym $up seat seat0 cursor move 0 -10
-    bindsym $right seat seat0 cursor move 10 0
+bindsym $left seat seat0 cursor move -10 0
+bindsym $down seat seat0 cursor move 0 10
+bindsym $up seat seat0 cursor move 0 -10
+bindsym $right seat seat0 cursor move 10 0
 
-    bindsym n seat seat0 cursor press BTN_LEFT
-    bindsym m seat seat0 cursor press BTN_RIGHT
+bindsym n seat seat0 cursor press BTN_LEFT
+bindsym m seat seat0 cursor press BTN_RIGHT
 
 
 
-    bindsym Escape mode "default"
+bindsym Escape mode "default"
 }
 
 # }}}
@@ -204,51 +204,51 @@ mode "cursor" {
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym $left resize shrink width 10 px or 10 ppt
-        bindsym $right resize grow width 10 px or 10 ppt
-        bindsym $down resize grow height 10 px or 10 ppt
-        bindsym $up resize shrink height 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+bindsym $left resize shrink width 10 px or 10 ppt
+bindsym $right resize grow width 10 px or 10 ppt
+bindsym $down resize grow height 10 px or 10 ppt
+bindsym $up resize shrink height 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
 }
 # }}}
 #
 # Inert mode {{{
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
-        bindsym $mod+Escape mode "default"
+bindsym $mod+Escape mode "default"
 }
 # }}}
 
 # Media Mode {{{
 set $media "media (h) prev (j) backward (k) forward (l) next"
 mode $media {
-        bindsym h exec $player_script previous
-        bindsym j exec $player_script backward
-        bindsym k exec $player_script forward
-        bindsym l exec $player_script next
+bindsym h exec $player_script previous
+bindsym j exec $player_script backward
+bindsym k exec $player_script forward
+bindsym l exec $player_script next
 
 
-        bindsym Escape mode "default"
+bindsym Escape mode "default"
 }
 # }}}
 
 # Volume Mode {{{
 set $volume "volume (j) - (k) + (m) mute"
 mode $volume {
-        bindsym j exec $volume_script --down
-        bindsym k exec $volume_script --up
-        bindsym m exec $volume_script --mute
+bindsym j exec $volume_script --down
+bindsym k exec $volume_script --up
+bindsym m exec $volume_script --mute
 
-        bindsym Escape mode "default"
+bindsym Escape mode "default"
 }
 # }}}
 
@@ -279,13 +279,13 @@ bindsym $mod+Shift+r reload
 
 # keyboard settings (needs sway >1.0)
 input * {
-  repeat_rate 50
-  repeat_delay 300
-  xkb_layout us,de
-  xkb_options grp:win_space_toggle,caps:escape
+repeat_rate 50
+repeat_delay 300
+xkb_layout us,de
+xkb_options grp:win_space_toggle,caps:escape
 
-  # touchpad
-  tap enabled
+# touchpad
+tap enabled
 
 }
 # hide cursor after 15 seconds
@@ -366,25 +366,25 @@ client.focused          $color1 $color1 $text $color1 $color1
 
 set $transp "#00000000"
 bar {
-    # swaybar_command waybar
-    status_command i3blocks
-    # hide numbers in workspace names
-    strip_workspace_numbers yes
-    position top
-    # mode hide
-    # status_command i3blocks
-    separator_symbol ""
-    # tray_output "HDMI-A-1"
-    modifier $mod
-    colors {
-        #color class       border  back.   text
-        focused_workspace $color1 $color1 #ffffff
-        inactive_workspace $transp $transp $text
-        active_workspace $color3 $color3 $text
-        urgent_workspace #a30000 $transp $text
-        statusline $text
-        background $transp
-    }
+# swaybar_command waybar
+status_command i3blocks
+# hide numbers in workspace names
+strip_workspace_numbers yes
+position top
+# mode hide
+# status_command i3blocks
+separator_symbol ""
+# tray_output "HDMI-A-1"
+modifier $mod
+colors {
+#color class       border  back.   text
+focused_workspace $color1 $color1 #ffffff
+inactive_workspace $transp $transp $text
+active_workspace $color3 $color3 $text
+urgent_workspace #a30000 $transp $text
+statusline $text
+background $transp
+}
 }
 
 # }}}
