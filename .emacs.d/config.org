@@ -105,6 +105,8 @@
    https://github.com/louietan/anki-editor
    #+BEGIN_SRC emacs-lisp
      (use-package anki-editor
+       :init
+       (setq anki-editor-use-math-jax t) ;; use mathjax syntax "\(\)" instead of latex
        :config
        (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
        (defun nri/anki-basic-reverse () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic (and reversed card)" '("Front" "Back"))))
@@ -155,6 +157,8 @@
              :config
              (evil-mode 1)
              (setq evil-want-C-u-scroll t)) ;; TODO: doesn't work..
+             :general
+
     #+END_SRC
 *** Evil Surround
     https://github.com/emacs-evil/evil-surround
@@ -165,13 +169,14 @@
        (global-evil-surround-mode 1))
     #+END_SRC
 *** Evil Collection
-#     https://github.com/emacs-evil/evil-collection
-#     #+BEGIN_SRC emacs-lisp
-#       (use-package evil-collection
-#         :after evil
-#         :config
-#         (evil-collection-init))
-#     #+END_SRC
+    https://github.com/emacs-evil/evil-collection
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-collection
+        :after evil
+        :config
+        (setq evil-collection-mode-list '((pdf pdf-view))) ;; remove outline from evil-collection, messes up org-mode bindings
+        (evil-collection-init))
+    #+END_SRC
 *** Evil Nerd Commenter
     https://github.com/redguardtoo/evil-nerd-commenter
     #+BEGIN_SRC emacs-lisp
@@ -188,35 +193,35 @@
        (smartparens-global-mode 1))
    #+END_SRC
 * Org
-  #+BEGIN_SRC emacs-lisp
-    (use-package org
-      :general
-      (nri/major-leader
-        :states '(normal visual motion)
-        :keymaps 'org-mode-map
-        "a" 'org-agenda
-        "A" 'org-attach
-        "n" 'org-noter
-        )
-      (:keymap org-mode-map
-               :keymaps 'override
-               "M-h" 'outline-promote
-               "M-j" 'outline-move-subtree-down
-               "M-k" 'outline-move-subtree-up
-               "M-l" 'outline-demote))
-  #+END_SRC
-
+** Org Setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package org
+       :general
+       (nri/major-leader
+         :states '(normal visual motion)
+         :keymaps 'org-mode-map
+         "a" 'org-agenda
+         "A" 'org-attach
+         "n" 'org-noter
+         )
+       (:keymap org-mode-map
+                :keymaps 'override
+                "M-h" 'outline-promote
+                "M-j" 'outline-move-subtree-down
+                "M-k" 'outline-move-subtree-up
+                "M-l" 'outline-demote))
+     (use-package htmlize)
+   #+END_SRC
 ** Drag & Drop files to org modes
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   (use-package org-download)
-  #+END_SRC
-
+   #+END_SRC
 
 
 ** show entities as UTF8 characters
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
     (setq org-pretty-entities t)
-  #+END_SRC
+   #+END_SRC
 
 ** store Latex preview in /tmp
    This gets rid of the ltximg directories when using latex fragments
@@ -510,12 +515,12 @@
    #+END_SRC
 * Snippets
 ** Yasnippet
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   ;; (use-package yasnippet)
-#+END_SRC
+   #+END_SRC
 ** TODO auto-yasnippet
-# https://github.com/abo-abo/auto-yasnippet
-# Create Snippets on the go
-# #+BEGIN_SRC emacs-lisp
-#   (use-package auto-yasnippet)
-# #+END_SRC
+   # https://github.com/abo-abo/auto-yasnippet
+   # Create Snippets on the go
+   # #+BEGIN_SRC emacs-lisp
+   #   (use-package auto-yasnippet)
+   # #+END_SRC
