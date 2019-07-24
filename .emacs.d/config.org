@@ -15,57 +15,59 @@
          :keymaps 'override
          :states '(normal visual motion)
          "SPC" 'counsel-M-x
-         "TAB" '(mode-line-other-buffer :w-k "previous")
+         "TAB" '(mode-line-other-buffer :which-key "previous")
 
-         "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :w-k "terminal")
+         "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
 
-         "/" '(swiper :w-k "search")
+         "/" '(swiper :which-key "search")
 
-         "a" '(:ignore t :w-k "Applications")
-         "aa" '(:ignore t :w-k "Anki")
-         "aai" '(anki-editor-insert-note :w-k "Insert Note")
-         "aap" '(anki-editor-push-notes :w-k "Push Notes")
-         "b" '(:ignore t :w-k "buffers")
-         "bb" '(counsel-ibuffer :w-k "list")
+         "a" '(:ignore t :which-key "Applications")
+         "aa" '(:ignore t :which-key "Anki")
+         "aai" '(anki-editor-insert-note :which-key "Insert Note")
+         "aap" '(anki-editor-push-notes :which-key "Push Notes")
+         "b" '(:ignore t :which-key "buffers")
+         "bb" '(counsel-ibuffer :which-key "list")
 
-         "e" '(:ignore t :w-k "emacs")
-         "ed" '(:ignore t :w-k "describe")
-         "edv" '(describe-variable :w-k "variable")
-         "edf" '(describe-function :w-k "function")
-         "edk" '(describe-key :w-k "key")
-         "edm" '(describe-minor-mode :w-k "minor mode")
-         "edM" '(describe-mode :w-k "all modes")
+         "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
 
-         "ee" '(:ignore t :w-k "eval")
-         "eee" '(eval-last-sexp :w-k "expression")
-         "eer" '(eval-region :w-k "region")
+         "e" '(:ignore t :which-key "emacs")
+         "ed" '(:ignore t :which-key "describe")
+         "edv" '(describe-variable :which-key "variable")
+         "edf" '(describe-function :which-key "function")
+         "edk" '(describe-key :which-key "key")
+         "edm" '(describe-minor-mode :which-key "minor mode")
+         "edM" '(describe-mode :which-key "all modes")
+
+         "ee" '(:ignore t :which-key "eval")
+         "eee" '(eval-last-sexp :which-key "expression")
+         "eer" '(eval-region :which-key "region")
 
 
-         "f" '(:ignore t :w-k "file")
-         "ff" '(find-file :w-k "find")
-         "fg" '(counsel-git :w-k "git")
-         "fs" '(save-buffer :w-k "save")
-         "fr" '(counsel-recentf :w-k "recent")
+         "f" '(:ignore t :which-key "file")
+         "ff" '(find-file :which-key "find")
+         "fg" '(counsel-git :which-key "git")
+         "fs" '(save-buffer :which-key "save")
+         "fr" '(counsel-recentf :which-key "recent")
 
-         "g" '(:ignore t :w-k "git")
-         "gs" '(magit-status :w-k "status")
-         "i" '(:ignore t :w-k "insert")
-         "ic" '(insert-char :w-k "char")
+         "g" '(:ignore t :which-key "git")
+         "gs" '(magit-status :which-key "status")
+         "i" '(:ignore t :which-key "insert")
+         "ic" '(insert-char :which-key "char")
 
-         "p" '(:ignore t :w-k "projectile")
-         "pf" '(projectile-find file :w-k "find file")
+         "p" '(:ignore t :which-key "projectile")
+         "pf" '(projectile-find file :which-key "find file")
 
          "s" '(:ignore t :w-k "snippets")
 
-         "w" '(:ignore t :w-k "window")
-         "wh" '(evil-window-left :w-k "left")
-         "wj" '(evil-window-down :w-k "down")
-         "wk" '(evil-window-up :w-k "up")
-         "wl" '(evil-window-right :w-k "right")
+         "w" '(:ignore t :which-key "window")
+         "wh" '(evil-window-left :which-key "left")
+         "wj" '(evil-window-down :which-key "down")
+         "wk" '(evil-window-up :which-key "up")
+         "wl" '(evil-window-right :which-key "right")
          "wv" '(evil-window-vsplit :w-k "split vertically")
          "ww" '(evil-window-next :w-k "next")
-         "wq" '(evil-window-delete :w-k "quit")
-         "w=" '(balance-windows :w-k "quit")
+         "wq" '(evil-window-delete :which-key "quit")
+         "w=" '(balance-windows :which-key "quit")
          )
        )
    #+END_SRC
@@ -84,6 +86,7 @@
 (global-set-key (kbd "C-i") 'evil-jump-forward)
    #+END_SRC
 
+** Which-Key
    https://github.com/justbur/emacs-which-key
    Which-key shows available keybindings when pressing keys
    #+BEGIN_SRC emacs-lisp
@@ -153,9 +156,9 @@
              (setq evil-want-keybinding nil)
              :config
              (evil-mode 1)
+             (setq evil-want-C-u-scroll t)) ;; TODO: doesn't work..
              :general
-             (:states '(normal visual motion)
-             "C-u" 'evil-scroll-up))
+
     #+END_SRC
 *** Evil Surround
     https://github.com/emacs-evil/evil-surround
@@ -199,7 +202,6 @@
          :keymaps 'org-mode-map
          "a" 'org-agenda
          "A" 'org-attach
-         "e" 'org-export-dispatch
          "n" 'org-noter
          )
        (:keymap org-mode-map
