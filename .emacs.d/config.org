@@ -174,7 +174,8 @@
       (use-package evil-collection
         :after evil
         :config
-        (setq evil-collection-mode-list '((pdf pdf-view))) ;; remove outline from evil-collection, messes up org-mode bindings
+        ;; only load specific modules
+        (setq evil-collection-mode-list '((pdf pdf-view)))
         (evil-collection-init))
     #+END_SRC
 *** Evil Nerd Commenter
@@ -253,7 +254,9 @@
 ** Org Noter
    Annotate PDF files within org-mode
    #+BEGIN_SRC emacs-lisp
-   (use-package org-noter)
+     (use-package org-noter
+       :config
+       (setq org-noter-auto-save-last-location t))
    #+END_SRC
 * Autocompletion
 ** Company Mode
