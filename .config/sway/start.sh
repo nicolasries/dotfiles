@@ -4,7 +4,8 @@
     # export QT_QPA_PLATFORM=wayland-egl
     # export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
-    export GDK_BACKEND=wayland
+    # screws up thunderbird and emacs, disabled for now
+    # export GDK_BACKEND=wayland
 
     export MOZ_ENABLE_WAYLAND=1
     
