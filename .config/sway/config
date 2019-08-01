@@ -9,7 +9,7 @@ focus_follows_mouse no
 mouse_warping none
 
 # default layout
-workspace_layout default
+workspace_layout tabbed
 
 #}}}
 
@@ -229,12 +229,13 @@ bindsym $mod+Escape mode "default"
 # }}}
 
 # Media Mode {{{
-set $media "media (h) prev (j) backward (k) forward (l) next"
+set $media "media (h) prev (j) backward (k) forward (l) next (L) Lyrics"
 mode $media {
 bindsym h exec $player_script previous
 bindsym j exec $player_script backward
 bindsym k exec $player_script forward
 bindsym l exec $player_script next
+bindsym Shift+l exec "~/bin/lyrics.py"
 
 
 bindsym Escape mode "default"
@@ -334,7 +335,7 @@ set $color14 #C2A59C
 set $color15 #dad0ce
 
 # no borders
-#hide_edge_borders both
+hide_edge_borders --i3 both
 
 default_border pixel
 
