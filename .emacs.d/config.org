@@ -13,7 +13,7 @@
    #+END_SRC
 ** Save session
    #+BEGIN_SRC emacs-lisp
-     ;; (desktop-save-mode 1)
+     (desktop-save-mode 1)
    #+END_SRC
 ** Quit ediff without prompt
    #+BEGIN_SRC emacs-lisp
