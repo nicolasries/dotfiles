@@ -1,8 +1,94 @@
 #+TITLE: Configuration
+* More sensible defaults
+  A bunch of stuff that really should be the default configuration.
+** Reload changed files automatically
+   #+BEGIN_SRC emacs-lisp
+     (global-auto-revert-mode)
+   #+END_SRC
+** Seperate Custom File
+   This gets rid of the auto generated data that 'custom' saves to the init file
+   #+BEGIN_SRC emacs-lisp
+     (setq custom-file "~/.emacs.d/custom.el")
+     (load-file custom-file)
+   #+END_SRC
+** Save session
+   #+BEGIN_SRC emacs-lisp
+     ;; (desktop-save-mode 1)
+   #+END_SRC
+** Quit ediff without prompt
+   #+BEGIN_SRC emacs-lisp
+     (defun disable-y-or-n-p (orig-fun &rest args)
+       (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+         (apply orig-fun args)))
+     (advice-add 'ediff-quit :around #'disable-y-or-n-p)
+   #+END_SRC
+
+** Kill processes without prompt when quitting
+   #+BEGIN_SRC emacs-lisp
+     (setq confirm-kill-processes nil)
+   #+END_SRC
+** No annoying prompts when creating a new file
+   #+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil
+   helm-ff-newfile-prompt-p nil
+  ido-create-new-buffer 'always)
+   #+END_SRC
+** y/n is enough
+   #+BEGIN_SRC emacs-lisp
+   (defalias 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+** UTF-8 Encoding
+   #+BEGIN_SRC emacs-lisp
+   (setq locale-coding-system 'utf-8) ; pretty
+   (set-terminal-coding-system 'utf-8) ; pretty
+   (set-keyboard-coding-system 'utf-8) ; pretty
+   (set-selection-coding-system 'utf-8) ; please
+   (prefer-coding-system 'utf-8) ; with sugar on top
+   (setq-default indent-tabs-mode nil)
+   #+END_SRC
+** Unique buffer names when same file names
+   #+BEGIN_SRC emacs-lisp
+   (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+** Recent files
+   #+BEGIN_SRC emacs-lisp
+     (recentf-mode 1)
+     (setq recentf-max-menu-items 100)
+   #+END_SRC
+** Disable lock files
+   #+BEGIN_SRC emacs-lisp
+     (setq create-lockfiles nil)
+   #+END_SRC
+** Higher GC treshold
+   Allow 20MB before calling the garbage collection. Default ist 0.8MB.
+   #+BEGIN_SRC emacs-lisp
+     (setq gc-cons-threshold 20000000)
+   #+END_SRC
+** Delete trailing whitespace on save
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   #+END_SRC
+** Single Space after periods
+   #+BEGIN_SRC emacs-lisp
+     (setq sentence-end-double-space nil)
+   #+END_SRC
+** Always end with a new line
+   #+BEGIN_SRC emacs-lisp
+     (setq require-final-newline t)
+   #+END_SRC
+** No Backup Files (~)
+   #+BEGIN_SRC emacs-lisp
+     (setq make-backup-files nil) ;; TODO only in git?
+   #+END_SRC
+** No auto-save files (##)
+   #+BEGIN_SRC emacs-lisp
+     (setq auto-save-default nil) ;; TODO only in git?
+   #+END_SRC
 * Keybindings
   https://github.com/noctuid/general.el/
   Keybindings are defined using general.el
 ** Leader Menu
+   Spacemacs-like leader menu using space as a prefix.
    #+BEGIN_SRC emacs-lisp
      (use-package general
        :config
@@ -77,7 +163,7 @@
 
 ** Which-Key
    https://github.com/justbur/emacs-which-key
-   Which-key shows available keybindings when pressing keys
+   Which-key shows all available keybindings when pressing keys
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
        :diminish
@@ -87,8 +173,7 @@
        (setq which-key-idle-delay 0.3)
        (which-key-mode 1))
    #+END_SRC
-* Completion Framework
-  Ivy, Counsel, Swiper
+* Incremental Completion Framework
   #+BEGIN_SRC emacs-lisp
     (use-package ivy)
     (use-package swiper)
@@ -138,12 +223,12 @@
 *** Evil Collection
     https://github.com/emacs-evil/evil-collection
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package evil-collection
-      ;;   :after evil
-      ;;   :config
-      ;;   ;; only load specific modules
-      ;;   (setq evil-collection-mode-list '((pdf pdf-view)))
-      ;;   (evil-collection-init))
+      (use-package evil-collection
+        :after evil
+        :config
+        ;; only load specific modules
+        ;; (setq evil-collection-mode-list '((pdf pdf-view)))
+        (evil-collection-init))
     #+END_SRC
 *** Evil Nerd Commenter
     https://github.com/redguardtoo/evil-nerd-commenter
@@ -187,91 +272,9 @@
    ;; company-go-show-annotation t
    ;; company-tooltip-minimum 5)
    #+END_SRC
-* Misc
-** Reload changed files automatically
-   #+BEGIN_SRC emacs-lisp
-     (global-auto-revert-mode)
-   #+END_SRC
-** Seperate Custom File
-   This gets rid of the auto generated data that 'custom' saves to the init file
-   #+BEGIN_SRC emacs-lisp
-     (setq custom-file "~/.emacs.d/custom.el")
-     (load-file custom-file)
-   #+END_SRC
-** Save session
-   #+BEGIN_SRC emacs-lisp
-     ;; (desktop-save-mode 1)
-   #+END_SRC
-** Quit ediff without prompt
-   #+BEGIN_SRC emacs-lisp
-     (defun disable-y-or-n-p (orig-fun &rest args)
-       (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
-         (apply orig-fun args)))
-     (advice-add 'ediff-quit :around #'disable-y-or-n-p)
-   #+END_SRC
-
-** Kill processes without prompt when quitting
-   #+BEGIN_SRC emacs-lisp
-     (setq confirm-kill-processes nil)
-   #+END_SRC
-** No annoying prompts when creating a new file
-   #+BEGIN_SRC emacs-lisp
-  (setq confirm-nonexistent-file-or-buffer nil
-   helm-ff-newfile-prompt-p nil
-  ido-create-new-buffer 'always)
-   #+END_SRC
-** y/n is enough
-   #+BEGIN_SRC emacs-lisp
-   (defalias 'yes-or-no-p 'y-or-n-p)
-   #+END_SRC
-** UTF-8 Encoding
-   #+BEGIN_SRC emacs-lisp
-   (setq locale-coding-system 'utf-8) ; pretty
-   (set-terminal-coding-system 'utf-8) ; pretty
-   (set-keyboard-coding-system 'utf-8) ; pretty
-   (set-selection-coding-system 'utf-8) ; please
-   (prefer-coding-system 'utf-8) ; with sugar on top
-   (setq-default indent-tabs-mode nil)
-   #+END_SRC
-** Unique buffer names when same file names
-   #+BEGIN_SRC emacs-lisp
-   (setq uniquify-buffer-name-style 'forward)
-   #+END_SRC
-** Recent files
-   #+BEGIN_SRC emacs-lisp
-     (recentf-mode 1)
-     (setq recentf-max-menu-items 25)
-   #+END_SRC
-** Disable lock files
-   #+BEGIN_SRC emacs-lisp
-     (setq create-lockfiles nil)
-   #+END_SRC
-** Higher GC treshold
-   Allow 20MB before calling the garbage collection. Default ist 0.8MB.
-   #+BEGIN_SRC emacs-lisp
-     (setq gc-cons-threshold 20000000)
-   #+END_SRC
-** Delete trailing whitespace on save
-   #+BEGIN_SRC emacs-lisp
-   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-   #+END_SRC
-** Single Space after periods
-   #+BEGIN_SRC emacs-lisp
-     (setq sentence-end-double-space nil)
-   #+END_SRC
-** Always end with a new line
-   #+BEGIN_SRC emacs-lisp
-     (setq require-final-newline t)
-   #+END_SRC
-** No Backup Files (~)
-   #+BEGIN_SRC emacs-lisp
-     (setq make-backup-files nil) ;; TODO only in git?
-   #+END_SRC
-** No auto-save files (##)
-   #+BEGIN_SRC emacs-lisp
-     (setq auto-save-default nil) ;; TODO only in git?
-   #+END_SRC
-* Flycheck
+* Syntax Checking
+  Automatically check syntax using Flycheck.
+  https://github.com/flycheck/flycheck/
   #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :diminish
@@ -295,27 +298,6 @@
      (add-hook 'git-commit-mode-hook 'evil-insert-state)
    #+END_SRC
 
-* Unfinished
-** Mode line
-
-   format git status
-
-   #+BEGIN_SRC emacs-lisp
- ;; (defadvice vc-mode-line (after strip-backend () activate)
- ;;   (when (stringp vc-mode)
- ;;     (let ((noback (replace-regexp-in-string
- ;;                    (format "^ %s" (vc-backend buffer-file-name))
- ;;                    " " vc-mode)))
- ;;       (setq vc-mode noback))))        ;
-   #+END_SRC
-** Terminal
-   - make URLs clickable
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'term-mode-hook
-               (lambda ()
-                 (goto-address-mode)))
-   #+END_SRC
-
 * UI
 ** Font
    #+BEGIN_SRC emacs-lisp
@@ -324,11 +306,6 @@
    #+END_SRC
 
 ** Theme
-   doom
-   #+BEGIN_SRC emacs-lisp
-   (use-package doom-themes)
-
-   #+END_SRC
    Poet
    #+BEGIN_SRC emacs-lisp
 (use-package poet-theme)
@@ -341,14 +318,6 @@
 :init
 (load-theme 'spacemacs-dark t ))
 
-   #+END_SRC
-   solarized-theme https://github.com/bbatsov/solarized-emacs
-   #+BEGIN_SRC emacs-lisp
-     (use-package solarized-theme
-       :defer 10
-       :init
-       (setq solarized-use-variable-pitch nil))
-     ;; (load-theme 'solarized-dark)
    #+END_SRC
 ** Misc
 *** relative line numbers
@@ -410,6 +379,7 @@
      #+END_SRC
 
 * Projectile
+  Project Management
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :diminish
@@ -424,8 +394,8 @@
    #+END_SRC
 ** Rust
 *** Rust Mode
-   https://github.com/rust-lang/rust-mode
-   #+BEGIN_SRC emacs-lisp
+    https://github.com/rust-lang/rust-mode
+    #+BEGIN_SRC emacs-lisp
      (use-package rust-mode
        :config
        (setq rust-format-on-save t)
@@ -435,9 +405,10 @@
          :keymaps 'rust-mode-map
          "r" 'rust-run
          ))
-   #+END_SRC
+    #+END_SRC
 
 *** Rust Flycheck
+    Improved Flycheck config for Rust.
     https://github.com/flycheck/flycheck-rust
     #+BEGIN_SRC emacs-lisp
       (use-package flycheck-rust
@@ -453,12 +424,12 @@
    #+END_SRC
 
 ** Markdown
-
+   https://github.com/jrblevin/markdown-mode
    #+BEGIN_SRC emacs-lisp
      (use-package markdown-mode)
    #+END_SRC
 ** Org
-*** Org Setup
+*** Org Setup & Keybindings
     #+BEGIN_SRC emacs-lisp
       (use-package org
         :general
@@ -468,6 +439,7 @@
           "a" 'org-agenda
           "A" 'org-attach
           "n" 'org-noter
+          "ll" 'org-toggle-latex-fragment
           )
         (:keymap org-mode-map
                  :keymaps 'override
@@ -475,30 +447,26 @@
                  "M-j" 'outline-move-subtree-down
                  "M-k" 'outline-move-subtree-up
                  "M-l" 'outline-demote))
-      (use-package htmlize)
     #+END_SRC
 *** Drag & Drop files to org modes
     #+BEGIN_SRC emacs-lisp
    (use-package org-download)
     #+END_SRC
-
-
 *** show entities as UTF8 characters
     #+BEGIN_SRC emacs-lisp
      ;; (setq org-pretty-entities t)
     #+END_SRC
 
-*** store Latex preview in /tmp
-    This gets rid of the ltximg directories when using latex fragments
-    #+BEGIN_SRC emacs-lisp
-    (setq org-preview-latex-image-directory "/tmp/org/ltximg/")
-    #+END_SRC
 *** Latex preview
-    #+BEGIN_SRC emacs-lisp
-     ;; latex preview larger
+**** Larger Preview
+     #+BEGIN_SRC emacs-lisp
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-    #+END_SRC
-
+     #+END_SRC
+**** store Latex preview in /tmp
+     This gets rid of the ltximg directories when using latex fragments
+     #+BEGIN_SRC emacs-lisp
+     (setq org-preview-latex-image-directory "/tmp/org/ltximg/")
+     #+END_SRC
 *** Bullets
     Nicer looking bullets
     #+BEGIN_SRC emacs-lisp
@@ -515,6 +483,7 @@
       ;; add additional languages with '((language . t)))
     #+END_SRC
 *** Org Noter
+    https://github.com/weirdNox/org-noter
     Annotate PDF files within org-mode
     #+BEGIN_SRC emacs-lisp
       (use-package org-noter
@@ -553,4 +522,24 @@
      (use-package pdf-tools
        :config
        (pdf-tools-install))
+   #+END_SRC
+* Unfinished
+** Mode line
+
+   format git status
+
+   #+BEGIN_SRC emacs-lisp
+ ;; (defadvice vc-mode-line (after strip-backend () activate)
+ ;;   (when (stringp vc-mode)
+ ;;     (let ((noback (replace-regexp-in-string
+ ;;                    (format "^ %s" (vc-backend buffer-file-name))
+ ;;                    " " vc-mode)))
+ ;;       (setq vc-mode noback))))        ;
+   #+END_SRC
+** Terminal
+   - make URLs clickable
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'term-mode-hook
+               (lambda ()
+                 (goto-address-mode)))
    #+END_SRC
