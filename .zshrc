@@ -27,8 +27,8 @@ autoload -U colors && colors
 
 # Aliases {{{
 
-# simple c compile and run
-# alias c="gcc -Wall main.c && ./a.out"
+# dotfile management
+alias c='/usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
 
 # edit shortcut
 alias e="$EDITOR"
