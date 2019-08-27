@@ -226,8 +226,7 @@
       (use-package evil-collection
         :after evil
         :config
-        ;; only load specific modules
-        ;; (setq evil-collection-mode-list '((pdf pdf-view)))
+        (setq evil-collection-outline-bind-tab-p nil)
         (evil-collection-init))
     #+END_SRC
 *** Evil Nerd Commenter

@@ -227,12 +227,13 @@ bindsym $mod+Escape mode "default"
 # }}}
 
 # Media Mode {{{
-set $media "media (h) prev (j) backward (k) forward (l) next (L) Lyrics"
+set $media "media (h) prev (j) backward (k) forward (l) next (m) play-pause (L) Lyrics"
 mode $media {
 bindsym h exec $player_script previous
 bindsym j exec $player_script backward
 bindsym k exec $player_script forward
 bindsym l exec $player_script next
+bindsym m exec $player_script play-pause
 bindsym Shift+l exec "~/bin/lyrics.py"
 
 

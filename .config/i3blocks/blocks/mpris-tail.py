@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 import sys
+#!/usr/bin/env python3
+
+import sys
 import dbus
 import os
 from operator import itemgetter
@@ -13,7 +16,7 @@ from gi.repository import GLib
 DBusGMainLoop(set_as_default=True)
 
 
-FORMAT_STRING = '{icon} {artist} - {title}'
+FORMAT_STRING = '{position} {icon} {artist} - {title}'
 FORMAT_REGEX = re.compile(r'(\{:(?P<tag>.*?)(:(?P<format>[wt])(?P<formatlen>\d+))?:(?P<text>.*?):\})', re.I)
 FORMAT_TAG_REGEX = re.compile(r'(?P<format>[wt])(?P<formatlen>\d+)')
 SAFE_TAG_REGEX = re.compile(r'[{}]')
@@ -28,7 +31,7 @@ class PlayerManager:
         self.print_queue = []
         self.connected = False
         self.player_states = {}
-        
+
         self.refreshPlayerList()
 
         if self._connect:
@@ -38,10 +41,10 @@ class PlayerManager:
                 loop.run()
             except KeyboardInterrupt:
                 print("interrupt received, stopping…")
-    
+
     def connect(self):
         self._session_bus.add_signal_receiver(self.onOwnerChangedName, 'NameOwnerChanged')
-    
+
     def onOwnerChangedName(self, bus_name, old_owner, new_owner):
         if self.busNameIsAPlayer(bus_name):
             if new_owner and not old_owner:
@@ -65,7 +68,7 @@ class PlayerManager:
     def addPlayer(self, bus_name, owner = None):
         player = Player(self._session_bus, bus_name, owner = owner, connect = self._connect, _print = self.print)
         self.players[player.owner] = player
-        
+
     def removePlayer(self, owner):
         self.players[owner].disconnect()
         del self.players[owner]
@@ -76,7 +79,7 @@ class PlayerManager:
         player = Player(self._session_bus, bus_name, owner = new_owner, connect = self._connect, _print = self.print)
         self.players[new_owner] = player
         del self.players[old_owner]
-    
+
     # Get a list of player owners sorted by current status and age
     def getSortedPlayerOwnerList(self):
         players = [
@@ -110,7 +113,7 @@ class PlayerManager:
                 _printFlush(ICON_STOPPED)
         else:
             self.print_queue.append([status, player])
-    
+
     def printQueue(self):
         for args in self.print_queue:
             self.print(args[0], args[1])
@@ -130,6 +133,12 @@ class Player:
             'title'  : '',
             'track'  : 0
         }
+
+        self._rate = 1.
+        self._positionAtLastUpdate = 0.
+        self._timeAtLastUpdate = time.time()
+        self._positionTimerRunning = False
+
         self._metadata = None
         self.status = 'stopped'
         self.icon = ICON_NONE
@@ -154,13 +163,14 @@ class Player:
         self._playerRaise     = self._media_interface.get_dbus_method('Raise', dbus_interface=None)
         self._signals = {}
 
+        self.refreshPosition()
         self.refreshStatus()
         self.refreshMetadata()
 
         if connect:
             self.printStatus()
             self.connect()
-    
+
     def play(self):
         self._playerPlay()
     def pause(self):
@@ -175,26 +185,28 @@ class Player:
         self._playerNext()
     def raisePlayer(self):
         self._playerRaise()
-        
+
     def connect(self):
         if self._disconnecting is not True:
             introspect_xml = self._introspect(self.bus_name, '/')
             if 'TrackMetadataChanged' in introspect_xml:
                 self._signals['track_metadata_changed'] = self._session_bus.add_signal_receiver(self.onMetadataChanged, 'TrackMetadataChanged', self.bus_name)
+            self._signals['seeked'] = self._player_interface.connect_to_signal('Seeked', self.onSeeked)
             self._signals['properties_changed'] = self._properties_interface.connect_to_signal('PropertiesChanged', self.onPropertiesChanged)
-    
+
     def disconnect(self):
         self._disconnecting = True
         for signal_name, signal_handler in list(self._signals.items()):
             signal_handler.remove()
             del self._signals[signal_name]
-    
+
     def refreshStatus(self):
         # Some clients (VLC) will momentarily create a new player before removing it again
         # so we can't be sure the interface still exists
         try:
             self.status = str(self._getProperty('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')).lower()
             self.updateIcon()
+            self.checkPositionTimer()
         except dbus.exceptions.DBusException:
             self.disconnect()
 
@@ -206,7 +218,7 @@ class Player:
             self._parseMetadata()
         except dbus.exceptions.DBusException:
             self.disconnect()
-    
+
     def updateIcon(self):
         self.icon = (
             ICON_PLAYING if self.status == 'playing' else
@@ -218,7 +230,7 @@ class Player:
             ICON_PAUSED if self.status == 'playing' else
             ICON_PLAYING
         )
-    
+
     def _print(self, status):
         self.__print(status, self)
 
@@ -253,12 +265,12 @@ class Player:
             else:
                 self.metadata['cover'] = ''
 
-            self.metadata['duration'] = _getDuration(self.metadata['length']) 
-    
+            self.metadata['duration'] = _getDuration(self.metadata['length'])
+
     def onMetadataChanged(self, track_id, metadata):
         self.refreshMetadata()
         self.printStatus()
-    
+
     def onPropertiesChanged(self, interface, properties, signature):
         updated = False
         if dbus.String('Metadata') in properties:
@@ -271,11 +283,45 @@ class Player:
             status = str(properties[dbus.String('PlaybackStatus')]).lower()
             if status != self.status:
                 self.status = status
+                self.checkPositionTimer()
                 self.updateIcon()
                 updated = True
-        
+        if dbus.String('Rate') in properties and dbus.String('PlaybackStatus') not in properties:
+            self.refreshStatus()
+        if NEEDS_POSITION and dbus.String('Rate') in properties:
+            rate = properties[dbus.String('Rate')]
+            if rate != self._rate:
+                self._rate = rate
+                self.refreshPosition()
+
         if updated:
+            self.refreshPosition()
             self.printStatus()
+
+    def checkPositionTimer(self):
+        if NEEDS_POSITION and self.status == 'playing' and not self._positionTimerRunning:
+            self._positionTimerRunning = True
+            GLib.timeout_add_seconds(1, self._positionTimer)
+
+    def onSeeked(self, position):
+        self.refreshPosition()
+        self.printStatus()
+
+    def _positionTimer(self):
+        self.printStatus()
+        self._positionTimerRunning = self.status == 'playing'
+        return self._positionTimerRunning
+
+    def refreshPosition(self):
+        time_us = self._getProperty('org.mpris.MediaPlayer2.Player', 'Position')
+        self._timeAtLastUpdate = time.time()
+        self._positionAtLastUpdate = time_us / 1000000
+
+    def _getPosition(self):
+        if self.status == 'playing':
+            return self._positionAtLastUpdate + self._rate * (time.time() - self._timeAtLastUpdate)
+        else:
+            return self._positionAtLastUpdate
 
     def _statusReplace(self, match, metadata):
         tag = match.group('tag')
@@ -284,11 +330,11 @@ class Player:
         text = match.group('text')
         tag_found = False
         reversed_tag = False
-        
+
         if tag.startswith('-'):
             tag = tag[1:]
             reversed_tag = True
-        
+
         if format is None:
             tag_is_format_match = re.match(FORMAT_TAG_REGEX, tag)
             if tag_is_format_match:
@@ -318,6 +364,8 @@ class Player:
     def printStatus(self):
         if self.status in [ 'playing', 'paused' ]:
             metadata = { **self.metadata, 'icon': self.icon, 'icon-reversed': self.icon_reversed }
+            if NEEDS_POSITION:
+                metadata['position'] = time.strftime("%M:%S", time.gmtime(self._getPosition()))
             # replace metadata tags in text
             text = re.sub(FORMAT_REGEX, lambda match: self._statusReplace(match, metadata), FORMAT_STRING)
             # restore polybar tag formatting and replace any remaining metadata tags after that
@@ -408,10 +456,12 @@ parser.add_argument('--icon-none', default='')
 args = parser.parse_args()
 
 FORMAT_STRING = re.sub(r'%\{(.*?)\}(.*?)%\{(.*?)\}', r'􏿿p􏿿\1􏿿p􏿿\2􏿿p􏿿\3􏿿p􏿿', args.format)
+NEEDS_POSITION = "{position}" in FORMAT_STRING
+
 TRUNCATE_STRING = args.truncate_text
-ICON_PLAYING = ""
-ICON_PAUSED = ""
-ICON_STOPPED = ""
+ICON_PLAYING = args.icon_playing
+ICON_PAUSED = args.icon_paused
+ICON_STOPPED = args.icon_stopped
 ICON_NONE = args.icon_none
 
 if args.command is None:
@@ -443,4 +493,3 @@ else:
         print(_dbusValueToPython(current_player._metadata))
     elif args.command == 'raise' and current_player:
         current_player.raisePlayer()
-
