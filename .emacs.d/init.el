@@ -1,3 +1,10 @@
+;;; init.el --- init file
+
+;;; Commentary:
+;; just some bootstrapping code, the important stuff is in config.org
+
+;;; Code:
+
 ;; minimal UI
 ;; done first, so there's no popup
 (scroll-bar-mode -1)
@@ -6,28 +13,30 @@
 (menu-bar-mode   -1)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-;; Package configs
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("org" . "https://orgmode.org/elpa/")
-                        ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
 
-;; Bootstrap `use-package`
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
+;; straight.el bootstrap
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/master/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; manually load undo-tree (evil dependency)
-;; because elpa is unreliable
-(unless (package-installed-p 'undo-tree)
-  (package-install-file "~/.emacs.d/undo-tree-0.6.3.el"))
+;; use-package straight integration
+(setq straight-use-package-by-default t)
 
-(setq use-package-always-ensure t)
+;; load `use-package`
+(straight-use-package 'use-package)
 
 (use-package org)
 
-;; (require 'org)
 (org-babel-load-file (expand-file-name (concat user-emacs-directory "config.org")))
+
+(provide 'init)
+;;; init.el ends here
