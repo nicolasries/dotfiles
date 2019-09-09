@@ -178,6 +178,7 @@
     (use-package ivy)
     (use-package swiper)
     (use-package counsel
+      :diminish
       :general
       (:keymap ivy-minibuffer-map
                "<escape>" 'minibuffer-keyboard-quit)
@@ -493,6 +494,7 @@
 ** Yasnippet
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
+     :diminish
        :config
        (yas-global-mode 1)) ;; enable yasnippet everywhere
    #+END_SRC

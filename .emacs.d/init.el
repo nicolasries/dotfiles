@@ -29,6 +29,7 @@
   (load bootstrap-file nil 'nomessage))
 
 ;; use-package straight integration
+;; makes use-package calls invoke straight
 (setq straight-use-package-by-default t)
 
 ;; load `use-package`
