@@ -10,18 +10,19 @@ from os.path import expanduser
 
 swayWorkspace = "2:"
 # TODO save direct lyrics link
-lyricsFile = expanduser("~") + "/bin/lyrics.json"
+#lyricsFile = expanduser("~") + "/bin/lyrics.json"
 player = Playerctl.Player.new('spotify')
 
 id = player.props.metadata['mpris:trackid']
 
-file = open(lyricsFile, "r")
-x = file.read()
-lyrics = json.loads(x)
+#file = open(lyricsFile, "r")
+#x = file.read()
+#lyrics = json.loads(x)
 
 # file.write(json)
 # file.close()
-link = lyrics.get(id)
+#link = lyrics.get(id)
+link = None
 
 if link:
     os.system("$BROWSER {}".format(link))
