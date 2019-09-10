@@ -440,6 +440,7 @@
           "A" 'org-attach
           "n" 'org-noter
           "ll" 'org-toggle-latex-fragment
+          "o" 'org-open-at-point
           )
         (:keymap org-mode-map
                  :keymaps 'override

@@ -37,7 +37,7 @@ assign [class="^QtCreator$"] $wsp3
 assign [class="Godot"] $wsp3
 
 # mail
-assign [class="^Thunderbird$" instance="^Mail$"] $wsp4
+assign [app_id="^thunderbird$"] $wsp4
 
 # misc
 assign [class="^JDownloader$"] $wsp5
