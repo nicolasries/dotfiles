@@ -457,6 +457,10 @@
     #+BEGIN_SRC emacs-lisp
      ;; (setq org-pretty-entities t)
     #+END_SRC
+*** Inline Images
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-with-inline-images t)
+#+END_SRC
 
 *** Latex preview
 **** Larger Preview
