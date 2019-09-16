@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: org subtree
+# key: ost
+# --
+`(make-string (org-current-level) ?*)` $1
+#+BEGIN_SRC latex
+    \paragraph{$1.}
+    $0
+#+END_SRC
