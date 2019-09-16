@@ -14,6 +14,9 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
+;; use develop branch, better org fixes
+(setq straight-repository-branch "develop")
+
 ;; straight.el bootstrap
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -31,6 +34,7 @@
 ;; use-package straight integration
 ;; makes use-package calls invoke straight
 (setq straight-use-package-by-default t)
+
 
 ;; load `use-package`
 (straight-use-package 'use-package)
