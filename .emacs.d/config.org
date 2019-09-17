@@ -253,6 +253,12 @@
        :config
        (smartparens-global-mode 1))
    #+END_SRC
+** Jump to Definition
+   https://github.com/jacktasia/dumb-jump
+   #+BEGIN_SRC emacs-lisp
+   (use-package dumb-jump)
+   #+END_SRC
+
 * Autocompletion
 ** Company Mode
    #+BEGIN_SRC emacs-lisp
@@ -475,6 +481,7 @@
      #+END_SRC
 **** Automatically preview latex fragments
      Taken from https://gist.githubusercontent.com/cvcore/760008a4dfb2eadf42afdc9cf01ef979/raw/ebb38d37c52f8931ab9c7feac7ffd02ad352e6bc/org-fragment-auto-preview.el
+
      Fixed for org 9.2
 
      #+BEGIN_SRC emacs-lisp
@@ -580,9 +587,9 @@
 *** Bullets
     Nicer looking bullets
     #+BEGIN_SRC emacs-lisp
-     (use-package org-bullets
-       :init
-       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+     ;; (use-package org-bullets
+     ;;   :init
+     ;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
     #+END_SRC
 *** Babel
     #+BEGIN_SRC emacs-lisp
