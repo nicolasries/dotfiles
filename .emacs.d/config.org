@@ -629,10 +629,6 @@
    https://github.com/louietan/anki-editor
    #+BEGIN_SRC emacs-lisp
      (use-package anki-editor
-       :straight (:host github ;; using fork for now until it's merged https://github.com/louietan/anki-editor/pull/53
-                        :type git
-                        :repo "dickmao/anki-editor"
-                        :branch "request-0.3.1")
        :init
        (setq anki-editor-use-math-jax t) ;; use mathjax syntax "\(\)" instead of latex
        :config
