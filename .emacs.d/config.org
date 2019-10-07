@@ -1,4 +1,25 @@
 #+TITLE: Configuration
+* Mode line
+  Spaceline
+  [[https://github.com/TheBB/spaceline]]
+  #+BEGIN_SRC emacs-lisp
+    (use-package spaceline
+      :config
+      (spaceline-spacemacs-theme)
+      (spaceline-helm-mode)
+      (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+      (setq spaceline-minor-modes-p nil))
+  #+END_SRC
+
+
+  #+BEGIN_SRC emacs-lisp
+ ;; (defadvice vc-mode-line (after strip-backend () activate)
+ ;;   (when (stringp vc-mode)
+ ;;     (let ((noback (replace-regexp-in-string
+ ;;                    (format "^ %s" (vc-backend buffer-file-name))
+ ;;                    " " vc-mode)))
+ ;;       (setq vc-mode noback))))        ;
+  #+END_SRC
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically
@@ -100,7 +121,7 @@
        (nri/leader
          :keymaps 'override
          :states '(normal visual motion emacs)
-         "SPC" 'counsel-M-x
+         "SPC" 'helm-M-x
          "TAB" '(mode-line-other-buffer :which-key "previous")
 
          "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
@@ -113,7 +134,7 @@
          "aai" '(anki-editor-insert-note :which-key "Insert Note")
          "aap" '(anki-editor-push-notes :which-key "Push Notes")
          "b" '(:ignore t :which-key "buffers")
-         "bb" '(counsel-ibuffer :which-key "list")
+         "bb" '(helm-mini :which-key "list")
 
          "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
 
@@ -144,6 +165,8 @@
          "p" '(:ignore t :which-key "projectile")
          "pf" '(projectile-find file :which-key "find file")
 
+         "r" '(:ignore t :w-k "refactor")
+         "rr" '(lsp-rename :w-k "rename")
          "s" '(:ignore t :w-k "snippets")
          "ss" '(yas-new-snippet :w-k "new snippet")
          "si" '(yas-insert-snippet :w-k "insert")
@@ -166,7 +189,7 @@
    Which-key shows all available keybindings when pressing keys
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
-       :diminish
+       :diminish 'which-key-mode
        :config
        (setq which-key-separator " ")
        (setq which-key-prefix-prefix "+")
@@ -174,26 +197,46 @@
        (which-key-mode 1))
    #+END_SRC
 * Incremental Completion Framework
-  #+BEGIN_SRC emacs-lisp
-    (use-package ivy)
+** Ivy
+   #+BEGIN_SRC emacs-lisp
+    (use-package ivy
+      :diminish
+      :config
+      (setq ivy-use-virtual-buffers t))
     (use-package swiper)
     (use-package counsel
       :diminish
       :general
-      (:keymap ivy-minibuffer-map
-               "<escape>" 'minibuffer-keyboard-quit)
-      (:keymap swiper-map
+      (:keymaps 'ivy-minibuffer-map
+                "<escape>" 'minibuffer-keyboard-quit
+                "C-j" 'ivy-next-line
+                "C-w" 'backward-kill-word)
+      (:keymaps 'swiper-map
                "<escape>" 'minibuffer-keyboard-quit)
       :config
-      (ivy-mode 1)
-      (counsel-mode)
+      ;; (ivy-mode 1)
+      ;; (counsel-mode)
       (setq ivy-re-builders-alist
             '((t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
-      (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
-      (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
-      (define-key ivy-minibuffer-map (kbd "C-w") 'backward-kill-word))
-  #+END_SRC
+      (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
+   #+END_SRC
+** Helm
+   #+BEGIN_SRC emacs-lisp
+(use-package helm
+:config
+(setq helm-recentf-fuzzy-match t)
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-mode-fuzzy-match t)
+(setq helm-M-x-fuzzy-match t)
+(setq helm-completion-in-region-fuzzy-match t)
+:general
+(:keymaps 'helm-map
+"C-j" 'helm-next-line
+"C-k" 'helm-previous-line))
+;; (use-package helm-swoop)
+   #+END_SRC
+
 * Editing
 ** Folding
    #+BEGIN_SRC emacs-lisp
@@ -250,6 +293,7 @@
    Automatically insert pair of parens
    #+BEGIN_SRC emacs-lisp
      (use-package smartparens
+     :diminish
        :config
        (smartparens-global-mode 1))
    #+END_SRC
@@ -258,6 +302,15 @@
    #+BEGIN_SRC emacs-lisp
    (use-package dumb-jump)
    #+END_SRC
+** Anzu
+   Search Improvements
+   [[https://github.com/syohex/emacs-anzu]]
+   #+BEGIN_SRC emacs-lisp
+     (use-package anzu
+       :config
+       (setq anzu-cons-mode-line-p nil)
+       (global-anzu-mode))
+   #+END_SRC
 
 * Autocompletion
 ** Company Mode
@@ -265,6 +318,12 @@
     (use-package company
       :diminish)
    #+END_SRC
+** Company Mode Icons
+   #+BEGIN_SRC emacs-lisp
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+   #+END_SRC
+
 ** Company Mode Formatting
    #+BEGIN_SRC emacs-lisp
    ;; auto completion
@@ -289,7 +348,7 @@
 * EditorConfig
   #+BEGIN_SRC emacs-lisp
      (use-package editorconfig
-       :diminish
+       :diminish 'editorconfig-mode
        :config
        (editorconfig-mode 1))
   #+END_SRC
@@ -299,6 +358,12 @@
    #+BEGIN_SRC emacs-lisp
      (use-package magit)
    #+END_SRC
+** Evil Magit
+   [[https://github.com/emacs-evil/evil-magit]]
+   #+BEGIN_SRC emacs-lisp
+(use-package evil-magit)
+   #+END_SRC
+
 ** Start commit message in insert mode
    #+BEGIN_SRC emacs-lisp
      (add-hook 'git-commit-mode-hook 'evil-insert-state)
@@ -398,6 +463,40 @@
    #+BEGIN_SRC emacs-lisp
 
    #+END_SRC
+** Language Server Protocol
+   #+BEGIN_SRC emacs-lisp
+     (use-package lsp-mode
+       :hook ((rust-mode . lsp)
+              (c++-mode . lsp)
+              (c-mode . lsp))
+       :general
+       (:keymaps 'lsp-mode-map
+                 :states '(normal visual)
+                 "gd" 'lsp-find-definition
+                 "gD" 'lsp-ui-peek-find-references)
+       :config
+       (setq lsp-prefer-flymake nil))
+     (use-package lsp-ui
+     :config
+     (setq lsp-ui-doc-include-signature t)
+       (setq lsp-ui-flycheck-enable t)
+       (setq lsp-ui-peek-always-show t)
+     :general
+     (:keymaps '(lsp-ui-peek-mode-map)
+               "C-j" 'lsp-ui-peek--select-next
+               "C-k" 'lsp-ui-peek--select-prev))
+     (use-package company-lsp)
+     (use-package lsp-origami
+       :config
+       (add-hook 'origami-mode-hook #'lsp-origami-mode))
+     (use-package helm-lsp
+       :config (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+     (use-package lsp-ivy
+       :straight
+       (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
+     (use-package dap-mode)
+   #+END_SRC
+
 ** Rust
 *** Rust Mode
     https://github.com/rust-lang/rust-mode
@@ -405,7 +504,6 @@
      (use-package rust-mode
        :config
        (setq rust-format-on-save t)
-       :general
        (nri/major-leader
          :states '(normal visual motion emacs)
          :keymaps 'rust-mode-map
@@ -437,24 +535,28 @@
 ** Org
 *** Org Setup & Keybindings
     #+BEGIN_SRC emacs-lisp
-      (use-package org
-        :general
-        (nri/major-leader
-          :states '(normal visual motion emacs)
-          :keymaps 'org-mode-map
-          "a" 'org-agenda
-          "A" 'org-attach
-          "n" 'org-noter
-          "ll" 'org-toggle-latex-fragment
-          "o" 'org-open-at-point
-          )
-        (:keymap org-mode-map
-                 :keymaps 'override
-                 "M-h" 'outline-promote
-                 "M-j" 'outline-move-subtree-down
-                 "M-k" 'outline-move-subtree-up
-                 "M-l" 'outline-demote)
-        :config     (add-hook 'post-command-hook 'org-auto-toggle/org-auto-toggle-fragment-display t))
+      ;; (defun nri/org-context())
+        (use-package org
+          :general
+          (nri/major-leader
+            :states '(normal visual motion emacs)
+            :keymaps 'org-mode-map
+            "a" 'org-agenda
+            "A" 'org-attach
+            "n" 'org-noter
+            "ll" 'org-toggle-latex-fragment
+            "o" 'org-open-at-point
+            )
+          (:keymap org-mode-map
+                   :keymaps 'override
+                   "M-h" 'outline-promote
+                   "M-j" 'outline-move-subtree-down
+                   "M-k" 'outline-move-subtree-up
+                   "M-l" 'outline-demote)
+                   ;; "<return>" 'org-edit-special
+          (:keymaps 'org-src-mode-map
+                   :states '(normal visual)
+                   "<tab>" 'org-edit-src-exit))
     #+END_SRC
 *** Drag & Drop files to org modes
     #+BEGIN_SRC emacs-lisp
@@ -465,126 +567,44 @@
      ;; (setq org-pretty-entities t)
     #+END_SRC
 *** Inline Images
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 (setq org-startup-with-inline-images t)
-#+END_SRC
+    #+END_SRC
 
 *** Latex preview
 **** Larger Preview
      #+BEGIN_SRC emacs-lisp
      (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
      #+END_SRC
-**** store Latex preview in /tmp
+**** store Latex preview in ~/.cache/emacs/org
      This gets rid of the ltximg directories when using latex fragments
      #+BEGIN_SRC emacs-lisp
-     (setq org-preview-latex-image-directory "/tmp/org/ltximg/")
+     (setq org-preview-latex-image-directory "~/.cache/emacs/org/")
      #+END_SRC
+**** Start with Latex Fragments
+     #+BEGIN_SRC emacs-lisp
+(setq org-startup-with-latex-preview t)
+     #+END_SRC
+
 **** Automatically preview latex fragments
      Taken from https://gist.githubusercontent.com/cvcore/760008a4dfb2eadf42afdc9cf01ef979/raw/ebb38d37c52f8931ab9c7feac7ffd02ad352e6bc/org-fragment-auto-preview.el
 
      Fixed for org 9.2
-
      #+BEGIN_SRC emacs-lisp
-       ;;
-       ;; 28.07.2017
-       ;; Charles Wang
-       ;;
-
-       ;;;;;;; Tweaks for Org & org-latex ;;;;;;
-
-       ;;; Code:
-
-       (defvar org-auto-toggle/org-last-fragment nil
-         "Holds the type and position of last valid fragment we were on. Format: (FRAGMENT_TYPE FRAGMENT_POINT_BEGIN)."
-         )
-
-       (setq org-auto-toggle/org-valid-fragment-type
-             '(latex-fragment
-               latex-environment
-               link))
-
-       (defun org-auto-toggle/org-curr-fragment ()
-         "Return the type and position of the current fragment available for preview inside `org-mode`. Return nil at non-displayable fragments."
-         (let* ((fr (org-element-context))
-                (fr-type (car fr)))
-           (when (memq fr-type org-auto-toggle/org-valid-fragment-type)
-             (list fr-type
-                   (org-element-property :begin fr))))
-         )
-
-       (defun org-auto-toggle/org-remove-fragment-overlay (fr)
-         "Remove fragment overlay at FR."
-         (org-clear-latex-preview (nth 1 fr) (+ (nth 1 fr) 5))
-         )
-
-       (defun org-auto-toggle/org-preview-fragment (fr)
-         "Preview org fragment at FR."
-         (let ((fr-type (nth 0 fr))
-               (fr-begin (nth 1 fr)))
-           (goto-char fr-begin)
-           (cond ((or (eq 'latex-fragment fr-type) ;; latex stuffs
-                      (eq 'latex-environment fr-type))
-                  (when (org-auto-toggle/org-curr-fragment) (org-preview-latex-fragment))) ;; only toggle preview when we're in a valid region (for inserting in the front of a fragment)
-
-
-                 ((eq 'link fr-type) ;; for images
-                  (let ((fr-end (org-element-property :end (org-element-context))))
-                    (org-display-inline-images nil t fr-begin fr-end))))
-           ))
-
-
-       (defun org-auto-toggle/org-auto-toggle-fragment-display ()
-         "Automatically toggle a displayable org mode fragment."
-         (and (eq 'org-mode major-mode)
-              (let ((curr (org-auto-toggle/org-curr-fragment)))
-                (cond
-                 ;; were on a fragment and now on a new fragment
-                 ((and
-                   ;; fragment we were on
-                   org-auto-toggle/org-last-fragment
-                   ;; and are on a fragment now
-                   curr
-                   ;; but not on the last one this is a little tricky. as you edit the
-                   ;; fragment, it is not equal to the last one. We use the begin
-                   ;; property which is less likely to change for the comparison.
-                   (not (equal curr org-auto-toggle/org-last-fragment)))
-
-                  ;; go back to last one and put image back, provided there is still a fragment there
-                  (save-excursion
-                    (org-auto-toggle/org-preview-fragment org-auto-toggle/org-last-fragment)
-                    ;; now remove current image
-                    (org-auto-toggle/org-remove-fragment-overlay curr)
-                    ;; and save new fragment
-                    )
-                  (setq org-auto-toggle/org-last-fragment curr))
-
-                 ;; were on a fragment and now are not on a fragment
-                 ((and
-                   ;; not on a fragment now
-                   (not curr)
-                   ;; but we were on one
-                   org-auto-toggle/org-last-fragment)
-                  ;; put image back on, provided that there is still a fragment here.
-                  (save-excursion
-                    (org-auto-toggle/org-preview-fragment org-auto-toggle/org-last-fragment))
-
-                  ;; unset last fragment
-                  (setq org-auto-toggle/org-last-fragment nil))
-
-                 ;; were not on a fragment, and now are
-                 ((and
-                   ;; we were not one one
-                   (not org-auto-toggle/org-last-fragment)
-                   ;; but now we are
-                   curr)
-                  ;; remove image
-                  (save-excursion
-                    (org-auto-toggle/org-remove-fragment-overlay curr)
-                    )
-                  (setq org-auto-toggle/org-last-fragment curr))
-
-                 ))))
+       (use-package org-auto-toggle
+         :straight
+         (org-auto-toggle :type git :host github :repo "nicories/org-auto-toggle")
+         :config
+         (add-hook 'post-command-hook 'org-auto-toggle/org-auto-toggle-fragment-display t))
      #+END_SRC
+
+
+
+*** Never emulate tab
+    #+BEGIN_SRC emacs-lisp
+(setq org-cycle-emulate-tab nil)
+    #+END_SRC
+
 
 *** Bullets
     Nicer looking bullets
@@ -613,7 +633,7 @@
 ** Yasnippet
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
-     :diminish
+     :diminish 'yas-minor-mode
        :config
        (yas-global-mode 1)) ;; enable yasnippet everywhere
    #+END_SRC
@@ -632,6 +652,7 @@
        :init
        (setq anki-editor-use-math-jax t) ;; use mathjax syntax "\(\)" instead of latex
        :config
+       (setq anki-editor-create-decks t)
        (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
        (defun nri/anki-basic-reverse () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic (and reversed card)" '("Front" "Back"))))
    #+END_SRC
@@ -643,23 +664,10 @@
        :config
        (pdf-tools-install))
    #+END_SRC
-* Unfinished
-** Mode line
-
-   format git status
-
-   #+BEGIN_SRC emacs-lisp
- ;; (defadvice vc-mode-line (after strip-backend () activate)
- ;;   (when (stringp vc-mode)
- ;;     (let ((noback (replace-regexp-in-string
- ;;                    (format "^ %s" (vc-backend buffer-file-name))
- ;;                    " " vc-mode)))
- ;;       (setq vc-mode noback))))        ;
-   #+END_SRC
-** Terminal
-   - make URLs clickable
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'term-mode-hook
-               (lambda ()
-                 (goto-address-mode)))
-   #+END_SRC
+* Terminal
+  - make URLs clickable
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'term-mode-hook
+              (lambda ()
+                (goto-address-mode)))
+  #+END_SRC
