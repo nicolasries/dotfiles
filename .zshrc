@@ -67,8 +67,8 @@ alias upgr='~/bin/upgrade_system.sh'
 # History {{{
 
 export HISTFILE=~/.zsh_history
-export HISTSIZE=1024                   # big history
-export SAVEHIST=1024                   # big history
+export HISTSIZE=5000                   # big history
+export SAVEHIST=5000                   # big history
 # setopt append_history           # append
 # unsetopt hist_ignore_space      # ignore space prefixed commands
 # setopt hist_reduce_blanks       # trim blanks

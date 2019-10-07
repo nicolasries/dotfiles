@@ -464,38 +464,60 @@
 
    #+END_SRC
 ** Language Server Protocol
-   #+BEGIN_SRC emacs-lisp
-     (use-package lsp-mode
-       :hook ((rust-mode . lsp)
-              (c++-mode . lsp)
-              (c-mode . lsp))
-       :general
-       (:keymaps 'lsp-mode-map
-                 :states '(normal visual)
-                 "gd" 'lsp-find-definition
-                 "gD" 'lsp-ui-peek-find-references)
-       :config
-       (setq lsp-prefer-flymake nil))
-     (use-package lsp-ui
-     :config
-     (setq lsp-ui-doc-include-signature t)
-       (setq lsp-ui-flycheck-enable t)
-       (setq lsp-ui-peek-always-show t)
-     :general
-     (:keymaps '(lsp-ui-peek-mode-map)
-               "C-j" 'lsp-ui-peek--select-next
-               "C-k" 'lsp-ui-peek--select-prev))
-     (use-package company-lsp)
-     (use-package lsp-origami
+*** Main
+    #+BEGIN_SRC emacs-lisp
+      (use-package lsp-mode
+        :hook ((rust-mode . lsp)
+               (c++-mode . lsp)
+               (c-mode . lsp))
+        :general
+        (:keymaps 'lsp-mode-map
+                  :states '(normal visual)
+                  "gd" 'lsp-find-definition
+                  "gD" 'lsp-ui-peek-find-references)
+        :config
+        ;; debug
+        ;; (setq lsp-log-io t)
+        (setq lsp-prefer-flymake nil)
+        ;; (setq lsp-enable-semantic-highlighting t)
+        (setq lsp-auto-guess-root t))
+    #+END_SRC
+*** Enhanced UI
+    #+BEGIN_SRC emacs-lisp
+      (use-package lsp-ui
+        :config
+        (setq lsp-ui-doc-include-signature t)
+        (setq lsp-ui-flycheck-enable t)
+        (setq lsp-ui-peek-always-show t)
+        :general
+        (:keymaps '(lsp-ui-peek-mode-map)
+                  "C-j" 'lsp-ui-peek--select-next
+                  "C-k" 'lsp-ui-peek--select-prev))
+    #+END_SRC
+
+*** Company
+    #+BEGIN_SRC emacs-lisp
+    (use-package company-lsp)
+    #+END_SRC
+
+*** Helm
+    #+BEGIN_SRC emacs-lisp
+      (use-package helm-lsp
+        :config (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+    #+END_SRC
+
+*** Debug (DAP)
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package dap-mode)
+    #+END_SRC
+
+*** Origami
+    #+BEGIN_SRC emacs-lisp
+(use-package lsp-origami
        :config
        (add-hook 'origami-mode-hook #'lsp-origami-mode))
-     (use-package helm-lsp
-       :config (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
-     (use-package lsp-ivy
-       :straight
-       (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
-     (use-package dap-mode)
-   #+END_SRC
+    #+END_SRC
 
 ** Rust
 *** Rust Mode
@@ -526,6 +548,15 @@
    #+BEGIN_SRC emacs-lisp
      (use-package toml-mode)
    #+END_SRC
+
+** C/C++
+*** ccls
+
+ #+BEGIN_SRC emacs-lisp
+   (use-package ccls
+     :config
+     (setq ccls-initialization-options '(:cache(:directory :/tmp/ccls-cache))))
+ #+END_SRC
 
 ** Markdown
    https://github.com/jrblevin/markdown-mode
