@@ -189,7 +189,6 @@
    Which-key shows all available keybindings when pressing keys
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
-       :diminish 'which-key-mode
        :config
        (setq which-key-separator " ")
        (setq which-key-prefix-prefix "+")
@@ -200,12 +199,10 @@
 ** Ivy
    #+BEGIN_SRC emacs-lisp
     (use-package ivy
-      :diminish
       :config
       (setq ivy-use-virtual-buffers t))
     (use-package swiper)
     (use-package counsel
-      :diminish
       :general
       (:keymaps 'ivy-minibuffer-map
                 "<escape>" 'minibuffer-keyboard-quit
@@ -293,7 +290,6 @@
    Automatically insert pair of parens
    #+BEGIN_SRC emacs-lisp
      (use-package smartparens
-     :diminish
        :config
        (smartparens-global-mode 1))
    #+END_SRC
@@ -315,8 +311,7 @@
 * Autocompletion
 ** Company Mode
    #+BEGIN_SRC emacs-lisp
-    (use-package company
-      :diminish)
+    (use-package company)
    #+END_SRC
 ** Company Mode Icons
    #+BEGIN_SRC emacs-lisp
@@ -342,13 +337,11 @@
   https://github.com/flycheck/flycheck/
   #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :diminish
     :init (global-flycheck-mode))
   #+END_SRC
 * EditorConfig
   #+BEGIN_SRC emacs-lisp
      (use-package editorconfig
-       :diminish 'editorconfig-mode
        :config
        (editorconfig-mode 1))
   #+END_SRC
@@ -434,26 +427,10 @@
            scroll-conservatively 10000)
 
    #+END_SRC
-** Mode Line
-*** Diminish
-    [[https://github.com/myrjola/diminish.el][Diminish]] hides modes in the mode line
-    #+BEGIN_SRC emacs-lisp
-     (use-package diminish)
-    #+END_SRC
-**** Diminish Undo-Tree
-     #+BEGIN_SRC emacs-lisp
-       (diminish 'undo-tree-mode)
-     #+END_SRC
-**** Diminish Auto-Revert
-     #+BEGIN_SRC emacs-lisp
-     (diminish 'auto-revert-mode)
-     #+END_SRC
-
 * Projectile
   Project Management
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
-      :diminish
       :config
       (setq projectile-completion-system 'ivy))
 
@@ -664,7 +641,6 @@
 ** Yasnippet
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
-     :diminish 'yas-minor-mode
        :config
        (yas-global-mode 1)) ;; enable yasnippet everywhere
    #+END_SRC
