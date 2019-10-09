@@ -432,15 +432,9 @@
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :config
-      (setq projectile-completion-system 'ivy)
-      (projectile-mode))
+      (setq projectile-completion-system 'ivy))
 
   #+END_SRC
-  Helm integration
-#+BEGIN_SRC emacs-lisp
-(use-package helm-projectile)
-#+END_SRC
-
 * Languages
 ** Emacs Lisp
    #+BEGIN_SRC emacs-lisp
@@ -684,14 +678,3 @@
               (lambda ()
                 (goto-address-mode)))
   #+END_SRC
-* Misc
-#+BEGIN_SRC emacs-lisp
-(defun nri/go-to-next () (let ((nri/org-context (car (org-element-context))))
-  (cond (
-(eq nri/org-context 'src-block) (org-babel-next-src-block)
-(eq nri/org-context 'link) (org-next-link)
-
-))))
-
-  ;; (if (eq nri/org-context 'src-block) (message nri/org-context)))
-#+END_SRC

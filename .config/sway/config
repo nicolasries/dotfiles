@@ -289,8 +289,8 @@ xkb_options grp:win_space_toggle,caps:escape
 tap enabled
 
 }
-# hide cursor after 150 seconds
-seat seat0 hide_cursor 150000
+# hide cursor after 15 seconds
+seat seat0 hide_cursor 15000
 
 # bindsym $mod+z opacity 0.5
 # bindsym $mod+shift+z opacity 1.0
