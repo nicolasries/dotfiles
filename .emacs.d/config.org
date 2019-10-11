@@ -456,7 +456,7 @@
         ;; debug
         ;; (setq lsp-log-io t)
         (setq lsp-prefer-flymake nil)
-        ;; (setq lsp-enable-semantic-highlighting t)
+        (setq lsp-enable-semantic-highlighting t)
         (setq lsp-auto-guess-root t))
     #+END_SRC
 *** Enhanced UI
@@ -532,7 +532,11 @@
  #+BEGIN_SRC emacs-lisp
    (use-package ccls
      :config
-     (setq ccls-initialization-options '(:cache(:directory :/tmp/ccls-cache))))
+     ;; semantic highlighting, TODO
+     ;; (setq ccls-sem-highlight-method 'overlay)
+
+     ;;
+     (setq ccls-initialization-options '(:cache(:directory :/home/nri/.cache/ccls-cache))))
  #+END_SRC
 
 ** Markdown
