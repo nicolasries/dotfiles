@@ -9,3 +9,7 @@
     spp = !git submodule foreach 'git push'
 [include]
     path = config.local
+[core]
+	autocrlf = input
+[status]
+	submodulesummary = true
