@@ -482,6 +482,16 @@
         (setq lsp-enable-semantic-highlighting t)
         (setq lsp-auto-guess-root t))
     #+END_SRC
+*** Keybindings
+Major Mode Keybindings
+#+BEGIN_SRC emacs-lisp
+  (defun nri/lsp-major-leader ()
+    (nri/major-leader
+      :states '(normal visual motion emacs)
+      "" 'org-agenda
+      ))
+#+END_SRC
+
 *** Enhanced UI
     #+BEGIN_SRC emacs-lisp
       (use-package lsp-ui
@@ -489,6 +499,7 @@
         (setq lsp-ui-doc-include-signature t)
         (setq lsp-ui-flycheck-enable t)
         (setq lsp-ui-peek-always-show t)
+        (lsp-lens-mode)
         :general
         (:keymaps '(lsp-ui-peek-mode-map)
                   "C-j" 'lsp-ui-peek--select-next
@@ -595,7 +606,9 @@
     #+END_SRC
 *** Drag & Drop files to org modes
     #+BEGIN_SRC emacs-lisp
-   (use-package org-download)
+   (use-package org-download
+:config
+(setq org-download-method 'attach))
     #+END_SRC
 *** show entities as UTF8 characters
     #+BEGIN_SRC emacs-lisp
@@ -664,6 +677,11 @@
         :config
         (setq org-noter-auto-save-last-location t))
     #+END_SRC
+*** Attach
+#+BEGIN_SRC emacs-lisp
+(setq org-attach-use-inheritance t)
+#+END_SRC
+
 * Snippets
 ** Yasnippet
    #+BEGIN_SRC emacs-lisp
@@ -704,4 +722,14 @@
     (add-hook 'term-mode-hook
               (lambda ()
                 (goto-address-mode)))
+  #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp
+  (use-package vterm)
+  #+END_SRC
+* Misc
+  TODO: Make async
+  #+BEGIN_SRC emacs-lisp
+    (defun nri/bear ()
+      (let ((default-directory (lsp-workspace-root)))(shell-command-to-string "make clean; bear make")))
   #+END_SRC
