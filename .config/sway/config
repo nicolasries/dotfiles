@@ -24,7 +24,7 @@ set $wsp8 "8:"
 
 # assignments
 
-assign [class="Emacs"] $wsp1
+assign [class="Emacs"] $wsp3
 
 # browser
 assign [class="^Chromium$" instance="^chromium$"] $wsp2

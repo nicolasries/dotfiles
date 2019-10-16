@@ -109,3 +109,9 @@ function docker-ip {
 
 # case insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
+# fix?
+export FZF_DEFAULT_OPTS="--extended --cycle --bind=\
+ctrl-j:accept,ctrl-k:kill-line,tab:toggle-up,btab:toggle-down,\
+ctrl-y:execute('echo {} | xclip -selection clipboard')+abort"

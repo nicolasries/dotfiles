@@ -124,7 +124,8 @@
          "SPC" 'helm-M-x
          "TAB" '(mode-line-other-buffer :which-key "previous")
 
-         "'" '(lambda ()(interactive)(ansi-term "/bin/zsh") :which-key "terminal")
+         "'" '(vterm :which-key "terminal")
+         "\"" '(vterm-other-window :which-key "terminal")
 
 
          "/" '(swiper :which-key "search")
@@ -133,8 +134,10 @@
          "aa" '(:ignore t :which-key "Anki")
          "aai" '(anki-editor-insert-note :which-key "Insert Note")
          "aap" '(anki-editor-push-notes :which-key "Push Notes")
+
          "b" '(:ignore t :which-key "buffers")
          "bb" '(helm-mini :which-key "list")
+         "bq" '(kill-this-buffer :which-key "kill")
 
          "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
 
@@ -286,6 +289,26 @@
         (evilem-default-keybindings "SPC"))
 
     #+END_SRC
+*** evil-numbers
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-numbers
+    :straight
+    (evil-numbers :type git :host github :repo "janpath/evil-numbers")
+    :config
+    (setq evil-numbers/padDefault t)
+    :general
+    (:keymaps 'override
+    :states '(normal visual motion emacs)
+    "g C-a" 'evil-numbers/inc-at-pt-incremental
+    "g C-S-a" 'evil-numbers/dec-at-pt-incremental
+              "C-a" 'evil-numbers/inc-at-pt
+              "C-S-a" 'evil-numbers/dec-at-pt))
+#+END_SRC
+*** evil-goggles
+#+BEGIN_SRC emacs-lisp
+;; laggy, disabled for now
+;; (use-package evil-goggles)
+#+END_SRC
 ** Parenthesis
    Automatically insert pair of parens
    #+BEGIN_SRC emacs-lisp
