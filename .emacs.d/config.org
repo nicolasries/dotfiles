@@ -125,7 +125,7 @@
          "TAB" '(mode-line-other-buffer :which-key "previous")
 
          "'" '(vterm :which-key "terminal")
-         "\"" '(vterm-other-window :which-key "terminal")
+         "\"" '(vterm-other-window :which-key "terminal") ; " fix unclosed quotes, workaround
 
 
          "/" '(swiper :which-key "search")
