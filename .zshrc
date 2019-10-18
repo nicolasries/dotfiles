@@ -41,8 +41,8 @@ alias ls='ls --color=auto'
 alias ll='ls -l'
 alias l.='ls -a'
 
-# case insensitive less
-alias less='less -i'
+# less with smart case
+alias less='less -i -R'
 
 # colored grep
 alias grep='grep --color'
@@ -59,6 +59,9 @@ alias pacin='sudo pacman -S'
 
 alias upd='~/bin/check_system_updates.sh'
 alias upgr='~/bin/upgrade_system.sh'
+
+# always smart case
+alias rg='rg --smart-case'
 
 # alias sambamnt='sudo mount -v -t cifs -o credentials=~/.smbcred'
 
