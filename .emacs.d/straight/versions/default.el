@@ -59,7 +59,7 @@
  ("spacemacs-theme" . "32ddc1a9b9f4f58ebe8410abc1124b7acf0f36b1")
  ("spinner" . "2daa167bec1c7566d662d48613a94453536b524a")
  ("straight.el" . "388bf37f30f0934c8ef1b52edfd65875e945da21")
- ("swiper" . "9970ae60b60dca532b9aed2ec56773786d9519f0")
+ ("swiper" . "1ad457d8e76c431783d2efb866ef51b8c14e7c82")
  ("tablist" . "8079801527da1f596bc942162026328d7bdf6ad9")
  ("toml-mode.el" . "f6c61817b00f9c4a3cab1bae9c309e0fc45cdd06")
  ("transient" . "62b18fef2b1b4ba9b09e40ebb6e22df29eddd142")

@@ -89,6 +89,11 @@
    #+BEGIN_SRC emacs-lisp
    (add-hook 'before-save-hook 'delete-trailing-whitespace)
    #+END_SRC
+** Keep selection after operation
+   #+BEGIN_SRC emacs-lisp
+(transient-mark-mode 0)
+   #+END_SRC
+
 ** Single Space after periods
    #+BEGIN_SRC emacs-lisp
      (setq sentence-end-double-space nil)
@@ -105,6 +110,11 @@
    #+BEGIN_SRC emacs-lisp
      (setq auto-save-default nil) ;; TODO only in git?
    #+END_SRC
+** Autoload
+   #+BEGIN_SRC emacs-lisp
+;; (setq load-prefer-newer t)
+   #+END_SRC
+
 * Keybindings
   https://github.com/noctuid/general.el/
   Keybindings are defined using general.el
@@ -217,7 +227,7 @@
       ;; (ivy-mode 1)
       ;; (counsel-mode)
       (setq ivy-re-builders-alist
-            '((t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
+            '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
    #+END_SRC
@@ -236,6 +246,17 @@
 "C-k" 'helm-previous-line))
 ;; (use-package helm-swoop)
    #+END_SRC
+** Smex
+   #+BEGIN_SRC emacs-lisp
+(use-package smex
+:config
+(setq smex-history-length 32))
+   #+END_SRC
+** Flx
+   #+BEGIN_SRC emacs-lisp
+(use-package flx)
+   #+END_SRC
+
 
 * Editing
 ** Folding
@@ -262,7 +283,9 @@
      (use-package evil-surround
        :after evil
        :config
+       ;;(push '(?\\ . evil-surround-read-tag) evil-surround-pairs-alist)
        (global-evil-surround-mode 1))
+
     #+END_SRC
 *** Evil Collection
     https://github.com/emacs-evil/evil-collection
@@ -290,7 +313,7 @@
 
     #+END_SRC
 *** evil-numbers
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
     :straight
     (evil-numbers :type git :host github :repo "janpath/evil-numbers")
@@ -303,12 +326,12 @@
     "g C-S-a" 'evil-numbers/dec-at-pt-incremental
               "C-a" 'evil-numbers/inc-at-pt
               "C-S-a" 'evil-numbers/dec-at-pt))
-#+END_SRC
+    #+END_SRC
 *** evil-goggles
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 ;; laggy, disabled for now
 ;; (use-package evil-goggles)
-#+END_SRC
+    #+END_SRC
 ** Parenthesis
    Automatically insert pair of parens
    #+BEGIN_SRC emacs-lisp
@@ -483,14 +506,14 @@
         (setq lsp-auto-guess-root t))
     #+END_SRC
 *** Keybindings
-Major Mode Keybindings
-#+BEGIN_SRC emacs-lisp
+    Major Mode Keybindings
+    #+BEGIN_SRC emacs-lisp
   (defun nri/lsp-major-leader ()
     (nri/major-leader
       :states '(normal visual motion emacs)
       "" 'org-agenda
       ))
-#+END_SRC
+    #+END_SRC
 
 *** Enhanced UI
     #+BEGIN_SRC emacs-lisp
@@ -563,7 +586,7 @@ Major Mode Keybindings
 ** C/C++
 *** ccls
 
- #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
    (use-package ccls
      :config
      ;; semantic highlighting, TODO
@@ -571,7 +594,7 @@ Major Mode Keybindings
 
      ;;
      (setq ccls-initialization-options '(:cache(:directory :/home/nri/.cache/ccls-cache))))
- #+END_SRC
+    #+END_SRC
 
 ** Markdown
    https://github.com/jrblevin/markdown-mode
@@ -678,9 +701,9 @@ Major Mode Keybindings
         (setq org-noter-auto-save-last-location t))
     #+END_SRC
 *** Attach
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 (setq org-attach-use-inheritance t)
-#+END_SRC
+    #+END_SRC
 
 * Snippets
 ** Yasnippet
