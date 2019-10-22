@@ -28,7 +28,7 @@ autoload -U colors && colors
 # Aliases {{{
 
 # dotfile management
-alias c='/usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
+# alias c='/usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
 
 # edit shortcut
 alias e="$EDITOR"
@@ -55,7 +55,7 @@ alias rm='rm -iv'
 alias g='git'
 alias calc='python -i -c "from math import *"'
 
-alias pacin='sudo pacman -S'
+alias pacin='sudo pacman -Syu'
 
 alias upd='~/bin/check_system_updates.sh'
 alias upgr='~/bin/upgrade_system.sh'
