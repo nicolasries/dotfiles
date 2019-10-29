@@ -41,18 +41,8 @@ format=json
 interval=once
 signal=5
 
-## Volume indicator
-##
-## The first parameter sets the step (and units to display)
-## The second parameter overrides the mixer selection
-## See the script for details.
-#[volume]
-#label=VOL
-##label=♪
-#instance=Master
-##instance=PCM
-#interval=once
-#signal=10
+[updates.sh]
+interval=600
 
 # Memory usage
 #
