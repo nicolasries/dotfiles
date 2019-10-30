@@ -1,74 +1,89 @@
-#!/usr/bin/perl
-#
-# Copyright 2014 Pierre Mavro <deimos@deimos.fr>
-# Copyright 2014 Vivien Didelot <vivien@didelot.org>
-#
-# Licensed under the terms of the GNU GPL v3, or any later version.
-#
-# This script is meant to use with i3blocks. It parses the output of the "acpi"
-# command (often provided by a package of the same name) to read the status of
-# the battery, and eventually its remaining time (to full charge or discharge).
-#
-# The color will gradually change for a percentage below 85%, and the urgency
-# (exit code 33) is set if there is less that 5% remaining.
+#!/bin/sh
 
-use strict;
-use warnings;
-use utf8;
+battery_print() {
+    PATH_AC="/sys/class/power_supply/AC"
+    PATH_BATTERY_0="/sys/class/power_supply/BAT0"
+    PATH_BATTERY_1="/sys/class/power_supply/BAT1"
 
-my $acpi;
-my $status;
-my $percent;
-my $full_text;
-my $short_text;
-my $bat_number = $ENV{BLOCK_INSTANCE} || 0;
+    ac=0
+    battery_level_0=0
+    battery_level_1=0
+    battery_max_0=0
+    battery_max_1=0
 
-# read the first line of the "acpi" command output
-open (ACPI, "acpi -b | grep 'Battery $bat_number' |") or die;
-$acpi = <ACPI>;
-close(ACPI);
+    if [ -f "$PATH_AC/online" ]; then
+        ac=$(cat "$PATH_AC/online")
+    fi
 
-# fail on unexpected output
-if ($acpi !~ /: (\w+), (\d+)%/) {
-	die "$acpi\n";
+    if [ -f "$PATH_BATTERY_0/energy_now" ]; then
+        battery_level_0=$(cat "$PATH_BATTERY_0/energy_now")
+    fi
+
+    if [ -f "$PATH_BATTERY_0/energy_full" ]; then
+        battery_max_0=$(cat "$PATH_BATTERY_0/energy_full")
+    fi
+
+    if [ -f "$PATH_BATTERY_1/energy_now" ]; then
+        battery_level_1=$(cat "$PATH_BATTERY_1/energy_now")
+    fi
+
+    if [ -f "$PATH_BATTERY_1/energy_full" ]; then
+        battery_max_1=$(cat "$PATH_BATTERY_1/energy_full")
+    fi
+
+    battery_level=$(("$battery_level_0 + $battery_level_1"))
+    battery_max=$(("$battery_max_0 + $battery_max_1"))
+
+    battery_percent=$(("$battery_level * 100"))
+    battery_percent=$(("$battery_percent / $battery_max"))
+
+    if [ "$ac" -eq 1 ]; then
+        icon="#1"
+
+        if [ "$battery_percent" -gt 97 ]; then
+            echo "$icon"
+        else
+            echo "$icon $battery_percent %"
+        fi
+    else
+        if [ "$battery_percent" -gt 85 ]; then
+            icon="#21"
+        elif [ "$battery_percent" -gt 60 ]; then
+            icon="#22"
+        elif [ "$battery_percent" -gt 35 ]; then
+            icon="#23"
+        elif [ "$battery_percent" -gt 10 ]; then
+            icon="#24"
+        else
+            icon="#25"
+        fi
+
+        echo "$icon $battery_percent %"
+    fi
 }
 
-$status = $1;
-$percent = $2;
-$full_text = "$percent%";
+path_pid="/tmp/polybar-battery-combined-udev.pid"
 
-if ($status eq 'Discharging') {
-	$full_text .= ' DIS';
-} elsif ($status eq 'Charging') {
-	$full_text .= ' CHR';
-}
+case "$1" in
+    --update)
+        pid=$(cat $path_pid)
 
-$short_text = $full_text;
+        if [ "$pid" != "" ]; then
+            kill -10 "$pid"
+        fi
+        ;;
+    *)
+        echo $$ > $path_pid
 
-if ($acpi =~ /(\d\d:\d\d):/) {
-	$full_text .= " ($1)";
-}
+        trap exit INT
+        trap "echo" USR1
 
-# print text
-print "$full_text\n";
-print "$short_text\n";
+        while true; do
+            battery_print
 
-# consider color and urgent flag only on discharge
-if ($status eq 'Discharging') {
+            sleep 30 &
+            wait
+        done
+        ;;
+esac
 
-	if ($percent < 20) {
-		print "#FF0000\n";
-	} elsif ($percent < 40) {
-		print "#FFAE00\n";
-	} elsif ($percent < 60) {
-		print "#FFF600\n";
-	} elsif ($percent < 85) {
-		print "#A8FF00\n";
-	}
-
-	if ($percent < 5) {
-		exit(33);
-	}
-}
-
-exit(0);

@@ -42,6 +42,7 @@ interval=once
 signal=5
 
 [updates.sh]
+label= 
 interval=600
 
 # Memory usage
@@ -65,16 +66,20 @@ interval=30
 # Battery indicator
 #
 # The battery instance defaults to 0.
-#[battery]
-#label=BAT
-##label=⚡
-##instance=1
-#interval=30
+[battery]
+interval=persist
 
 [temperature]
 label=TEMP
 interval=10
 
+[network]
+label=net
+interval=persist
+
+[bluetooth.sh]
+label=bluetooth
+interval=persist
 
 # Date Time
 #
