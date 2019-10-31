@@ -26,23 +26,25 @@
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 command=$HOME/.config/i3blocks/blocks/$BLOCK_NAME
-separator_block_width=55
+separator_block_width=25
 # markup=pango
 align=center
 
 [mpris-tail.py]
 interval=persist
 
-[pa-tail.sh]
-interval=persist
-format=json
+# [pa-tail.sh]
+# interval=persist
+# format=json
 
 [light.sh]
 interval=once
+format=json
 signal=5
 
 [updates.sh]
 label= 
+format=json
 interval=600
 
 # Memory usage
@@ -66,19 +68,16 @@ interval=30
 # Battery indicator
 #
 # The battery instance defaults to 0.
-[battery]
-interval=persist
+# [battery]
+# interval=persist
 
 [temperature]
-label=TEMP
-interval=10
+interval=100
 
 [network]
-label=net
 interval=persist
 
 [bluetooth.sh]
-label=bluetooth
 interval=persist
 
 # Date Time

@@ -12,4 +12,4 @@ if ! updates_aur=$(trizen -Su --aur --quiet | wc -l); then
 fi
 
 updates=$(("$updates_arch" + "$updates_aur"))
-echo "$updates"
+echo "{\"full_text\": \"$updates\"}"

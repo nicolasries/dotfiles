@@ -5,7 +5,12 @@ refresh() {
 }
 
 print_light() {
-    light
+    light=$(light)
+    # non-controllable backlight are ignored
+    if [ "$light" == "0.00" ]; then
+        light=""
+    fi
+    echo "{\"full_text\" : \"$light\"}"
 }
 
 case "$1" in
@@ -21,4 +26,3 @@ case "$1" in
         print_light
         ;;
 esac
-

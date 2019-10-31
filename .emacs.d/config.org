@@ -114,6 +114,11 @@
    #+BEGIN_SRC emacs-lisp
 ;; (setq load-prefer-newer t)
    #+END_SRC
+** Make quoted-insert Hex by default
+#+BEGIN_SRC emacs-lisp
+(setq read-quoted-char-radix 16)
+#+END_SRC
+
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -172,8 +177,11 @@
 
          "g" '(:ignore t :which-key "git")
          "gs" '(magit-status :which-key "status")
+
          "i" '(:ignore t :which-key "insert")
-         "ic" '(insert-char :which-key "char")
+         "ic" '(:ignore t :which-key "char")
+         "icc" '(insert-char :which-key "char")
+         "ich" '(quoted-insert :which-key "char")
 
          "p" '(:ignore t :which-key "projectile")
          "pf" '(projectile-find file :which-key "find file")
@@ -256,7 +264,6 @@
    #+BEGIN_SRC emacs-lisp
 (use-package flx)
    #+END_SRC
-
 
 * Editing
 ** Folding
