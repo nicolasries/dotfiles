@@ -374,7 +374,7 @@ strip_workspace_numbers yes
 position top
 # mode hide
 # status_command i3blocks
-separator_symbol ""
+separator_symbol "|"
 # tray_output "HDMI-A-1"
 modifier $mod
 colors {
