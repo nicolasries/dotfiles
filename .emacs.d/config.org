@@ -34,7 +34,9 @@
    #+END_SRC
 ** Save session
    #+BEGIN_SRC emacs-lisp
-     (desktop-save-mode 1)
+     (desktop-save-mode t) ;; return to last buffers
+     (save-place-mode t) ;; return to point in buffer
+     (savehist-mode t) ;; save minibuffer history
    #+END_SRC
 ** Quit ediff without prompt
    #+BEGIN_SRC emacs-lisp
@@ -74,7 +76,7 @@
 ** Recent files
    #+BEGIN_SRC emacs-lisp
      (recentf-mode 1)
-     (setq recentf-max-menu-items 100)
+     (setq recentf-max-menu-items 500)
    #+END_SRC
 ** Disable lock files
    #+BEGIN_SRC emacs-lisp
@@ -118,7 +120,10 @@
 #+BEGIN_SRC emacs-lisp
 (setq read-quoted-char-radix 16)
 #+END_SRC
-
+** Show Commands in minibuffer instantly
+#+BEGIN_SRC emacs-lisp
+(setq echo-keystrokes 0.01)
+#+END_SRC
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -136,7 +141,7 @@
        (nri/leader
          :keymaps 'override
          :states '(normal visual motion emacs)
-         "SPC" 'helm-M-x
+         "SPC" 'counsel-M-x
          "TAB" '(mode-line-other-buffer :which-key "previous")
 
          "'" '(vterm :which-key "terminal")
@@ -233,7 +238,7 @@
                "<escape>" 'minibuffer-keyboard-quit)
       :config
       ;; (ivy-mode 1)
-      ;; (counsel-mode)
+      (counsel-mode)
       (setq ivy-re-builders-alist
             '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
@@ -321,18 +326,18 @@
     #+END_SRC
 *** evil-numbers
     #+BEGIN_SRC emacs-lisp
-  (use-package evil-numbers
-    :straight
-    (evil-numbers :type git :host github :repo "janpath/evil-numbers")
-    :config
-    (setq evil-numbers/padDefault t)
-    :general
-    (:keymaps 'override
-    :states '(normal visual motion emacs)
-    "g C-a" 'evil-numbers/inc-at-pt-incremental
-    "g C-S-a" 'evil-numbers/dec-at-pt-incremental
-              "C-a" 'evil-numbers/inc-at-pt
-              "C-S-a" 'evil-numbers/dec-at-pt))
+      (use-package evil-numbers
+        :straight
+        (evil-numbers :type git :host github :repo "janpath/evil-numbers")
+        :config
+        (setq evil-numbers/padDefault t)
+        :general
+        (:keymaps 'override
+                  :states '(normal visual motion emacs)
+                  "g C-a" 'evil-numbers/inc-at-pt-incremental
+                  "g C-x" 'evil-numbers/dec-at-pt-incremental
+                  "C-a" 'evil-numbers/inc-at-pt
+                  "C-x" 'evil-numbers/dec-at-pt
     #+END_SRC
 *** evil-goggles
     #+BEGIN_SRC emacs-lisp
@@ -602,6 +607,15 @@
      ;;
      (setq ccls-initialization-options '(:cache(:directory :/home/nri/.cache/ccls-cache))))
     #+END_SRC
+*** Keybindings
+    #+BEGIN_SRC emacs-lisp
+       (nri/major-leader
+         :states '(normal visual motion emacs)
+         :keymaps 'c-mode-map
+         "c" 'rust-run
+         )
+    #+END_SRC
+
 
 ** Markdown
    https://github.com/jrblevin/markdown-mode
@@ -710,6 +724,30 @@
 *** Attach
     #+BEGIN_SRC emacs-lisp
 (setq org-attach-use-inheritance t)
+    #+END_SRC
+** Plantuml
+*** Plantuml Mode
+    #+BEGIN_SRC emacs-lisp
+  (use-package plantuml-mode
+    :config
+    ;; Enable plantuml-mode for PlantUML files
+    (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+    (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
+    (setq plantuml-executable-path "/bin/plantuml")
+    (setq plantuml-default-exec-mode 'executable))
+
+    #+END_SRC
+*** Plantuml Flycheck
+    #+BEGIN_SRC emacs-lisp
+  (flycheck-define-checker plantuml
+    "A checker using plantuml.
+  See `http://plantuml.com"
+    :command ("plantuml" "-syntax")
+    :standard-input t
+    :error-patterns ((error line-start "ERROR" "\n" line "\n" (message) line-end))
+    :modes plantuml-mode)
+
+  (add-to-list 'flycheck-checkers 'plantuml)
     #+END_SRC
 
 * Snippets

@@ -1,9 +1,10 @@
 #!/bin/sh
-
+icon=""
+icon_connected=""
+icon_off=""
 bluetooth_print() {
     bluetoothctl | while read -r; do
         if [ "$(systemctl is-active "bluetooth.service")" = "active" ]; then
-            icon="icon"
             description=""
 
             devices_paired=$(bluetoothctl paired-devices | grep Device | cut -d ' ' -f 2)
@@ -24,10 +25,10 @@ bluetooth_print() {
                     counter=$((counter + 1))
                 fi
 
-                echo "$icon $description"
+                echo "$icon_connected $description"
             done
         else
-            echo "#2"
+            echo "$icon_off"
         fi
     done
 }
