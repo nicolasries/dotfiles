@@ -337,7 +337,7 @@
                   "g C-a" 'evil-numbers/inc-at-pt-incremental
                   "g C-x" 'evil-numbers/dec-at-pt-incremental
                   "C-a" 'evil-numbers/inc-at-pt
-                  "C-x" 'evil-numbers/dec-at-pt
+                  "C-x" 'evil-numbers/dec-at-pt))
     #+END_SRC
 *** evil-goggles
     #+BEGIN_SRC emacs-lisp
