@@ -6,6 +6,8 @@
 bindkey -v
 
 # autocompletion
+# load custom completions
+fpath=($HOME/.local/share/zsh/site-functions $fpath)
 autoload -U compinit promptinit
 compinit
 promptinit
