@@ -273,7 +273,9 @@
 * Editing
 ** Folding
    #+BEGIN_SRC emacs-lisp
-     (use-package origami)
+     (use-package origami
+      :general
+      ("<tab>" 'origami-recursively-toggle-node))
    #+END_SRC
 ** Evil
    Vim inside Emacs
@@ -616,7 +618,6 @@
          )
     #+END_SRC
 
-
 ** Markdown
    https://github.com/jrblevin/markdown-mode
    #+BEGIN_SRC emacs-lisp
@@ -710,7 +711,8 @@
       ;; active Babel languages
       (org-babel-do-load-languages
        'org-babel-load-languages
-       '((gnuplot . t)))
+       '((gnuplot . t)
+       (C . t)))
       ;; add additional languages with '((language . t)))
     #+END_SRC
 *** Org Noter

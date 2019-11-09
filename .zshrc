@@ -55,7 +55,8 @@ alias rm='rm -iv'
 alias g='git'
 alias calc='python -i -c "from math import *"'
 
-alias pacin='sudo pacman -Syu'
+alias pacin='sudo pacman -Syu $(pacman -Ssq | fzf)'
+alias pacrm='sudo pacman -Rsnu $(pacman -Qq | fzf)'
 
 alias upd='~/bin/check_system_updates.sh'
 alias upgr='~/bin/upgrade_system.sh'

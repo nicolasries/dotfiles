@@ -394,7 +394,3 @@ background $transp
 
 # tv mode
 # output HDMI-A-1 scale 2
-
-# desktop mode
-output "Goldstar Company Ltd W2443 0x00004D6C"  pos 0 1080
-output "Philips Consumer Electronics Company 273PLPH AU11430004292"  pos 1920 1080
