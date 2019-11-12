@@ -712,6 +712,7 @@
       (org-babel-do-load-languages
        'org-babel-load-languages
        '((gnuplot . t)
+       (shell . t)
        (C . t)))
       ;; add additional languages with '((language . t)))
     #+END_SRC
