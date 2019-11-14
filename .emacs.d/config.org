@@ -153,7 +153,7 @@
          "a" '(:ignore t :which-key "Applications")
          "aa" '(:ignore t :which-key "Anki")
          "aai" '(anki-editor-insert-note :which-key "Insert Note")
-         "aap" '(anki-editor-push-notes :which-key "Push Notes")
+         "aap" '(nri/anki-push :which-key "Push Notes")
 
          "b" '(:ignore t :which-key "buffers")
          "bb" '(helm-mini :which-key "list")
@@ -776,6 +776,7 @@
        (setq anki-editor-use-math-jax t) ;; use mathjax syntax "\(\)" instead of latex
        :config
        (setq anki-editor-create-decks t)
+       (defun nri/anki-push () (progn (global-auto-revert-mode 0) (anki-editor-push-notes) (global-auto-revert-mode t)))
        (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
        (defun nri/anki-basic-reverse () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic (and reversed card)" '("Front" "Back"))))
    #+END_SRC
