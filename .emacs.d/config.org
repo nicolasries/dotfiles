@@ -114,16 +114,20 @@
    #+END_SRC
 ** Autoload
    #+BEGIN_SRC emacs-lisp
-;; (setq load-prefer-newer t)
+ (setq load-prefer-newer t)
    #+END_SRC
 ** Make quoted-insert Hex by default
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq read-quoted-char-radix 16)
-#+END_SRC
+   #+END_SRC
 ** Show Commands in minibuffer instantly
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq echo-keystrokes 0.01)
-#+END_SRC
+   #+END_SRC
+** Load 100MB Files without asking
+   #+BEGIN_SRC emacs-lisp
+(setq large-file-warning-threshold 100000000)
+   #+END_SRC
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -193,9 +197,11 @@
 
          "r" '(:ignore t :w-k "refactor")
          "rr" '(lsp-rename :w-k "rename")
-         "s" '(:ignore t :w-k "snippets")
-         "ss" '(yas-new-snippet :w-k "new snippet")
-         "si" '(yas-insert-snippet :w-k "insert")
+         "s" '(:ignore t :w-k "search")
+         "ss" '(counsel-google t :w-k "search")
+         "S" '(:ignore t :w-k "snippets")
+         "Ss" '(yas-new-snippet :w-k "new snippet")
+         "Si" '(yas-insert-snippet :w-k "insert")
 
          "w" '(:ignore t :which-key "window")
          "wh" '(evil-window-left :which-key "left")
@@ -375,8 +381,8 @@
    #+END_SRC
 ** Company Mode Icons
    #+BEGIN_SRC emacs-lisp
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+   (use-package company-box
+   :hook (company-mode . company-box-mode))
    #+END_SRC
 
 ** Company Mode Formatting
@@ -481,12 +487,33 @@
 ;(set-frame-parameter (selected-frame) 'alpha '(85 50))
 ;(add-to-list 'default-frame-alist '(alpha 85 50))
     #+END_SRC
+
+*** visualize color codes
+    #+BEGIN_SRC emacs-lisp
+    (use-package rainbow-mode
+    :config
+    (rainbow-mode))
+    #+END_SRC
+
 ** Scrolling
    #+BEGIN_SRC emacs-lisp
      (setq scroll-step 1
            scroll-conservatively 10000)
 
    #+END_SRC
+
+** Highlight indendation
+#+BEGIN_SRC emacs-lisp
+(use-package highlight-indent-guides
+:hook (prog-mode . highlight-indent-guides))
+#+END_SRC
+
+** Highlight surrounding parentheses
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-parentheses
+  :hook (prog-mode . highlight-parentheses))
+#+END_SRC
+
 * Projectile
   Project Management
   #+BEGIN_SRC emacs-lisp
@@ -599,7 +626,6 @@
 
 ** C/C++
 *** ccls
-
     #+BEGIN_SRC emacs-lisp
    (use-package ccls
      :config
@@ -611,11 +637,11 @@
     #+END_SRC
 *** Keybindings
     #+BEGIN_SRC emacs-lisp
-       (nri/major-leader
-         :states '(normal visual motion emacs)
-         :keymaps 'c-mode-map
-         "c" 'rust-run
-         )
+      (nri/major-leader
+        :states '(normal visual motion emacs)
+        :keymaps 'c-mode-map
+        "c" 'rust-run
+        )
     #+END_SRC
 
 ** Markdown
@@ -752,6 +778,29 @@
 
   (add-to-list 'flycheck-checkers 'plantuml)
     #+END_SRC
+** Go
+   #+BEGIN_SRC emacs-lisp
+     (use-package go-mode
+       :hook (go-mode . lsp)
+       :config
+       (add-hook 'before-save-hook 'gofmt-before-save))
+   #+END_SRC
+
+** Json
+   #+BEGIN_SRC emacs-lisp
+   (use-package json-mode
+   :hook (json-mode . prettier-js-mode))
+   #+END_SRC
+
+** Yaml
+   #+BEGIN_SRC emacs-lisp
+(use-package yaml-mode)
+   #+END_SRC
+** Prettier
+   Auto Format supported languages
+   #+BEGIN_SRC emacs-lisp
+   (use-package prettier-js)
+   #+END_SRC
 
 * Snippets
 ** Yasnippet
@@ -788,6 +837,18 @@
        :config
        (pdf-tools-install))
    #+END_SRC
+** Epub Viewer
+   #+BEGIN_SRC emacs-lisp
+     (use-package nov
+       :config
+       (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+   #+END_SRC
+** systemd
+   #+BEGIN_SRC emacs-lisp
+   (use-package systemd
+   :hook (systemd-mode . company-mode))
+   #+END_SRC
+
 * Terminal
   - make URLs clickable
   #+BEGIN_SRC emacs-lisp

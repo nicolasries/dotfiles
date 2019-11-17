@@ -116,6 +116,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 
 # fix?
-export FZF_DEFAULT_OPTS="--extended --cycle --bind=\
-ctrl-j:accept,ctrl-k:kill-line,tab:toggle-up,btab:toggle-down,\
-ctrl-y:execute('echo {} | xclip -selection clipboard')+abort"
+export FZF_DEFAULT_OPTS="--extended --cycle" 
+function aurin {
+    f="/tmp/aur_packages"
+    if [ ! -f $f ]; then
+        curl https://aur.archlinux.org/packages.gz | gunzip | tail -n +2 > $f
+    fi
+    trizen -S $(cat /tmp/aur_packages | fzf)
+}
