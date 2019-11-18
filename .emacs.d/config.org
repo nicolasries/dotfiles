@@ -25,7 +25,19 @@
 ** Reload changed files automatically
    #+BEGIN_SRC emacs-lisp
      (global-auto-revert-mode)
+     (setq global-auto-revert-non-file-buffers t) ;; also dired etc
+     (setq auto-revert-verbose nil) ;; no messages
    #+END_SRC
+** Highlight HTTP Links
+   #+BEGIN_SRC emacs-lisp
+   (use-package goto-addr
+   :hook (prog-mode . goto-address-prog-mode))
+   #+END_SRC
+** Better compilation buffer
+#+BEGIN_SRC emacs-lisp
+(setq compilation-scroll-output 'first-error)
+#+END_SRC
+
 ** Seperate Custom File
    This gets rid of the auto generated data that 'custom' saves to the init file
    #+BEGIN_SRC emacs-lisp
@@ -77,6 +89,7 @@
    #+BEGIN_SRC emacs-lisp
      (recentf-mode 1)
      (setq recentf-max-menu-items 500)
+     (setq recentf-max-saved-items 500)
    #+END_SRC
 ** Disable lock files
    #+BEGIN_SRC emacs-lisp
@@ -128,6 +141,11 @@
    #+BEGIN_SRC emacs-lisp
 (setq large-file-warning-threshold 100000000)
    #+END_SRC
+** No Cursor in Minibuffer
+#+BEGIN_SRC emacs-lisp
+(setq minibuffer-prompt-properties
+      '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
+#+END_SRC
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -155,9 +173,13 @@
          "/" '(swiper :which-key "search")
 
          "a" '(:ignore t :which-key "Applications")
+
          "aa" '(:ignore t :which-key "Anki")
          "aai" '(anki-editor-insert-note :which-key "Insert Note")
          "aap" '(nri/anki-push :which-key "Push Notes")
+
+         "af" '(:ignore t :which-key "Fun")
+         "afz" '(zone :which-key "Zone")
 
          "b" '(:ignore t :which-key "buffers")
          "bb" '(helm-mini :which-key "list")
@@ -452,8 +474,8 @@
 ** Misc
 *** relative line numbers
     #+BEGIN_SRC emacs-lisp
-     (setq display-line-numbers 'relative)
      (global-display-line-numbers-mode)
+     (setq display-line-numbers-type 'relative)
     #+END_SRC
 *** visual stuff
     #+BEGIN_SRC emacs-lisp
@@ -504,15 +526,20 @@
 
 ** Highlight indendation
 #+BEGIN_SRC emacs-lisp
-(use-package highlight-indent-guides
-:hook (prog-mode . highlight-indent-guides))
+;(use-package highlight-indent-guides
+;:hook (prog-mode . highlight-indent-guides))
 #+END_SRC
 
 ** Highlight surrounding parentheses
 #+BEGIN_SRC emacs-lisp
-  (use-package highlight-parentheses
-  :hook (prog-mode . highlight-parentheses))
+ ; (use-package highlight-parentheses
+ ; :hook (prog-mode . highlight-parentheses))
 #+END_SRC
+
+** Highlight current line
+   #+BEGIN_SRC emacs-lisp
+   (global-hl-line-mode t)
+   #+END_SRC
 
 * Projectile
   Project Management
@@ -801,6 +828,20 @@
    #+BEGIN_SRC emacs-lisp
    (use-package prettier-js)
    #+END_SRC
+** TODO Bash
+#+BEGIN_SRC emacs-lisp
+  (use-package sh-script
+    :config
+    (dolist (pattern '("\\.zsh\\'"
+                       "zlogin\\'"
+                       "zlogout\\'"
+                       "zpreztorc\\'"
+                       "zprofile\\'"
+                       "zshenv\\'"
+                       "zshrc\\'"))
+      (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+    :hook (shell-script-mode . lsp))
+#+END_SRC
 
 * Snippets
 ** Yasnippet
@@ -848,6 +889,14 @@
    (use-package systemd
    :hook (systemd-mode . company-mode))
    #+END_SRC
+** ediff
+   #+BEGIN_SRC emacs-lisp
+     (use-package ediff
+       :config
+       (setq ediff-window-setup-function 'ediff-setup-windows-plain) ;; no separate control panel
+       (setq ediff-split-window-function 'split-window-horizontally)
+       (setq ediff-merge-split-window-function 'split-window-horizontally))
+  #+END_SRC
 
 * Terminal
   - make URLs clickable
@@ -866,3 +915,35 @@
     (defun nri/bear ()
       (let ((default-directory (lsp-workspace-root)))(shell-command-to-string "make clean; bear make")))
   #+END_SRC
+* Fun
+** Zone
+   #+BEGIN_SRC emacs-lisp
+     (use-package zone
+       :config
+       ;; remove not interesting programs
+       (setq zone-programs [
+                            ;; zone-pgm-jitter
+                            zone-pgm-putz-with-case
+                            zone-pgm-dissolve
+                            ;; zone-pgm-explode
+                            zone-pgm-whack-chars
+                            zone-pgm-rotate
+                            zone-pgm-rotate-LR-lockstep
+                            zone-pgm-rotate-RL-lockstep
+                            zone-pgm-rotate-LR-variable
+                            zone-pgm-rotate-RL-variable
+                            zone-pgm-drip
+                            ;; zone-pgm-drip-fretfully
+                            ;; zone-pgm-five-oclock-swan-dive
+                            ;; zone-pgm-martini-swan-dive
+                            zone-pgm-rat-race
+                            zone-pgm-paragraph-spaz
+                            ;; zone-pgm-stress
+                            ;; zone-pgm-stress-destress
+                            ;; zone-pgm-random-life
+                            ])
+
+       ;; zone when idle after 60 seconds
+       (zone-when-idle 60)
+       )
+   #+END_SRC
