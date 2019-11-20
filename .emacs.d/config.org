@@ -191,6 +191,7 @@
          "ed" '(:ignore t :which-key "describe")
          "edv" '(describe-variable :which-key "variable")
          "edf" '(describe-function :which-key "function")
+         "edp" '(describe-package :which-key "package")
          "edk" '(describe-key :which-key "key")
          "edm" '(describe-minor-mode :which-key "minor mode")
          "edM" '(describe-mode :which-key "all modes")
@@ -680,7 +681,6 @@
 ** Org
 *** Org Setup & Keybindings
     #+BEGIN_SRC emacs-lisp
-      ;; (defun nri/org-context())
         (use-package org
           :general
           (nri/major-leader
@@ -688,6 +688,7 @@
             :keymaps 'org-mode-map
             "a" 'org-agenda
             "A" 'org-attach
+            "e" 'org-export-dispatch
             "n" 'org-noter
             "ll" 'org-toggle-latex-fragment
             "o" 'org-open-at-point
@@ -746,12 +747,10 @@
      #+END_SRC
 
 
-
 *** Never emulate tab
     #+BEGIN_SRC emacs-lisp
 (setq org-cycle-emulate-tab nil)
     #+END_SRC
-
 
 *** Bullets
     Nicer looking bullets

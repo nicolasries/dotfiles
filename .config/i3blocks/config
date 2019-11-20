@@ -46,6 +46,7 @@ signal=5
 label=
 format=json
 interval=600
+signal=6
 
 [disk.sh]
 label=/

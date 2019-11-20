@@ -59,7 +59,7 @@ alias calc='python -i -c "from math import *"'
 
 alias pacin='trizen -Syu $(trizen -Ssq | fzf)'
 alias pacrm='trizen -Rsnu $(trizen -Qq | fzf)'
-alias pacupgr='trizen -Syu'
+alias pacupgr='trizen -Syu; ~/.config/i3blocks/blocks/updates.sh --update'
 
 # always smart case
 alias rg='rg --smart-case'
