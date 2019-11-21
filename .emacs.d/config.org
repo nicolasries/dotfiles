@@ -166,8 +166,7 @@
          "SPC" 'counsel-M-x
          "TAB" '(mode-line-other-buffer :which-key "previous")
 
-         "'" '(vterm :which-key "terminal")
-         "\"" '(vterm-other-window :which-key "terminal")
+         "'" '(vterm-other-window :which-key "terminal")
 
 
          "/" '(swiper :which-key "search")
@@ -182,7 +181,7 @@
          "afz" '(zone :which-key "Zone")
 
          "b" '(:ignore t :which-key "buffers")
-         "bb" '(helm-mini :which-key "list")
+         "bb" '(counsel-ibuffer :which-key "list")
          "bq" '(kill-this-buffer :which-key "kill")
 
          "c" '(org-latex-export-to-pdf :which-key "Latex PDF")
@@ -205,7 +204,7 @@
          "ff" '(find-file :which-key "find")
          "fg" '(counsel-git :which-key "git")
          "fs" '(save-buffer :which-key "save")
-         "fr" '(counsel-recentf :which-key "recent")
+         "fr" '(counsel-buffer-or-recentf :which-key "recent")
 
          "g" '(:ignore t :which-key "git")
          "gs" '(magit-status :which-key "status")
