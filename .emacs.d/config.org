@@ -34,9 +34,9 @@
    :hook (prog-mode . goto-address-prog-mode))
    #+END_SRC
 ** Better compilation buffer
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq compilation-scroll-output 'first-error)
-#+END_SRC
+   #+END_SRC
 
 ** Seperate Custom File
    This gets rid of the auto generated data that 'custom' saves to the init file
@@ -127,7 +127,7 @@
    #+END_SRC
 ** Autoload
    #+BEGIN_SRC emacs-lisp
- (setq load-prefer-newer t)
+   (setq load-prefer-newer t)
    #+END_SRC
 ** Make quoted-insert Hex by default
    #+BEGIN_SRC emacs-lisp
@@ -142,10 +142,10 @@
 (setq large-file-warning-threshold 100000000)
    #+END_SRC
 ** No Cursor in Minibuffer
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
-#+END_SRC
+   #+END_SRC
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -461,15 +461,15 @@
 ** Theme
    Poet
    #+BEGIN_SRC emacs-lisp
-(use-package poet-theme)
+   (use-package poet-theme)
 
    #+END_SRC
    Spacemacs Theme
    #+BEGIN_SRC emacs-lisp
-(use-package spacemacs-theme
-:defer t
-:init
-(load-theme 'spacemacs-dark t ))
+     (use-package spacemacs-theme
+       :defer t
+       :init
+       (load-theme 'spacemacs-dark t ))
 
    #+END_SRC
 ** Misc
@@ -518,6 +518,22 @@
     (rainbow-mode))
     #+END_SRC
 
+*** Symbols
+    #+BEGIN_SRC emacs-lisp
+(setq prettify-symbols-unprettify-at-point 'right-edge)
+(setq-default prettify-symbols-alist '(
+                                       ;; ("#+BEGIN_SRC" . "")
+                                       ;; ("#+END_SRC" . "")
+                                       ("#+BEGIN_SRC"     . "")
+                                       ("#+END_SRC"       . "")
+                                       ;; ("#+BEGIN_SRC python" . "")
+                                       ;; ("#+BEGIN_SRC emacs-lisp" . "")
+))
+(global-prettify-symbols-mode 1)
+    #+END_SRC
+    #+BEGIN_SRC bash
+
+    #+END_SRC
 ** Scrolling
    #+BEGIN_SRC emacs-lisp
      (setq scroll-step 1
@@ -526,16 +542,16 @@
    #+END_SRC
 
 ** Highlight indendation
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 ;(use-package highlight-indent-guides
 ;:hook (prog-mode . highlight-indent-guides))
-#+END_SRC
+   #+END_SRC
 
 ** Highlight surrounding parentheses
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
  ; (use-package highlight-parentheses
  ; :hook (prog-mode . highlight-parentheses))
-#+END_SRC
+   #+END_SRC
 
 ** Highlight current line
    #+BEGIN_SRC emacs-lisp
@@ -711,7 +727,7 @@
     #+END_SRC
 *** show entities as UTF8 characters
     #+BEGIN_SRC emacs-lisp
-     ;; (setq org-pretty-entities t)
+     (setq org-pretty-entities t)
     #+END_SRC
 *** Inline Images
     #+BEGIN_SRC emacs-lisp
@@ -745,7 +761,6 @@
          (add-hook 'post-command-hook 'org-auto-toggle/org-auto-toggle-fragment-display t))
      #+END_SRC
 
-
 *** Never emulate tab
     #+BEGIN_SRC emacs-lisp
 (setq org-cycle-emulate-tab nil)
@@ -754,6 +769,7 @@
 *** Bullets
     Nicer looking bullets
     #+BEGIN_SRC emacs-lisp
+    (setq org-hide-leading-stars t)
      ;; (use-package org-bullets
      ;;   :init
      ;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -781,7 +797,7 @@
 (setq org-attach-use-inheritance t)
     #+END_SRC
 *** Export
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 ;; (require 'ox-latex)
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -790,7 +806,7 @@
 ;;       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-#+END_SRC
+    #+END_SRC
 
 ** Plantuml
 *** Plantuml Mode
@@ -841,7 +857,7 @@
    (use-package prettier-js)
    #+END_SRC
 ** TODO Bash
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   (use-package sh-script
     :config
     (dolist (pattern '("\\.zsh\\'"
@@ -853,7 +869,7 @@
                        "zshrc\\'"))
       (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
     :hook (shell-script-mode . lsp))
-#+END_SRC
+   #+END_SRC
 
 * Snippets
 ** Yasnippet
@@ -908,7 +924,7 @@
        (setq ediff-window-setup-function 'ediff-setup-windows-plain) ;; no separate control panel
        (setq ediff-split-window-function 'split-window-horizontally)
        (setq ediff-merge-split-window-function 'split-window-horizontally))
-  #+END_SRC
+   #+END_SRC
 
 * Terminal
   - make URLs clickable
