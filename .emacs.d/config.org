@@ -215,7 +215,8 @@
          "ich" '(quoted-insert :which-key "char")
 
          "p" '(:ignore t :which-key "projectile")
-         "pf" '(projectile-find file :which-key "find file")
+         "pp" '(projectile-switch-project file :which-key "switch")
+         "pf" '(projectile-find-file :which-key "find file")
 
          "r" '(:ignore t :w-k "refactor")
          "rr" '(lsp-rename :w-k "rename")
@@ -537,8 +538,8 @@ More friendly interface
 (setq-default prettify-symbols-alist '(
                                        ;; ("#+BEGIN_SRC" . "")
                                        ;; ("#+END_SRC" . "")
-                                       ("#+BEGIN_SRC"     . "")
-                                       ("#+END_SRC"       . "")
+                                       ;; ("#+BEGIN_SRC"     . "")
+                                       ;; ("#+END_SRC"       . "")
                                        ;; ("#+BEGIN_SRC python" . "")
                                        ;; ("#+BEGIN_SRC emacs-lisp" . "")
 ))
@@ -576,7 +577,8 @@ More friendly interface
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :config
-      (setq projectile-completion-system 'ivy))
+      (setq projectile-completion-system 'ivy)
+      (projectile-mode))
 
   #+END_SRC
 * Languages
