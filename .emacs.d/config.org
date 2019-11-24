@@ -265,13 +265,23 @@
       (:keymaps 'swiper-map
                "<escape>" 'minibuffer-keyboard-quit)
       :config
-      ;; (ivy-mode 1)
+      (ivy-mode 1)
       (counsel-mode)
+      (setq ivy-initial-inputs-alist nil)
       (setq ivy-re-builders-alist
             '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
-   #+END_SRC
+      #+END_SRC
+** Ivy Rich
+More friendly interface
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-rich
+:config
+(setq ivy-rich-path-style 'abbrev)
+(ivy-rich-mode 1))
+#+END_SRC
+
 ** Helm
    #+BEGIN_SRC emacs-lisp
 (use-package helm
@@ -294,6 +304,7 @@
 (setq smex-history-length 32))
    #+END_SRC
 ** Flx
+   Better Fuzzy Matching for Ivy etc.
    #+BEGIN_SRC emacs-lisp
 (use-package flx)
    #+END_SRC
@@ -477,6 +488,8 @@
     #+BEGIN_SRC emacs-lisp
      (global-display-line-numbers-mode)
      (setq display-line-numbers-type 'relative)
+     (setq display-line-numbers-grow-only t)
+     (setq display-line-numbers-width-start t)
     #+END_SRC
 *** visual stuff
     #+BEGIN_SRC emacs-lisp
@@ -515,7 +528,7 @@
     #+BEGIN_SRC emacs-lisp
     (use-package rainbow-mode
     :config
-    (rainbow-mode))
+    (rainbow-mode t))
     #+END_SRC
 
 *** Symbols
