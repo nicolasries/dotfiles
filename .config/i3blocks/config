@@ -33,9 +33,9 @@ align=center
 [mpris-tail.py]
 interval=persist
 
-# [pa-tail.sh]
-# interval=persist
-# format=json
+[pa-tail.sh]
+interval=persist
+format=json
 
 [light.sh]
 interval=once
