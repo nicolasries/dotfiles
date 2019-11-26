@@ -12,14 +12,14 @@ network_print() {
 
             if [ "$state" = "activated" ]; then
                 if [ "$type" = "802-11-wireless" ]; then
-                    icon="直"
+                    icon=""
 
                     signal=$(nmcli -t -f in-use,signal device wifi list ifname "$device" | grep "\*" | cut -d ':' -f 2)
                     if [ "$signal" -lt 40 ]; then
                         description="$description - %{F#f9cc18}$signal%%{F-}"
                     fi
                 elif [ "$type" = "802-3-ethernet" ]; then
-                    icon=""
+                    icon=""
 
                     speed="$(cat /sys/class/net/"$device"/speed)"
                     if [ "$speed" -ne -1 ]; then

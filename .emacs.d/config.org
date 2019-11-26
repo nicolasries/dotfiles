@@ -1,14 +1,16 @@
 #+TITLE: Configuration
 * Mode line
+
+** Spaceline
   Spaceline
   [[https://github.com/TheBB/spaceline]]
   #+BEGIN_SRC emacs-lisp
-    (use-package spaceline
-      :config
-      (spaceline-spacemacs-theme)
-      (spaceline-helm-mode)
-      (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-      (setq spaceline-minor-modes-p nil))
+    ;; (use-package spaceline
+    ;;   :config
+    ;;   (spaceline-spacemacs-theme)
+    ;;   (spaceline-helm-mode)
+    ;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+    ;;   (setq spaceline-minor-modes-p nil))
   #+END_SRC
 
 
@@ -20,6 +22,14 @@
  ;;                    " " vc-mode)))
  ;;       (setq vc-mode noback))))        ;
   #+END_SRC
+
+** Doom Line
+   #+BEGIN_SRC emacs-lisp
+(use-package doom-modeline
+:hook (after-init . doom-modeline-mode))
+   #+END_SRC
+
+
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically

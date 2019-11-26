@@ -1,7 +1,7 @@
 #!/bin/sh
-icon=""
-icon_connected=""
-icon_off=""
+icon=""
+icon_connected=""
+icon_off=""
 bluetooth_print() {
     bluetoothctl | while read -r; do
     if [ "$(systemctl is-active "bluetooth.service")" = "active" ]; then
@@ -63,4 +63,3 @@ case "$1" in
         bluetooth_print
         ;;
 esac
-
