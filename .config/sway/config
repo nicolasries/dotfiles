@@ -13,49 +13,51 @@ workspace_layout tabbed
 
 # Workspaces {{{
 
+# terminal
 set $wsp1 "1:"
-set $wsp2 "2:"
-set $wsp3 "3:"
-set $wsp4 "4:"
-set $wsp5 "5:"
-set $wsp6 "6:"
-set $wsp7 "7:"
-set $wsp8 "8:"
-
-# assignments
-
-assign [class="Emacs"] $wsp3
 
 # browser
+set $wsp2 "2:"
 assign [class="^Chromium$" instance="^chromium$"] $wsp2
 assign [app_id="firefox"] $wsp2
 
-# dev stuff
+# dev
+set $wsp3 "3:"
+assign [class="Emacs"] $wsp3
 assign [class="NetBeans IDE"] $wsp3
 assign [class="^jetbrains-.*$"] $wsp3
 assign [class="^QtCreator$"] $wsp3
 assign [class="Godot"] $wsp3
 
-# mail
+
+# communication
+set $wsp4 "4:"
 assign [app_id="^thunderbird$"] $wsp4
+assign [class="^Skype$"] $wsp4
+
 
 # misc
+set $wsp5 "5:"
 assign [class="^JDownloader$"] $wsp5
 assign [title="XMind"] $wsp5
 assign [class="libreoffice"] $wsp5
-assign [class="^Skype$"] $wsp5
 assign [class="^Anki$"] $wsp5
 assign [class="^calibre$"] $wsp5
 
+
 # media
+set $wsp6 "6:"
 assign [class="^Kodi$" instance="^Kodi$"] $wsp6
 assign [class="^mpv$" instance="^gl$"] $wsp6
 
+
 # music
+set $wsp7 "7:"
 # workaround for spotify assignment
 for_window [class="Spotify"] move to workspace $wsp7
 
 # games
+set $wsp8 "8:"
 assign [class="^Steam$" instance="^Steam$"] $wsp8
 assign [class="dolphin-emu"] $wsp8
 assign [class="MTGA"] $wsp8

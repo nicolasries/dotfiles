@@ -25,13 +25,16 @@
 
 ** Doom Line
    #+BEGIN_SRC emacs-lisp
-(use-package doom-modeline
-:config
-;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-(setq doom-modeline-buffer-file-name-style 'relative-to-project)
-:hook (after-init . doom-modeline-mode))
-   #+END_SRC
+     (use-package doom-modeline
+       :config
+       (set-face-attribute 'doom-modeline-buffer-modified nil
+       :inherit 'doom-modeline-buffer-path)
 
+       (setq doom-modeline-buffer-modification-icon nil)
+       ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+       (setq doom-modeline-buffer-file-name-style 'relative-to-project)
+       :hook (after-init . doom-modeline-mode))
+   #+END_SRC
 
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
@@ -786,7 +789,7 @@ More friendly interface
          :straight
          (org-auto-toggle :type git :host github :repo "nicories/org-auto-toggle")
          :config
-         (add-hook 'post-command-hook 'org-auto-toggle/org-auto-toggle-fragment-display t))
+         (org-auto-toggle-mode))
      #+END_SRC
 
 *** Never emulate tab
@@ -979,6 +982,16 @@ More friendly interface
     (defun nri/bear ()
       (let ((default-directory (lsp-workspace-root)))(shell-command-to-string "make clean; bear make")))
   #+END_SRC
+* Auto Save
+  #+BEGIN_SRC emacs-lisp
+  ;; quiet auto save
+  (advice-add 'save-buffer :before #'(lambda () (setq-local inhibit-message t)))
+  ;; save every .5 seconds
+  (setq auto-save-visited-interval 0.5)
+  (auto-save-visited-mode t)
+  #+END_SRC
+
+
 * Fun
 ** Zone
    #+BEGIN_SRC emacs-lisp
