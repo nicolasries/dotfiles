@@ -503,7 +503,7 @@ More friendly interface
 ** Misc
 *** relative line numbers
     #+BEGIN_SRC emacs-lisp
-     (global-display-line-numbers-mode)
+     (global-display-line-numbers-mode t)
      (setq display-line-numbers-type 'relative)
      (setq display-line-numbers-grow-only t)
      (setq display-line-numbers-width-start t)
@@ -942,8 +942,10 @@ More friendly interface
    https://github.com/politza/pdf-tools
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
-       :config
-       (pdf-tools-install))
+     ;; no line numbers in pdf
+     :hook (pdf-view-mode . (lambda () (display-line-numbers-mode 0)))
+     :config
+     (pdf-tools-install))
    #+END_SRC
 ** Epub Viewer
    #+BEGIN_SRC emacs-lisp
@@ -985,13 +987,11 @@ More friendly interface
 * Auto Save
   #+BEGIN_SRC emacs-lisp
   ;; quiet auto save
-  (advice-add 'save-buffer :before #'(lambda () (setq-local inhibit-message t)))
+  (setq save-silently t)
   ;; save every .5 seconds
   (setq auto-save-visited-interval 0.5)
   (auto-save-visited-mode t)
   #+END_SRC
-
-
 * Fun
 ** Zone
    #+BEGIN_SRC emacs-lisp
