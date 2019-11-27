@@ -988,8 +988,8 @@ More friendly interface
   #+BEGIN_SRC emacs-lisp
   ;; quiet auto save
   (setq save-silently t)
-  ;; save every .5 seconds
-  (setq auto-save-visited-interval 0.5)
+  ;; save every 2 seconds
+  (setq auto-save-visited-interval 2)
   (auto-save-visited-mode t)
   #+END_SRC
 * Fun
