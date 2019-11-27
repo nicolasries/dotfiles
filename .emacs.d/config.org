@@ -26,6 +26,9 @@
 ** Doom Line
    #+BEGIN_SRC emacs-lisp
 (use-package doom-modeline
+:config
+;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+(setq doom-modeline-buffer-file-name-style 'relative-to-project)
 :hook (after-init . doom-modeline-mode))
    #+END_SRC
 
@@ -56,7 +59,7 @@
    #+END_SRC
 ** Save session
    #+BEGIN_SRC emacs-lisp
-     (desktop-save-mode t) ;; return to last buffers
+     ;; (desktop-save-mode t) ;; return to last buffers
      (save-place-mode t) ;; return to point in buffer
      (savehist-mode t) ;; save minibuffer history
    #+END_SRC
@@ -544,16 +547,16 @@ More friendly interface
 
 *** Symbols
     #+BEGIN_SRC emacs-lisp
-(setq prettify-symbols-unprettify-at-point 'right-edge)
-(setq-default prettify-symbols-alist '(
-                                       ;; ("#+BEGIN_SRC" . "")
-                                       ;; ("#+END_SRC" . "")
-                                       ;; ("#+BEGIN_SRC"     . "")
-                                       ;; ("#+END_SRC"       . "")
-                                       ;; ("#+BEGIN_SRC python" . "")
-                                       ;; ("#+BEGIN_SRC emacs-lisp" . "")
-))
-(global-prettify-symbols-mode 1)
+      (setq prettify-symbols-unprettify-at-point 'right-edge)
+      (setq-default prettify-symbols-alist '(
+                                             ;; ("#+BEGIN_SRC" . "")
+                                             ;; ("#+END_SRC" . "")
+                                             ;; ("#+BEGIN_SRC"     . "")
+                                             ;; ("#+END_SRC"       . "")
+                                             ;; ("#+BEGIN_SRC python" . "")
+                                             ;; ("#+BEGIN_SRC emacs-lisp" . "")
+                                             ))
+      (global-prettify-symbols-mode 1)
     #+END_SRC
     #+BEGIN_SRC bash
 
@@ -832,6 +835,11 @@ More friendly interface
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
     #+END_SRC
+*** Pandoc
+    #+BEGIN_SRC emacs-lisp
+(use-package ox-pandoc)
+    #+END_SRC
+
 
 ** Plantuml
 *** Plantuml Mode
