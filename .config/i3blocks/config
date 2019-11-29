@@ -37,6 +37,11 @@ interval=persist
 # interval=persist
 # format=json
 
+[isrunning-service.sh]
+command=$HOME/.config/i3blocks/blocks/isrunning-service.sh mako.service
+label=mako
+interval=persist
+
 [light.sh]
 interval=once
 format=json
@@ -52,11 +57,8 @@ signal=6
 label=/
 interval=30
 
-# Battery indicator
-#
-# The battery instance defaults to 0.
-# [battery]
-# interval=persist
+[battery.sh]
+interval=persist
 
 [temperature.sh]
 interval=100
