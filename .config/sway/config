@@ -353,7 +353,7 @@ gaps outer 25
 smart_borders on
 # new_window pixel 1
 
-font pango:SourceCodePro 13
+font pango:Hack 13
 # set $text #ffffff
 set $text $foreground
 

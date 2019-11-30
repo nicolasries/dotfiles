@@ -482,7 +482,7 @@ More friendly interface
 * UI
 ** Font
    #+BEGIN_SRC emacs-lisp
-   (set-frame-font "Source Code Pro-13" nil t)
+   (set-frame-font "Hack-14" nil t)
    ;; (set-frame-font "Fira Code-13" nil t)
    #+END_SRC
 
