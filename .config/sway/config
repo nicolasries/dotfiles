@@ -368,6 +368,7 @@ client.focused          $color1 $color1 $text $color1 $color1
 
 
 # }}}
+
 # Bar {{{
 
 set $transp "#00000000"

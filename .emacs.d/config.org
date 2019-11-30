@@ -301,18 +301,18 @@ More friendly interface
 
 ** Helm
    #+BEGIN_SRC emacs-lisp
-(use-package helm
-:config
-(setq helm-recentf-fuzzy-match t)
-(setq helm-buffers-fuzzy-matching t)
-(setq helm-mode-fuzzy-match t)
-(setq helm-M-x-fuzzy-match t)
-(setq helm-completion-in-region-fuzzy-match t)
-:general
-(:keymaps 'helm-map
-"C-j" 'helm-next-line
-"C-k" 'helm-previous-line))
-;; (use-package helm-swoop)
+     (use-package helm
+       :config
+       (setq helm-recentf-fuzzy-match t)
+       (setq helm-buffers-fuzzy-matching t)
+       (setq helm-mode-fuzzy-match t)
+       (setq helm-M-x-fuzzy-match t)
+       (setq helm-completion-in-region-fuzzy-match t)
+       :general
+       (:keymaps 'helm-map
+                 "C-j" 'helm-next-line
+                 "C-k" 'helm-previous-line))
+     ;; (use-package helm-swoop)
    #+END_SRC
 ** Smex
    #+BEGIN_SRC emacs-lisp
