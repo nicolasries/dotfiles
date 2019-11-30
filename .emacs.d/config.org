@@ -330,9 +330,10 @@ More friendly interface
 ** Folding
    #+BEGIN_SRC emacs-lisp
      (use-package origami
-      :general
-      (:keymaps 'prog-mode-map
-        "<tab>" 'origami-recursively-toggle-node))
+     :hook ((prog-mode conf-mode) . origami-mode)
+       :general
+       (:keymaps 'origami-mode-map
+       "<tab>" 'origami-recursively-toggle-node))
    #+END_SRC
 ** Evil
    Vim inside Emacs
@@ -345,7 +346,6 @@ More friendly interface
              :config
              (evil-mode 1)
              (setq evil-want-C-u-scroll t)) ;; TODO: doesn't work..
-             :general
 
     #+END_SRC
 *** Evil Surround
@@ -559,7 +559,7 @@ More friendly interface
                                              ;; ("#+BEGIN_SRC python" . "")
                                              ;; ("#+BEGIN_SRC emacs-lisp" . "")
                                              ))
-      (global-prettify-symbols-mode 1)
+      (global-prettify-symbols-mode t)
     #+END_SRC
     #+BEGIN_SRC bash
 
@@ -662,11 +662,10 @@ More friendly interface
      (use-package dap-mode)
     #+END_SRC
 
-*** Origami
+*** LSP Origami
     #+BEGIN_SRC emacs-lisp
-(use-package lsp-origami
-       :config
-       (add-hook 'origami-mode-hook #'lsp-origami-mode))
+    (use-package lsp-origami
+    :hook (lsp . lsp-origami))
     #+END_SRC
 
 ** Rust

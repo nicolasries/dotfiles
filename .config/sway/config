@@ -1,3 +1,5 @@
+# -*- origami-fold-style: triple-braces -*-
+
 # General {{{
 
 # no mouse focus
@@ -220,7 +222,7 @@ bindsym Return mode "default"
 bindsym Escape mode "default"
 }
 # }}}
-#
+
 # Inert mode {{{
 # This mode bypasses all i3wm keys in case of compabillity problems:
 mode "Inert" {
@@ -276,7 +278,7 @@ exec_always --no-startup-id 'pkill kanshi; exec kanshi'
 for_window [title="Android Emulator*"] floating enable
 
 
-# {{{ Sway Settings
+# Sway Settings {{{
 
 bindsym $mod+Shift+e exec "swaymsg exit"
 bindsym $mod+Shift+r reload
