@@ -1,13 +1,10 @@
 # -*- mode: snippet -*-
-# name: Anki basic
+# name: Anki Basic
 # key: <ab
 # --
 `(progn (move-beginning-of-line nil) nil)`
-`(make-string (- (org-current-level) 1) ?*)` $1
+`(make-string (org-current-level) ?*)` $1
 :PROPERTIES:
 :ANKI_NOTE_TYPE: Basic
 :END:
-`(make-string (+ (org-current-level) 0) ?*)` Front
-$1
-`(make-string (+ (org-current-level) 0) ?*)` Back
-$2
+$0

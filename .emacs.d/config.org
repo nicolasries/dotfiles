@@ -925,16 +925,16 @@ More friendly interface
    https://github.com/louietan/anki-editor
    #+BEGIN_SRC emacs-lisp
      (use-package anki-editor
+       :straight
+       (anki-editor :type git :branch "feature-quick-field-mappings" :host github :repo "leoc/anki-editor")
        :init
        (setq anki-editor-use-math-jax t) ;; use mathjax syntax "\(\)" instead of latex
        :config
+       (push '("Basic (and reversed card)" . ("Front" . "Back")) anki-editor-quick-field-mapping)
        (setq anki-editor-create-decks t)
        ;; fix "Empty Reply" Bug
        (advice-add 'anki-editor-push-notes :before #'(lambda (&opt) (global-auto-revert-mode 0)))
-       (advice-add 'anki-editor-push-notes :after #'(lambda (&opt) (global-auto-revert-mode 1)))
-
-       (defun nri/anki-basic () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic" '("Front" "Back")))
-       (defun nri/anki-basic-reverse () (anki-editor--insert-note-skeleton nil (org-entry-get-with-inheritance anki-editor-prop-deck) "Header" "Basic (and reversed card)" '("Front" "Back"))))
+       (advice-add 'anki-editor-push-notes :after #'(lambda (&opt) (global-auto-revert-mode 1))))
    #+END_SRC
 ** PDF Viewer
    Display PDF Files inside Emacs
