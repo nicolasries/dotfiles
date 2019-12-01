@@ -1,4 +1,10 @@
 #+TITLE: Configuration
+
+Fix LSP
+#+BEGIN_SRC emacs-lisp
+(use-package lv)
+#+END_SRC
+
 * Mode line
 
 ** Spaceline
@@ -487,19 +493,20 @@ More friendly interface
    #+END_SRC
 
 ** Theme
-   Poet
-   #+BEGIN_SRC emacs-lisp
-   (use-package poet-theme)
-
-   #+END_SRC
    Spacemacs Theme
    #+BEGIN_SRC emacs-lisp
-     (use-package spacemacs-theme
-       :defer t
-       :init
-       (load-theme 'spacemacs-dark t ))
+   (use-package spacemacs-theme)
 
    #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+   (use-package doom-themes)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+   (load-theme 'spacemacs-dark)
+   #+END_SRC
+
 ** Misc
 *** relative line numbers
     #+BEGIN_SRC emacs-lisp
@@ -987,8 +994,8 @@ More friendly interface
   #+BEGIN_SRC emacs-lisp
   ;; quiet auto save
   (setq save-silently t)
-  ;; save every 2 seconds
-  (setq auto-save-visited-interval 2)
+  ;; save every 1 seconds
+  (setq auto-save-visited-interval 1)
   (auto-save-visited-mode t)
   #+END_SRC
 * Fun
