@@ -770,6 +770,11 @@ More friendly interface
     #+BEGIN_SRC emacs-lisp
 (setq org-startup-with-inline-images t)
     #+END_SRC
+*** Do not truncate lines
+
+    #+BEGIN_SRC emacs-lisp
+    (setq org-startup-truncated nil)
+    #+END_SRC
 
 *** Latex preview
 **** Larger Preview
@@ -848,7 +853,6 @@ More friendly interface
     #+BEGIN_SRC emacs-lisp
 (use-package ox-pandoc)
     #+END_SRC
-
 
 ** Plantuml
 *** Plantuml Mode
