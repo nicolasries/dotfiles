@@ -57,7 +57,7 @@ alias rm='rm -iv'
 alias g='git'
 alias calc='python -i -c "from math import *"'
 
-alias pacin='trizen -Syu $(trizen -Ssq | fzf)'
+alias pacin='trizen -Syu $(trizen -Ssq | fzf);  ~/.config/i3blocks/blocks/updates.sh --refresh'
 alias pacrm='trizen -Rsnu $(trizen -Qq | fzf)'
 alias pacupgr='trizen -Syu; ~/.config/i3blocks/blocks/updates.sh --refresh'
 
