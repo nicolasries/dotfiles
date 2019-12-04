@@ -5,43 +5,6 @@ Fix LSP
 (use-package lv)
 #+END_SRC
 
-* Mode line
-
-** Spaceline
-  Spaceline
-  [[https://github.com/TheBB/spaceline]]
-  #+BEGIN_SRC emacs-lisp
-    ;; (use-package spaceline
-    ;;   :config
-    ;;   (spaceline-spacemacs-theme)
-    ;;   (spaceline-helm-mode)
-    ;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-    ;;   (setq spaceline-minor-modes-p nil))
-  #+END_SRC
-
-
-  #+BEGIN_SRC emacs-lisp
- ;; (defadvice vc-mode-line (after strip-backend () activate)
- ;;   (when (stringp vc-mode)
- ;;     (let ((noback (replace-regexp-in-string
- ;;                    (format "^ %s" (vc-backend buffer-file-name))
- ;;                    " " vc-mode)))
- ;;       (setq vc-mode noback))))        ;
-  #+END_SRC
-
-** Doom Line
-   #+BEGIN_SRC emacs-lisp
-     (use-package doom-modeline
-       :config
-       (set-face-attribute 'doom-modeline-buffer-modified nil
-       :inherit 'doom-modeline-buffer-path)
-
-       (setq doom-modeline-buffer-modification-icon nil)
-       ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-       (setq doom-modeline-buffer-file-name-style 'relative-to-project)
-       :hook (after-init . doom-modeline-mode))
-   #+END_SRC
-
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically
@@ -598,6 +561,42 @@ More friendly interface
    (global-hl-line-mode t)
    #+END_SRC
 
+** Mode line
+*** Spaceline
+   Spaceline
+   [[https://github.com/TheBB/spaceline]]
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package spaceline
+     ;;   :config
+     ;;   (spaceline-spacemacs-theme)
+     ;;   (spaceline-helm-mode)
+     ;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+     ;;   (setq spaceline-minor-modes-p nil))
+   #+END_SRC
+
+
+   #+BEGIN_SRC emacs-lisp
+  ;; (defadvice vc-mode-line (after strip-backend () activate)
+  ;;   (when (stringp vc-mode)
+  ;;     (let ((noback (replace-regexp-in-string
+  ;;                    (format "^ %s" (vc-backend buffer-file-name))
+  ;;                    " " vc-mode)))
+  ;;       (setq vc-mode noback))))        ;
+   #+END_SRC
+
+*** Doom Line
+    #+BEGIN_SRC emacs-lisp
+      (use-package doom-modeline
+        :config
+        (set-face-attribute 'doom-modeline-buffer-modified nil
+        :inherit 'doom-modeline-buffer-path)
+
+        (setq doom-modeline-buffer-modification-icon nil)
+        ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+        (setq doom-modeline-buffer-file-name-style 'relative-to-project)
+        :hook (after-init . doom-modeline-mode))
+    #+END_SRC
+
 * Projectile
   Project Management
   #+BEGIN_SRC emacs-lisp
@@ -998,6 +997,7 @@ More friendly interface
       (let ((default-directory (lsp-workspace-root)))(shell-command-to-string "make clean; bear make")))
   #+END_SRC
 * Auto Save
+  TODO: Trigger, when moving around
   #+BEGIN_SRC emacs-lisp
   ;; quiet auto save
   (setq save-silently t)
