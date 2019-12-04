@@ -168,6 +168,11 @@ Fix LSP
 (setq minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
    #+END_SRC
+** Follow Symlinks automatically
+   #+BEGIN_SRC emacs-lisp
+   (setq vc-follow-symlinks t)
+   #+END_SRC
+
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -495,18 +500,16 @@ More friendly interface
 ** Theme
    Spacemacs Theme
    #+BEGIN_SRC emacs-lisp
-   (use-package spacemacs-theme)
-
+     (use-package spacemacs-theme
+       :defer t
+       :init
+       (load-theme 'spacemacs-dark t)
+       )
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
    (use-package doom-themes)
    #+END_SRC
-
-   #+BEGIN_SRC emacs-lisp
-   (load-theme 'spacemacs-dark)
-   #+END_SRC
-
 ** Misc
 *** relative line numbers
     #+BEGIN_SRC emacs-lisp
@@ -601,6 +604,8 @@ More friendly interface
     (use-package projectile
       :config
       (setq projectile-completion-system 'ivy)
+      ;; fixes directory not found bug
+      (setq projectile-git-submodule-command nil)
       (projectile-mode))
 
   #+END_SRC
@@ -742,7 +747,6 @@ More friendly interface
             "A" 'org-attach
             "e" 'org-export-dispatch
             "n" 'org-noter
-            "ll" 'org-toggle-latex-fragment
             "o" 'org-open-at-point
             )
           (:keymap org-mode-map
@@ -764,7 +768,7 @@ More friendly interface
     #+END_SRC
 *** show entities as UTF8 characters
     #+BEGIN_SRC emacs-lisp
-     (setq org-pretty-entities t)
+     ;; (setq org-pretty-entities t)
     #+END_SRC
 *** Inline Images
     #+BEGIN_SRC emacs-lisp
@@ -802,7 +806,6 @@ More friendly interface
          :config
          (org-auto-toggle-mode))
      #+END_SRC
-
 *** Never emulate tab
     #+BEGIN_SRC emacs-lisp
 (setq org-cycle-emulate-tab nil)
@@ -904,17 +907,17 @@ More friendly interface
    #+END_SRC
 ** TODO Bash
    #+BEGIN_SRC emacs-lisp
-  (use-package sh-script
-    :config
-    (dolist (pattern '("\\.zsh\\'"
-                       "zlogin\\'"
-                       "zlogout\\'"
-                       "zpreztorc\\'"
-                       "zprofile\\'"
-                       "zshenv\\'"
-                       "zshrc\\'"))
-      (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
-    :hook (shell-script-mode . lsp))
+     (use-package sh-script
+       :config
+       (dolist (pattern '("\\.zsh\\'"
+                          "zlogin\\'"
+                          "zlogout\\'"
+                          "zpreztorc\\'"
+                          "zprofile\\'"
+                          "zshenv\\'"
+                          "zshrc\\'"))
+         (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+       :hook (shell-script-mode . lsp))
    #+END_SRC
 
 * Snippets
