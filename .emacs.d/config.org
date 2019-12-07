@@ -1,10 +1,4 @@
 #+TITLE: Configuration
-
-Fix LSP
-#+BEGIN_SRC emacs-lisp
-(use-package lv)
-#+END_SRC
-
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically
@@ -20,7 +14,7 @@ Fix LSP
    #+END_SRC
 ** Better compilation buffer
    #+BEGIN_SRC emacs-lisp
-(setq compilation-scroll-output 'first-error)
+   (setq compilation-scroll-output 'first-error)
    #+END_SRC
 
 ** Seperate Custom File
@@ -87,7 +81,7 @@ Fix LSP
    #+END_SRC
 ** Delete trailing whitespace on save
    #+BEGIN_SRC emacs-lisp
-   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
    #+END_SRC
 ** Keep selection after operation
    #+BEGIN_SRC emacs-lisp
@@ -135,7 +129,6 @@ Fix LSP
    #+BEGIN_SRC emacs-lisp
    (setq vc-follow-symlinks t)
    #+END_SRC
-
 
 * Keybindings
   https://github.com/noctuid/general.el/
@@ -195,6 +188,9 @@ Fix LSP
          "fg" '(counsel-git :which-key "git")
          ;; "fs" '(save-buffer :which-key "save")
          "fr" '(counsel-buffer-or-recentf :which-key "recent")
+         
+         "F" '(:ignore t :which-key "Frames")
+         "Ff" '(make-frame :which-key "make")
 
          "g" '(:ignore t :which-key "git")
          "gs" '(magit-status :which-key "status")
@@ -453,6 +449,12 @@ More friendly interface
      (add-hook 'git-commit-mode-hook 'evil-insert-state)
    #+END_SRC
 
+** Show Diff in Buffer
+#+BEGIN_SRC emacs-lisp
+(use-package diff-hl
+:config
+(global-diff-hl-mode t))
+#+END_SRC
 * UI
 ** Font
    #+BEGIN_SRC emacs-lisp
@@ -838,8 +840,13 @@ More friendly interface
     #+END_SRC
 *** Attach
     #+BEGIN_SRC emacs-lisp
-(setq org-attach-use-inheritance t)
+    (setq org-attach-use-inheritance t)
     #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    ;; make directories relative
+    (setq org-attach-dir-relative t)
+    #+END_SRC
+
 *** Export
     #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
@@ -1005,35 +1012,8 @@ More friendly interface
   (setq auto-save-visited-interval 1)
   (auto-save-visited-mode t)
   #+END_SRC
-* Fun
-** Zone
-   #+BEGIN_SRC emacs-lisp
-     (use-package zone
-       :config
-       ;; remove not interesting programs
-       (setq zone-programs [
-                            ;; zone-pgm-jitter
-                            zone-pgm-putz-with-case
-                            zone-pgm-dissolve
-                            ;; zone-pgm-explode
-                            zone-pgm-whack-chars
-                            zone-pgm-rotate
-                            zone-pgm-rotate-LR-lockstep
-                            zone-pgm-rotate-RL-lockstep
-                            zone-pgm-rotate-LR-variable
-                            zone-pgm-rotate-RL-variable
-                            zone-pgm-drip
-                            ;; zone-pgm-drip-fretfully
-                            ;; zone-pgm-five-oclock-swan-dive
-                            ;; zone-pgm-martini-swan-dive
-                            zone-pgm-rat-race
-                            zone-pgm-paragraph-spaz
-                            ;; zone-pgm-stress
-                            ;; zone-pgm-stress-destress
-                            ;; zone-pgm-random-life
-                            ])
-
-       ;; zone when idle after 60 seconds
-       ;; (zone-when-idle 60)
-       )
-   #+END_SRC
+* Temporary
+  Fix LSP
+  #+BEGIN_SRC emacs-lisp
+  (use-package lv)
+  #+END_SRC

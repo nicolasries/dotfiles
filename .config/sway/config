@@ -33,10 +33,10 @@ assign [class="Godot"] $wsp3
 
 
 # communication
-set $wsp4 "4:"
+set $wsp4 "4:"
 assign [app_id="^thunderbird$"] $wsp4
 assign [class="^Skype$"] $wsp4
-
+assign [class="^Signal"] $wsp4
 
 # misc
 set $wsp5 "5:"
