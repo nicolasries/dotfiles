@@ -117,6 +117,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # fix?
 export FZF_DEFAULT_OPTS="--extended --cycle" 
+
 function aurin {
     f="/tmp/aur_packages"
     if [ ! -f $f ]; then
@@ -124,3 +125,17 @@ function aurin {
     fi
     trizen -S $(cat /tmp/aur_packages | fzf)
 }
+
+# vterm {{{
+vterm_cmd() {
+    printf "\e]51;E"
+    local r
+    while [[ $# -gt 0 ]]; do
+        r="${1//\\/\\\\}"
+        r="${r//\"/\\\"}"
+        printf '"%s" ' "$r"
+        shift
+    done
+    printf "\e\\"
+}
+# }}}
