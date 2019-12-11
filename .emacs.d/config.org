@@ -219,9 +219,13 @@
 
          "w" '(:ignore t :which-key "window")
          "wh" '(evil-window-left :which-key "left")
+         "wH" '(evil-window-move-far-left :which-key "left")
          "wj" '(evil-window-down :which-key "down")
+         "wJ" '(evil-window-move-very-bottom :which-key "down")
          "wk" '(evil-window-up :which-key "up")
+         "wK" '(evil-window-move-very-top :which-key "up")
          "wl" '(evil-window-right :which-key "right")
+         "wL" '(evil-window-move-far-right :which-key "right")
          "wv" '(evil-window-vsplit :w-k "split vertically")
          "ww" '(evil-window-next :w-k "next")
          "wq" '(evil-window-delete :which-key "quit")
@@ -305,7 +309,8 @@ More friendly interface
 ** Folding
    #+BEGIN_SRC emacs-lisp
      (use-package origami
-     :hook ((prog-mode conf-mode) . origami-mode)
+     ;; TODO: enable, but disable in insert-mode
+     ;; :hook ((prog-mode conf-mode) . origami-mode)
        :general
        (:keymaps 'origami-mode-map
        "<tab>" 'origami-recursively-toggle-node))

@@ -121,9 +121,10 @@ export FZF_DEFAULT_OPTS="--extended --cycle"
 function aurin {
     f="/tmp/aur_packages"
     if [ ! -f $f ]; then
+        # first two lines are only metadata
         curl https://aur.archlinux.org/packages.gz | gunzip | tail -n +2 > $f
     fi
-    trizen -S $(cat /tmp/aur_packages | fzf)
+    trizen -S "$(fzf < $f)"
 }
 
 # vterm {{{
