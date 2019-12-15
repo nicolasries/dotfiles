@@ -933,7 +933,7 @@ More friendly interface
                           "zshenv\\'"
                           "zshrc\\'"))
          (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
-       :hook (shell-script-mode . lsp))
+       :hook (sh-mode . lsp))
    #+END_SRC
 
 * Snippets
