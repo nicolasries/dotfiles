@@ -935,6 +935,7 @@ More friendly interface
          (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
        :hook (sh-mode . lsp))
    #+END_SRC
+** Python
 
 * Snippets
 ** Yasnippet
@@ -1026,3 +1027,19 @@ More friendly interface
   (setq auto-save-visited-interval 0.5)
   (auto-save-visited-mode t)
   #+END_SRC
+* Debugging
+Temporary
+#+BEGIN_SRC emacs-lisp
+(setq gud-gdb-command-name "arm-none-eabi-gdb -i=mi")
+(setq gdb-show-main t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;;   (use-package gdb-mi
+  ;;  :straight (:host github :repo "weirdNox/emacs-gdb" :files ("*.el" "*.c" "*.h" "Makefile"))
+  ;;     :init
+  ;;     (fmakunbound 'gdb)
+  ;;     (fmakunbound 'gdb-enable-debug)
+  ;; :config
+  ;; (setq gdb-executable-name "arm-none-eabi-gdb"))
+#+END_SRC
