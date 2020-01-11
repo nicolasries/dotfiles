@@ -893,6 +893,10 @@ More friendly interface
 
 *** Export
     #+BEGIN_SRC emacs-lisp
+    (use-package htmlize)
+    #+END_SRC
+
+    #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 ;; (require 'ox-latex)
 ;; (add-to-list 'org-latex-packages-alist '("" "minted"))

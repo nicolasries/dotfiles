@@ -13,3 +13,5 @@
 	autocrlf = input
 [status]
 	submodulesummary = true
+[credential]
+	helper = store
