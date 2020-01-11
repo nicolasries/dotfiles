@@ -191,7 +191,7 @@
          "f" '(:ignore t :which-key "file")
          "ff" '(find-file :which-key "find")
          "fg" '(counsel-git :which-key "git")
-         ;; "fs" '(save-buffer :which-key "save")
+         "fs" '(save-buffer :which-key "save")
          "fr" '(counsel-buffer-or-recentf :which-key "recent")
          
          "F" '(:ignore t :which-key "Frames")
@@ -408,12 +408,31 @@ More friendly interface
 * Autocompletion
 ** Company Mode
    #+BEGIN_SRC emacs-lisp
-    (use-package company)
+     (use-package company
+     :config
+     (add-to-list 'company-frontends 'company-tng-frontend)
+       (setq company-minimum-prefix-length 2
+             company-tooltip-limit 14
+             company-dabbrev-downcase nil
+             company-dabbrev-ignore-case nil
+             company-dabbrev-code-other-buffers t
+             company-tooltip-align-annotations t
+             company-require-match 'never
+             company-frontends
+             '(company-pseudo-tooltip-frontend
+               company-echo-metadata-frontend))
+    :general
+    (:keymaps 'company-active-map
+    "<return>" #'company-complete
+    "RET" #'company-complete
+              "TAB"       #'company-select-next
+              "S-TAB"   #'company-select-previous))
+       
    #+END_SRC
 ** Company Mode Icons
    #+BEGIN_SRC emacs-lisp
-   (use-package company-box
-   :hook (company-mode . company-box-mode))
+   ;; (use-package company-box
+   ;; :hook (company-mode . company-box-mode))
    #+END_SRC
 
 ** Company Mode Formatting
@@ -429,6 +448,7 @@ More friendly interface
    ;; company-go-show-annotation t
    ;; company-tooltip-minimum 5)
    #+END_SRC
+
 * Syntax Checking
   Automatically check syntax using Flycheck.
   https://github.com/flycheck/flycheck/
@@ -614,11 +634,23 @@ More friendly interface
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :config
+      (projectile-register-project-type 'embedded-arm-c '("Makefile")
+                                        :compile "make"
+                                        :test "make test"
+                                        :run "make run")
+      (projectile-register-project-type 'embedded-arm-asm '("Makefile")
+                                        :compile "make"
+                                        :test "make test"
+                                        :run "make run")
+      (projectile-register-project-type 'embedded-arm-hal-make '("Makefile")
+                                        :compile "make"
+                                        :test "make test"
+                                        :run "make run")
+
       (setq projectile-completion-system 'ivy)
       ;; fixes directory not found bug
       (setq projectile-git-submodule-command nil)
       (projectile-mode))
-
   #+END_SRC
 * Languages
 ** Emacs Lisp
@@ -641,8 +673,10 @@ More friendly interface
         ;; debug
         ;; (setq lsp-log-io t)
         (setq lsp-prefer-flymake nil)
-        (setq lsp-enable-semantic-highlighting t)
-        (setq lsp-auto-guess-root t))
+        (setq lsp-enable-semantic-highlighting t))
+        (setq lsp-rust-server 'rust-analyzer)
+        ;; disabled for now
+        ;; (setq lsp-auto-guess-root t)) 
     #+END_SRC
 *** Keybindings
     Major Mode Keybindings
@@ -868,6 +902,10 @@ More friendly interface
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 ;;         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
     #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+(use-package htmlize)
+    #+END_SRC
+
 *** Pandoc
     #+BEGIN_SRC emacs-lisp
 (use-package ox-pandoc)
@@ -1018,17 +1056,25 @@ More friendly interface
     (defun nri/bear ()
       (let ((default-directory (lsp-workspace-root)))(shell-command-to-string "make clean; bear make")))
   #+END_SRC
+  <
+
+** Async Shell Command no popup
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'display-buffer-alist
+  (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+#+END_SRC
+
 * Auto Save
   TODO: Trigger, when moving around
   #+BEGIN_SRC emacs-lisp
   ;; quiet auto save
   (setq save-silently t)
   ;; save every 0.5 seconds
-  (setq auto-save-visited-interval 0.5)
-  (auto-save-visited-mode t)
+  ;; (setq auto-save-visited-interval 1.0)
+  ;; (auto-save-visited-mode t)
   #+END_SRC
 * Debugging
-Temporary
+  Temporary
 #+BEGIN_SRC emacs-lisp
 (setq gud-gdb-command-name "arm-none-eabi-gdb -i=mi")
 (setq gdb-show-main t)

@@ -73,6 +73,7 @@ interval=persist
 [time.sh]
 interval=30
 format=json
+
 # markup=pango
 
 # OpenVPN support

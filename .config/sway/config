@@ -65,6 +65,8 @@ assign [class="dolphin-emu"] $wsp8
 assign [class="MTGA"] $wsp8
 assign [instance="gta5.exe"] $wsp8
 assign [app_id="lutris"] $wsp8
+assign [title="Blizzard Battle.net"] $wsp8
+assign [title="League of Legends"] $wsp8
 
 # }}}
 

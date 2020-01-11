@@ -20,6 +20,7 @@ fi
 updates=$(("$updates_arch" + "$updates_aur"))
 echo "{\"full_text\": \"$updates\"}"
 }
+
 case "$1" in
     --refresh)
         refresh

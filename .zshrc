@@ -40,8 +40,7 @@ alias ssh='TERM=xterm-256color ssh'
 
 # ls stuff
 alias ls='ls --color=auto'
-alias ll='ls -l'
-alias l.='ls -a'
+alias ll='ls -lh'
 
 # less with smart case
 alias less='less -i -R'
@@ -59,7 +58,7 @@ alias calc='python -i -c "from math import *"'
 
 alias pacin='trizen -Syu $(trizen -Ssq | fzf);  ~/.config/i3blocks/blocks/updates.sh --refresh'
 alias pacrm='trizen -Rsnu $(trizen -Qq | fzf)'
-alias pacupgr='trizen -Syu --noconfirm; ~/.config/i3blocks/blocks/updates.sh --refresh'
+alias pacupgr='trizen -Syu; ~/.config/i3blocks/blocks/updates.sh --refresh'
 
 # always smart case
 alias rg='rg --smart-case'
@@ -99,6 +98,7 @@ export RPROMPT=""
 # }}}
 
 export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/.cargo/bin
 zsh_highlight="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source $zsh_highlight
 

@@ -20,19 +20,6 @@ network_print() {
                     fi
                 elif [ "$type" = "802-3-ethernet" ]; then
                     icon=""
-
-                    speed="$(cat /sys/class/net/"$device"/speed)"
-                    if [ "$speed" -ne -1 ]; then
-                        if [ "$speed" -eq 1000 ]; then
-                            speed="1G"
-                        else
-                            speed=$speed"M"
-                        fi
-                    else
-                        speed="?"
-                    fi
-
-                    description="$description ($speed)"
                 fi
             fi
 

@@ -5,3 +5,16 @@
    nri ALL=(ALL) ALL
    nri ALL=(ALL) NOPASSWD: /bin/pacman
    #+END_EXAMPLE
+** /etc/NetworkManager/dispatcher.d/90-status
+   #+BEGIN_SRC bash
+     #!/bin/sh
+
+     case "$2" in
+         up)
+             sh /home/nri/.config/i3blocks/blocks/network.sh --update
+             ;;
+         down)
+             sh /home/nri/.config/i3blocks/blocks/network.sh --update
+             ;;
+     esac
+   #+END_SRC
