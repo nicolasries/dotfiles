@@ -25,13 +25,13 @@ bluetooth_print() {
             counter=$((counter + 1))
         fi
         if [ $counter -gt 0 ]; then
-            echo "$icon_connected $description"
+            echo "{\"full_text\" : \"$icon_connected $description\", \"short_text\": \"$icon_connected\"}"
         else
-            echo "$icon $description"
+            echo "{\"full_text\" : \"$icon $description\", \"short_text\": \"$icon\"}"
         fi
     done
 else
-    echo "$icon_off"
+    echo "{\"full_text\" : \"$icon_off\"}"
     fi
 done
 }

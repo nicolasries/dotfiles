@@ -23,7 +23,7 @@ network_print() {
                 fi
             fi
 
-            echo "{\"full_text\": \"${icon} ${description}\"}"
+            echo "{\"full_text\": \"${icon} ${description}\", \"short_text\": \"${icon}\"}"
         done
     else
         echo "#3"

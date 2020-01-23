@@ -69,6 +69,7 @@ format=json
 
 [bluetooth.sh]
 interval=persist
+format=json
 
 [time.sh]
 interval=30
