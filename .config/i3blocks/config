@@ -75,6 +75,10 @@ format=json
 interval=30
 format=json
 
+[io_status]
+interval=30
+command=$HOME/.config/i3blocks/blocks/online_status.sh io
+
 # markup=pango
 
 # OpenVPN support
