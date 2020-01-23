@@ -140,3 +140,9 @@ vterm_cmd() {
     printf "\e\\"
 }
 # }}}
+#
+# fzf
+#
+
+# new stuff
+alias o='xdg-open'
