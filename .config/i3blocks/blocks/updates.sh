@@ -18,7 +18,7 @@ if ! updates_aur=$(trizen -Su --aur --quiet | awk NF | wc -l); then
 fi
 
 updates=$(("$updates_arch" + "$updates_aur"))
-echo "{\"full_text\": \"$updates\"}"
+echo '{"full_text": "' ${updates} '", "background": "#1c1c1c",}'
 }
 
 case "$1" in
