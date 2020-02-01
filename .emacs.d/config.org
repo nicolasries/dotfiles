@@ -411,7 +411,7 @@ More friendly interface
      (use-package company
      :config
      (add-to-list 'company-frontends 'company-tng-frontend)
-       (setq company-minimum-prefix-length 2
+       (setq company-minimum-prefix-length 1
              company-tooltip-limit 14
              company-dabbrev-downcase nil
              company-dabbrev-ignore-case nil
@@ -423,8 +423,8 @@ More friendly interface
                company-echo-metadata-frontend))
     :general
     (:keymaps 'company-active-map
-    "<return>" #'company-complete
-    "RET" #'company-complete
+    "<return>" #'company-complete-selection
+    "RET" #'company-complete-selection
               "TAB"       #'company-select-next
               "S-TAB"   #'company-select-previous))
        
