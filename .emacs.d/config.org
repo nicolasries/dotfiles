@@ -661,7 +661,7 @@ More friendly interface
 *** Main
     #+BEGIN_SRC emacs-lisp
       (use-package lsp-mode
-        :hook ((rust-mode . lsp)
+        :hook (
                (c++-mode . lsp)
                (c-mode . lsp))
         :general
@@ -706,7 +706,6 @@ More friendly interface
     #+BEGIN_SRC emacs-lisp
     (use-package company-lsp)
     #+END_SRC
-
 *** Helm
     #+BEGIN_SRC emacs-lisp
       (use-package helm-lsp
@@ -715,10 +714,11 @@ More friendly interface
 
 *** Debug (DAP)
     #+BEGIN_SRC emacs-lisp
-
-     (use-package dap-mode)
+      (use-package dap-mode
+        :config
+        (add-hook 'dap-stopped-hook
+                (lambda (arg) (call-interactively #'dap-hydra))))
     #+END_SRC
-
 *** LSP Origami
     #+BEGIN_SRC emacs-lisp
     (use-package lsp-origami
@@ -730,6 +730,8 @@ More friendly interface
     https://github.com/rust-lang/rust-mode
     #+BEGIN_SRC emacs-lisp
      (use-package rust-mode
+     :hook
+     (rust-mode . lsp)
        :config
        (setq rust-format-on-save t)
        (nri/major-leader
@@ -945,8 +947,18 @@ More friendly interface
      (use-package go-mode
        :hook (go-mode . lsp)
        :config
+       (require 'dap-go)
        (add-hook 'before-save-hook 'gofmt-before-save))
    #+END_SRC
+*** Keybindings
+#+BEGIN_SRC emacs-lisp
+
+      (nri/major-leader
+        :states '(normal visual motion emacs)
+        :keymaps 'go-mode-map
+        "c" 'rust-run
+        )
+#+END_SRC
 
 ** Json
    #+BEGIN_SRC emacs-lisp
@@ -978,6 +990,11 @@ More friendly interface
        :hook (sh-mode . lsp))
    #+END_SRC
 ** Python
+   #+BEGIN_SRC emacs-lisp
+     (use-package python
+       :hook
+       (python-mode . lsp))
+   #+END_SRC
 
 * Snippets
 ** Yasnippet
@@ -1063,10 +1080,10 @@ More friendly interface
   <
 
 ** Async Shell Command no popup
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (add-to-list 'display-buffer-alist
   (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-#+END_SRC
+   #+END_SRC
 
 * Auto Save
   TODO: Trigger, when moving around
@@ -1079,12 +1096,12 @@ More friendly interface
   #+END_SRC
 * Debugging
   Temporary
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 (setq gud-gdb-command-name "arm-none-eabi-gdb -i=mi")
 (setq gdb-show-main t)
-#+END_SRC
+  #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   ;;   (use-package gdb-mi
   ;;  :straight (:host github :repo "weirdNox/emacs-gdb" :files ("*.el" "*.c" "*.h" "Makefile"))
   ;;     :init
@@ -1092,4 +1109,4 @@ More friendly interface
   ;;     (fmakunbound 'gdb-enable-debug)
   ;; :config
   ;; (setq gdb-executable-name "arm-none-eabi-gdb"))
-#+END_SRC
+  #+END_SRC
