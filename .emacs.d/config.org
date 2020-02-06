@@ -1102,11 +1102,20 @@ More friendly interface
 * Auto Save
   TODO: Trigger, when moving around
   #+BEGIN_SRC emacs-lisp
-  ;; quiet auto save
-  (setq save-silently t)
-  ;; save every 0.5 seconds
-  ;; (setq auto-save-visited-interval 1.0)
-  ;; (auto-save-visited-mode t)
+    ;; quiet auto save
+    (setq save-silently t)
+    (setq auto-save-visited-interval 1.0)
+    (auto-save-visited-mode t)
+    ;; in insert state -> 5 seconds
+    (add-hook 'evil-insert-state-entry-hook
+              (lambda () 
+                (setq auto-save-visited-interval 5.0)
+                (auto-save-visited-mode 1))) ;; mode has to be reloaded
+    ;; else 1 second
+    (add-hook 'evil-insert-state-exit-hook
+              (lambda ()
+                (setq auto-save-visited-interval 1.0)
+                (auto-save-visited-mode 1)))
   #+END_SRC
 * Debugging
   Temporary
