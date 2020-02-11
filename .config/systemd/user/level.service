@@ -1,0 +1,10 @@
+[Unit]
+Description=Labor 4 Mouse
+Requires=run-media-nri-NODE_F042K6.mount
+After=run-media-nri-NODE_F042K6.mount
+BindsTo=run-media-nri-NODE_F042K6.mount
+[Service]
+ExecStart=/home/nri/Uni/Semester_3/Rechnerorganisation/Labor/labor_4/driver/main
+
+[Install]
+WantedBy=run-media-nri-NODE_F042K6.mount

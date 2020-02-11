@@ -1083,13 +1083,13 @@ More friendly interface
       :config
       (unless (require 'fuz-core nil t)
         (fuz-build-and-load-dymod)))
-    (use-package ivy-fuz
-      :after ivy
-      :custom
-      (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
-      (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
-      :config
-      (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
+    ;; (use-package ivy-fuz
+    ;;   :after ivy
+    ;;   :custom
+    ;;   (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
+    ;;   (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
+    ;;   :config
+    ;;   (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
   #+END_SRC
 
 
@@ -1125,11 +1125,11 @@ More friendly interface
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
-  ;;   (use-package gdb-mi
-  ;;  :straight (:host github :repo "weirdNox/emacs-gdb" :files ("*.el" "*.c" "*.h" "Makefile"))
-  ;;     :init
-  ;;     (fmakunbound 'gdb)
-  ;;     (fmakunbound 'gdb-enable-debug)
-  ;; :config
-  ;; (setq gdb-executable-name "arm-none-eabi-gdb"))
+    (use-package gdb-mi
+   :straight (:host github :repo "weirdNox/emacs-gdb" :files ("*.el" "*.c" "*.h" "Makefile"))
+      :init
+      (fmakunbound 'gdb)
+      (fmakunbound 'gdb-enable-debug)
+  :config
+  (setq gdb-executable-name "arm-none-eabi-gdb"))
   #+END_SRC
