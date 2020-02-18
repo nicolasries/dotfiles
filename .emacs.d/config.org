@@ -1,9 +1,4 @@
 #+TITLE: Configuration
-* Temporary
-  Fix LSP
-  #+BEGIN_SRC emacs-lisp
-  (use-package lv)
-  #+END_SRC
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically
