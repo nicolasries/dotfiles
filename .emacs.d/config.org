@@ -80,10 +80,15 @@
      (setq create-lockfiles nil)
    #+END_SRC
 ** Higher GC treshold
-   Allow 20MB before calling the garbage collection. Default ist 0.8MB.
+   Allow 100MB before calling the garbage collection. Default ist 0.8MB.
    #+BEGIN_SRC emacs-lisp
-     (setq gc-cons-threshold 20000000)
+     (setq gc-cons-threshold 100000000)
    #+END_SRC
+** Let Emacs reads more data 
+   #+BEGIN_SRC emacs-lisp
+     (setq read-process-output-max (* 1024 1024)) ;; 1mb
+   #+END_SRC
+
 ** Delete trailing whitespace on save
    #+BEGIN_SRC emacs-lisp
    ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -268,15 +273,15 @@
             '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
-      #+END_SRC
+   #+END_SRC
 ** Ivy Rich
-More friendly interface
-#+BEGIN_SRC emacs-lisp
+   More friendly interface
+   #+BEGIN_SRC emacs-lisp
 (use-package ivy-rich
 :config
 (setq ivy-rich-path-style 'abbrev)
 (ivy-rich-mode 1))
-#+END_SRC
+   #+END_SRC
 
 ** Helm
    #+BEGIN_SRC emacs-lisp
@@ -412,6 +417,7 @@ More friendly interface
      :config
      (add-to-list 'company-frontends 'company-tng-frontend)
        (setq company-minimum-prefix-length 1
+             company-idle-delay 0.0
              company-tooltip-limit 14
              company-dabbrev-downcase nil
              company-dabbrev-ignore-case nil
@@ -480,16 +486,16 @@ More friendly interface
    #+END_SRC
 
 ** Show Diff in Buffer
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (use-package diff-hl
 :config
 (global-diff-hl-mode t))
-#+END_SRC
+   #+END_SRC
 * UI
 ** Font
    #+BEGIN_SRC emacs-lisp
-   (set-frame-font "Hack-14" nil t)
-   ;; (set-frame-font "Fira Code-13" nil t)
+     (if (equal "merkur" (system-name)) (set-frame-font "Hack-22" nil t) (set-frame-font "Hack-14" nil t))
+     ;; (set-frame-font "Fira Code-13" nil t)
    #+END_SRC
 
 ** Theme
@@ -595,26 +601,26 @@ More friendly interface
 
 ** Mode line
 *** Spaceline
-   Spaceline
-   [[https://github.com/TheBB/spaceline]]
-   #+BEGIN_SRC emacs-lisp
+    Spaceline
+    [[https://github.com/TheBB/spaceline]]
+    #+BEGIN_SRC emacs-lisp
      ;; (use-package spaceline
      ;;   :config
      ;;   (spaceline-spacemacs-theme)
      ;;   (spaceline-helm-mode)
      ;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
      ;;   (setq spaceline-minor-modes-p nil))
-   #+END_SRC
+    #+END_SRC
 
 
-   #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
   ;; (defadvice vc-mode-line (after strip-backend () activate)
   ;;   (when (stringp vc-mode)
   ;;     (let ((noback (replace-regexp-in-string
   ;;                    (format "^ %s" (vc-backend buffer-file-name))
   ;;                    " " vc-mode)))
   ;;       (setq vc-mode noback))))        ;
-   #+END_SRC
+    #+END_SRC
 
 *** Doom Line
     #+BEGIN_SRC emacs-lisp
@@ -951,14 +957,14 @@ More friendly interface
        (add-hook 'before-save-hook 'gofmt-before-save))
    #+END_SRC
 *** Keybindings
-#+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp
 
       (nri/major-leader
         :states '(normal visual motion emacs)
         :keymaps 'go-mode-map
         "c" 'rust-run
         )
-#+END_SRC
+    #+END_SRC
 
 ** Json
    #+BEGIN_SRC emacs-lisp
