@@ -1,9 +1,4 @@
 #+TITLE: Configuration
-* Temporary
-  Fix LSP
-  #+BEGIN_SRC emacs-lisp
-  (use-package lv)
-  #+END_SRC
 * More sensible defaults
   A bunch of stuff that really should be the default configuration.
 ** Reload changed files automatically
@@ -245,6 +240,8 @@
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
        :config
+       (setq which-key-allow-evil-operators t)
+       (setq which-key-show-operator-state-maps t)
        (setq which-key-separator " ")
        (setq which-key-prefix-prefix "+")
        (setq which-key-idle-delay 0.3)
