@@ -146,3 +146,19 @@ vterm_cmd() {
 
 # new stuff
 alias o='xdg-open'
+
+
+function check_emacs_package {
+    git fetch
+
+    git diff HEAD..origin/master
+    printf "Download (y/n)?"
+    read -k 1 download
+
+    if [ "$download" = 'y' ]; then
+        echo "pulling"
+        git pull
+    else
+        echo "not doing anything"
+    fi
+}

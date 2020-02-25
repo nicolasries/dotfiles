@@ -32,7 +32,7 @@
 ** Quit ediff without prompt
    #+BEGIN_SRC emacs-lisp
      (defun disable-y-or-n-p (orig-fun &rest args)
-       (cl-letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
+       (letf (((symbol-function 'y-or-n-p) (lambda (prompt) t)))
          (apply orig-fun args)))
      (advice-add 'ediff-quit :around #'disable-y-or-n-p)
    #+END_SRC
@@ -240,7 +240,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
        :config
-       (setq which-key-allow-evil-operators t)
+       ;; (setq which-key-allow-evil-operators t)
        (setq which-key-show-operator-state-maps t)
        (setq which-key-separator " ")
        (setq which-key-prefix-prefix "+")
@@ -304,7 +304,7 @@
 ** Flx
    Better Fuzzy Matching for Ivy etc.
    #+BEGIN_SRC emacs-lisp
-(use-package flx)
+;; (use-package flx)
    #+END_SRC
 
 * Editing
@@ -413,7 +413,7 @@
      (use-package company
      :config
      (add-to-list 'company-frontends 'company-tng-frontend)
-       (setq company-minimum-prefix-length 1
+       (setq company-minimum-prefix-length 0
              company-idle-delay 0.0
              company-tooltip-limit 14
              company-dabbrev-downcase nil
@@ -707,7 +707,10 @@
 
 *** Company
     #+BEGIN_SRC emacs-lisp
-    (use-package company-lsp)
+    (use-package company-lsp
+:config
+;; (setq company-lsp-cache-candidates 'auto)
+)
     #+END_SRC
 *** Helm
     #+BEGIN_SRC emacs-lisp
@@ -732,26 +735,27 @@
 *** Rust Mode
     https://github.com/rust-lang/rust-mode
     #+BEGIN_SRC emacs-lisp
-     (use-package rust-mode
-     :hook
-     (rust-mode . lsp)
-       :config
-       (setq rust-format-on-save t)
-       (nri/major-leader
-         :states '(normal visual motion emacs)
-         :keymaps 'rust-mode-map
-         "r" 'rust-run
-         ))
+      (use-package rust-mode
+        :hook
+        (rust-mode . lsp)
+        :config
+        (setq rust-format-on-save t)
+        (setq lsp-rust-analyzer-server-command "rust-analyzer") ;; installed from AUR
+        (nri/major-leader
+          :states '(normal visual motion emacs)
+          :keymaps 'rust-mode-map
+          "r" 'rust-run
+          ))
     #+END_SRC
 
 *** Rust Flycheck
     Improved Flycheck config for Rust.
     https://github.com/flycheck/flycheck-rust
     #+BEGIN_SRC emacs-lisp
-      (use-package flycheck-rust
-        :config
-        (with-eval-after-load 'rust-mode
-          (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+      ;; (use-package flycheck-rust
+      ;;   :config
+      ;;   (with-eval-after-load 'rust-mode
+      ;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
     #+END_SRC
 
 ** TOML
@@ -765,11 +769,10 @@
     #+BEGIN_SRC emacs-lisp
    (use-package ccls
      :config
+     ;; move cache to /tmp/
+     (setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}")))
      ;; semantic highlighting, TODO
-     ;; (setq ccls-sem-highlight-method 'overlay)
-
-     ;;
-     (setq ccls-initialization-options '(:cache(:directory :/home/nri/.cache/ccls-cache))))
+     ;; (setq ccls-sem-highlight-method 'overlay))
     #+END_SRC
 *** Keybindings
     #+BEGIN_SRC emacs-lisp
@@ -1086,14 +1089,20 @@
       :config
       (unless (require 'fuz-core nil t)
         (fuz-build-and-load-dymod)))
-    ;; (use-package ivy-fuz
-    ;;   :after ivy
-    ;;   :custom
-    ;;   (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
-    ;;   (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
-    ;;   :config
-    ;;   (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
   #+END_SRC
+  #+BEGIN_SRC emacs-lisp
+  ;; deactivated until recentf is still sorted at first
+;; (use-package ivy-fuz
+;;   :ensure t
+;;   :demand t
+;;   :after ivy
+;;   :custom
+;;   (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
+;;   (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
+;;   :config
+;;   (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
+  #+END_SRC
+
 
 
 ** Async Shell Command no popup
@@ -1136,3 +1145,17 @@
   :config
   (setq gdb-executable-name "arm-none-eabi-gdb"))
   #+END_SRC
+* Test
+  #+BEGIN_SRC emacs-lisp
+        (use-package dashboard
+          :ensure t
+          :config
+          (setq dashboard-items '((recents  . 5)
+                                  (bookmarks . 5)
+                                  (projects . 5)
+                                  (agenda . 5)
+                                  (registers . 5)))
+    (setq dashboard-center-content t)
+          (dashboard-setup-startup-hook))
+  #+END_SRC
+

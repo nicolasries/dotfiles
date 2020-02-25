@@ -313,6 +313,7 @@ output DVI-I-1 position 0 0
 
 
 bindsym $mod+c exec "makoctl dismiss"
+bindsym $mod+n exec "launcher.sh"
 
 # Launcher
 
