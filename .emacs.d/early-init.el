@@ -1,3 +1,5 @@
+;; loaded by emacs >=27
+
 ;; avoid outdated files
 (setq load-prefer-newer t)
 ;; minimal UI

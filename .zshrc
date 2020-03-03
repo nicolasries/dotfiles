@@ -148,7 +148,7 @@ vterm_cmd() {
 alias o='xdg-open'
 
 
-function check_emacs_package {
+function git_diff_pull {
     git fetch
 
     git diff HEAD..origin/master

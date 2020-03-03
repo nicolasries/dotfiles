@@ -7,7 +7,7 @@
 
 
 ;; unneeded on Emacs >= 27
-(load-file (expand-file-name "early-init.el" user-emacs-directory))
+;(load-file (expand-file-name "early-init.el" user-emacs-directory))
 
 ;; use develop branch, better org fixes
 (setq straight-repository-branch "develop")

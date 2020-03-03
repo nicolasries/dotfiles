@@ -31,7 +31,9 @@ separator_block_width=25
 align=center
 
 [mpris-tail.py]
+command=$HOME/Projects/status/target/release/status mpris Spotify
 interval=persist
+format=json
 
 # [pa-tail.sh]
 # interval=persist
@@ -54,8 +56,15 @@ interval=600
 signal=6
 
 [disk.sh]
-label=/
-interval=30
+command=$HOME/Projects/status/target/release/status disk
+interval=persist
+format=json
+
+
+[disk.sh]
+command=$HOME/Projects/status/target/release/status cpu
+interval=persist
+format=json
 
 [battery.sh]
 interval=persist
