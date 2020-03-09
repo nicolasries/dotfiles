@@ -20,7 +20,7 @@
 ** Seperate Custom File
    This gets rid of the auto generated data that 'custom' saves to the init file
    #+BEGIN_SRC emacs-lisp
-     (setq custom-file "~/.emacs.d/custom.el")
+     (setq custom-file (expand-file-name (concat user-emacs-directory "custom.el")))
      (load-file custom-file)
    #+END_SRC
 ** Save session
@@ -356,6 +356,7 @@
         :after evil
         :config
         (setq evil-collection-outline-bind-tab-p nil)
+(setq evil-collection-company-use-tng nil)
         (evil-collection-init))
     #+END_SRC
 *** Evil Nerd Commenter
@@ -414,51 +415,6 @@
        :config
        (setq anzu-cons-mode-line-p nil)
        (global-anzu-mode))
-   #+END_SRC
-
-* Autocompletion
-** Company Mode
-   #+BEGIN_SRC emacs-lisp
-     (use-package company
-       :config
-       (add-to-list 'company-frontends 'company-tng-frontend)
-       (setq company-minimum-prefix-length 0
-             company-idle-delay 0.0
-             company-tooltip-limit 14
-             company-dabbrev-downcase nil
-             company-dabbrev-ignore-case nil
-             company-dabbrev-code-other-buffers t
-             company-tooltip-align-annotations t
-             company-require-match 'never
-             company-frontends
-             '(company-pseudo-tooltip-frontend
-               company-echo-metadata-frontend))
-       :general
-       (:keymaps 'company-active-map
-                 "<return>" #'company-complete-selection
-                 "RET" #'company-complete-selection
-                 "TAB"       #'company-select-next
-                 "S-TAB"   #'company-select-previous))
-
-   #+END_SRC
-** Company Mode Icons
-   #+BEGIN_SRC emacs-lisp
-     ;; (use-package company-box
-     ;; :hook (company-mode . company-box-mode))
-   #+END_SRC
-
-** Company Mode Formatting
-   #+BEGIN_SRC emacs-lisp
-     ;; auto completion
-     ;;(custom-set-faces
-     ;;'(company-tooltip-common
-     ;;  ((t (:inherit company-tooltip :weight bold :underline nil))))
-     ;; '(company-tooltip-common-selection
-     ;;  ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-     ;;(setq company-tooltip-limit 5
-     ;; company-tooltip-align-annotations t
-     ;; company-go-show-annotation t
-     ;; company-tooltip-minimum 5)
    #+END_SRC
 
 * Syntax Checking
@@ -636,8 +592,8 @@
                             :inherit 'doom-modeline-buffer-path)
 
         (setq doom-modeline-buffer-modification-icon nil)
-        ;; (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-        (setq doom-modeline-buffer-file-name-style 'relative-to-project)
+        (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+        ;; (setq doom-modeline-buffer-file-name-style 'relative-to-project)
         :hook (after-init . doom-modeline-mode))
     #+END_SRC
 
@@ -685,10 +641,9 @@
         ;; debug
         ;; (setq lsp-log-io t)
         (setq lsp-prefer-flymake nil)
-        (setq lsp-enable-semantic-highlighting t))
-      ;; (setq lsp-rust-server 'rust-analyzer)
-      ;; disabled for now
-      ;; (setq lsp-auto-guess-root t)) 
+        (setq lsp-enable-semantic-highlighting t)
+      (setq lsp-rust-server 'rust-analyzer)
+      (setq lsp-auto-guess-root t))
     #+END_SRC
 *** Keybindings
     Major Mode Keybindings
@@ -754,7 +709,11 @@
           :states '(normal visual motion emacs)
           :keymaps 'rust-mode-map
           "r" 'rust-run
-          ))
+          )
+        :general
+        (:keymaps 'rust-mode-map
+         :states '(normal visual motion emacs)
+                  "J" 'lsp-rust-analyzer-join-lines))
     #+END_SRC
 
 *** Rust Flycheck
@@ -773,15 +732,22 @@
      (use-package toml-mode)
    #+END_SRC
 
+** XML
+   #+BEGIN_SRC emacs-lisp
+(use-package xml)
+   #+END_SRC
+
+
 ** C/C++
 *** ccls
     #+BEGIN_SRC emacs-lisp
       (use-package ccls
         :config
         ;; move cache to /tmp/
-        (setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}")))
+        ;; (setq ccls-args '("--init={\"cache\": {\"directory\": \"/tmp/ccls-cache\"}}")))
       ;; semantic highlighting, TODO
       ;; (setq ccls-sem-highlight-method 'overlay))
+)
     #+END_SRC
 *** Keybindings
     #+BEGIN_SRC emacs-lisp
@@ -797,6 +763,14 @@
    #+BEGIN_SRC emacs-lisp
      (use-package markdown-mode)
    #+END_SRC
+
+*** Evil Markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-markdown
+    :straight
+    (evil-markdown :type git :host github :repo "Somelauw/evil-markdown"))
+#+END_SRC
+
 ** Org
 *** Org Setup & Keybindings
     #+BEGIN_SRC emacs-lisp
@@ -936,6 +910,28 @@
     #+BEGIN_SRC emacs-lisp
       (use-package ox-pandoc)
     #+END_SRC
+
+*** Org Agenda
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list "~/Cloud/Notizen/Routine.org"
+                               "~/Cloud/Notizen/Notizen.org"
+                               "~/Uni/Uni.org"))
+#+END_SRC
+
+** Evil Org
+#+BEGIN_SRC emacs-lisp
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
+#+END_SRC
+
 
 ** Plantuml
 *** Plantuml Mode
@@ -1106,15 +1102,15 @@
   #+END_SRC
   #+BEGIN_SRC emacs-lisp
     ;; deactivated until recentf is still sorted at first
-    ;; (use-package ivy-fuz
-    ;;   :ensure t
-    ;;   :demand t
-    ;;   :after ivy
-    ;;   :custom
-    ;;   (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
-    ;;   (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
-    ;;   :config
-    ;;   (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
+    (use-package ivy-fuz
+      :ensure t
+      :demand t
+      :after ivy
+      :custom
+      (ivy-sort-matches-functions-alist '((t . ivy-fuz-sort-fn)))
+      (ivy-re-builders-alist '((t . ivy-fuz-regex-fuzzy)))
+      :config
+      (add-to-list 'ivy-highlight-functions-alist '(ivy-fuz-regex-fuzzy . ivy-fuz-highlight-fn)))
   #+END_SRC
 
 
@@ -1159,6 +1155,52 @@
       :config
       (setq gdb-executable-name "arm-none-eabi-gdb"))
   #+END_SRC
+* Autocompletion
+** Company Mode
+   #+BEGIN_SRC emacs-lisp
+     (use-package company
+       :config
+       (add-to-list 'company-frontends 'company-tng-frontend)
+       (setq company-minimum-prefix-length 0
+             company-idle-delay 0.0
+             company-tooltip-limit 14
+             company-dabbrev-downcase nil
+             company-dabbrev-ignore-case nil
+             company-dabbrev-code-other-buffers t
+             company-tooltip-align-annotations t
+             company-require-match 'never
+             company-frontends
+             '(company-pseudo-tooltip-frontend
+               company-echo-metadata-frontend))
+       :general
+       (:keymaps 'company-active-map
+                  :states '(insert)
+                 "<return>" #'company-complete-selection
+                 "RET" #'company-complete-selection
+                 ;; "TAB"       #'company-select-next
+                 "S-TAB"   #'company-select-previous))
+
+   #+END_SRC
+** Company Mode Icons
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package company-box
+     ;; :hook (company-mode . company-box-mode))
+   #+END_SRC
+
+** Company Mode Formatting
+   #+BEGIN_SRC emacs-lisp
+     ;; auto completion
+     ;;(custom-set-faces
+     ;;'(company-tooltip-common
+     ;;  ((t (:inherit company-tooltip :weight bold :underline nil))))
+     ;; '(company-tooltip-common-selection
+     ;;  ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+     ;;(setq company-tooltip-limit 5
+     ;; company-tooltip-align-annotations t
+     ;; company-go-show-annotation t
+     ;; company-tooltip-minimum 5)
+   #+END_SRC
+
 * Test
   
 ** Dashboard
@@ -1167,10 +1209,8 @@
       :ensure t
       :config
       (setq dashboard-items '((recents  . 5)
-                              (bookmarks . 5)
                               (projects . 5)
-                              (agenda . 5)
-                              (registers . 5)))
+                              (agenda . 10)))
       (setq dashboard-center-content t)
       (dashboard-setup-startup-hook))
   #+END_SRC
