@@ -153,8 +153,9 @@
          :states '(normal visual motion emacs)
          "SPC" 'counsel-M-x
          "TAB" '(mode-line-other-buffer :which-key "previous")
+         "RET" '(vterm-toggle :which-key "terminal")
 
-         "'" '(vterm-other-window :which-key "terminal")
+         "'" '(vterm-toggle :which-key "terminal")
 
 
          "/" '(swiper :which-key "search")
@@ -193,7 +194,7 @@
          "fg" '(counsel-git :which-key "git")
          "fs" '(save-buffer :which-key "save")
          "fr" '(counsel-buffer-or-recentf :which-key "recent")
-         
+
          "F" '(:ignore t :which-key "Frames")
          "Ff" '(make-frame :which-key "make")
 
@@ -219,13 +220,13 @@
 
          "w" '(:ignore t :which-key "window")
          "wh" '(evil-window-left :which-key "left")
-         "wH" '(evil-window-move-far-left :which-key "left")
+         "wH" '(evil-window-move-far-left :which-key "move left")
          "wj" '(evil-window-down :which-key "down")
-         "wJ" '(evil-window-move-very-bottom :which-key "down")
+         "wJ" '(evil-window-move-very-bottom :which-key "move down")
          "wk" '(evil-window-up :which-key "up")
-         "wK" '(evil-window-move-very-top :which-key "up")
+         "wK" '(evil-window-move-very-top :which-key "move up")
          "wl" '(evil-window-right :which-key "right")
-         "wL" '(evil-window-move-far-right :which-key "right")
+         "wL" '(evil-window-move-far-right :which-key "move right")
          "wv" '(evil-window-vsplit :w-k "split vertically")
          "ww" '(evil-window-next :w-k "next")
          "wq" '(evil-window-delete :which-key "quit")
@@ -259,34 +260,45 @@
 * Incremental Completion Framework
 ** Ivy
    #+BEGIN_SRC emacs-lisp
-     (use-package ivy
-       :config
-       (setq ivy-use-virtual-buffers t))
-     (use-package swiper)
-     (use-package counsel
-       :general
-       (:keymaps 'ivy-minibuffer-map
-                 "<escape>" 'minibuffer-keyboard-quit
-                 "C-j" 'ivy-next-line
-                 "C-w" 'backward-kill-word)
-       (:keymaps 'swiper-map
-                 "<escape>" 'minibuffer-keyboard-quit)
-       :config
-       (ivy-mode 1)
-       (counsel-mode)
-       (setq ivy-initial-inputs-alist nil)
-       (setq ivy-re-builders-alist
-             '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
-       ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
-       (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
+          (use-package ivy
+            :config
+            (setq ivy-count-format "")
+            (setq ivy-use-virtual-buffers t))
+          (use-package swiper)
+          (use-package counsel
+            :general
+            (:keymaps 'ivy-minibuffer-map
+                      "<escape>" 'minibuffer-keyboard-quit
+                      "C-j" 'ivy-next-line
+                      "C-w" 'backward-kill-word)
+            (:keymaps 'swiper-map
+                      "<escape>" 'minibuffer-keyboard-quit)
+            :config
+            (ivy-mode 1)
+            (counsel-mode)
+            (setq ivy-initial-inputs-alist nil)
+            (setq ivy-re-builders-alist
+                  '((swiper . ivy--regex-plus)(t . ivy--regex-fuzzy))) ;; Fuzzy for everything TODO: not for swiper etc.
+            ;; (setq ivy-initial-inputs-alist nil) ;; no ^ at the start
+            (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line))
    #+END_SRC
 ** Ivy Rich
    More friendly interface
    #+BEGIN_SRC emacs-lisp
+     ;; (use-package ivy-rich
+     ;;   :config
+     ;;   (setq ivy-rich-path-style 'abbrev)
+     ;;   (ivy-rich-mode 1))
      (use-package ivy-rich
-       :config
-       (setq ivy-rich-path-style 'abbrev)
-       (ivy-rich-mode 1))
+       :preface (defun ivy-rich-switch-buffer-icon (candidate) (with-current-buffer (get-buffer candidate) (all-the-icons-icon-for-mode major-mode)))
+       :init
+       (setq ivy-rich-display-transformers-list ; max column width sum = (ivy-poframe-width - 1)
+             '(ivy-switch-buffer (:columns ((ivy-rich-switch-buffer-icon (:width 2)) (ivy-rich-candidate (:width 35)) (ivy-rich-switch-buffer-project (:width 15 :face success)) (ivy-rich-switch-buffer-major-mode (:width 13 :face warning))) :predicate #'(lambda (cand) (get-buffer cand)))
+                                 counsel-M-x (:columns ((counsel-M-x-transformer (:width 35)) (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+                                 counsel-describe-function (:columns ((counsel-describe-function-transformer (:width 35)) (ivy-rich-counsel-function-docstring (:width 34 :face font-lock-doc-face))))
+                                 counsel-describe-variable (:columns ((counsel-describe-variable-transformer (:width 35)) (ivy-rich-counsel-variable-docstring (:width 34 :face font-lock-doc-face))))
+                                 package-install (:columns ((ivy-rich-candidate (:width 25)) (ivy-rich-package-version (:width 12 :face font-lock-comment-face)) (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face)) (ivy-rich-package-install-summary (:width 23 :face font-lock-doc-face))))))
+       :config (ivy-rich-mode +1) (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)) 
    #+END_SRC
 
 ** Helm
@@ -597,6 +609,37 @@
         :hook (after-init . doom-modeline-mode))
     #+END_SRC
 
+    
+** Posframe
+#+BEGIN_SRC emacs-lisp
+  (use-package posframe
+  :config
+
+  (setq posframe-mouse-banish t))
+#+END_SRC
+
+** Ivy Posframe
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-posframe
+:config
+;; display at `ivy-posframe-style'
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+;; (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+(ivy-posframe-mode 1))
+#+END_SRC
+
+** Which-Key Posframe
+   #+BEGIN_SRC emacs-lisp
+(use-package which-key-posframe
+ :config
+  (which-key-posframe-mode)
+)
+   #+END_SRC
+
 * Projectile
   Project Management
   #+BEGIN_SRC emacs-lisp
@@ -621,10 +664,59 @@
       (projectile-mode))
   #+END_SRC
 * Languages
+** TODO Bash
+   #+BEGIN_SRC emacs-lisp
+     (use-package sh-script
+       :config
+       (dolist (pattern '("\\.zsh\\'"
+                          "zlogin\\'"
+                          "zlogout\\'"
+                          "zpreztorc\\'"
+                          "zprofile\\'"
+                          "zshenv\\'"
+                          "zshrc\\'"))
+         (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+       :hook (sh-mode . lsp))
+   #+END_SRC
+** Clojure
+#+BEGIN_SRC emacs-lisp
+(use-package clojure-mode
+:hook (clojure-mode . lsp))
+#+END_SRC
+
+** Cmake
+#+BEGIN_SRC emacs-lisp
+(use-package cmake-mode
+:hook (cmake-mode . lsp))
+#+END_SRC
+
+** CSS
+#+BEGIN_SRC emacs-lisp
+  (use-package css-mode
+        :hook
+        (css-mode . lsp))
+#+END_SRC
+** Dockerfile
+   dockerfile-language-server-bin from AUR
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode
+       :hook (dockerfile-mode . lsp))
+#+END_SRC
+
 ** Emacs Lisp
    #+BEGIN_SRC emacs-lisp
 
    #+END_SRC
+** HTML
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+** Json
+   #+BEGIN_SRC emacs-lisp
+     (use-package json-mode
+       :hook (json-mode . prettier-js-mode))
+   #+END_SRC
+
 ** Language Server Protocol
 *** Main
     #+BEGIN_SRC emacs-lisp
@@ -641,8 +733,7 @@
         ;; debug
         ;; (setq lsp-log-io t)
         (setq lsp-prefer-flymake nil)
-        (setq lsp-enable-semantic-highlighting t)
-      (setq lsp-rust-server 'rust-analyzer)
+        ;; (setq lsp-enable-semantic-highlighting t)
       (setq lsp-auto-guess-root t))
     #+END_SRC
 *** Keybindings
@@ -673,7 +764,7 @@
     #+BEGIN_SRC emacs-lisp
       (use-package company-lsp
         :config
-        ;; (setq company-lsp-cache-candidates 'auto)
+        (setq company-lsp-cache-candidates 'auto)
         )
     #+END_SRC
 *** Helm
@@ -695,48 +786,33 @@
         :hook (lsp . lsp-origami))
     #+END_SRC
 
-** Rust
-*** Rust Mode
-    https://github.com/rust-lang/rust-mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package rust-mode
-        :hook
-        (rust-mode . lsp)
-        :config
-        (setq rust-format-on-save t)
-        (setq lsp-rust-analyzer-server-command "rust-analyzer") ;; installed from AUR
-        (nri/major-leader
-          :states '(normal visual motion emacs)
-          :keymaps 'rust-mode-map
-          "r" 'rust-run
-          )
-        :general
-        (:keymaps 'rust-mode-map
-         :states '(normal visual motion emacs)
-                  "J" 'lsp-rust-analyzer-join-lines))
-    #+END_SRC
-
-*** Rust Flycheck
-    Improved Flycheck config for Rust.
-    https://github.com/flycheck/flycheck-rust
-    #+BEGIN_SRC emacs-lisp
-      ;; (use-package flycheck-rust
-      ;;   :config
-      ;;   (with-eval-after-load 'rust-mode
-      ;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-    #+END_SRC
-
-** TOML
-   https://github.com/dryman/toml-mode.el
+** Go
    #+BEGIN_SRC emacs-lisp
-     (use-package toml-mode)
+     (use-package go-mode
+       :hook (go-mode . lsp)
+       :config
+       (require 'dap-go)
+       (add-hook 'before-save-hook 'gofmt-before-save))
    #+END_SRC
+*** Keybindings
+    #+BEGIN_SRC emacs-lisp
+
+      (nri/major-leader
+        :states '(normal visual motion emacs)
+        :keymaps 'go-mode-map
+        "c" 'rust-run
+        )
+    #+END_SRC
+** Godot
+#+BEGIN_SRC emacs-lisp
+(use-package gdscript-mode
+:hook (gdscript . lsp))
+#+END_SRC
 
 ** XML
    #+BEGIN_SRC emacs-lisp
 (use-package xml)
    #+END_SRC
-
 
 ** C/C++
 *** ccls
@@ -918,20 +994,19 @@
                                "~/Uni/Uni.org"))
 #+END_SRC
 
-** Evil Org
-#+BEGIN_SRC emacs-lisp
-(use-package evil-org
-  :ensure t
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
-#+END_SRC
-
+*** Evil Org
+ #+BEGIN_SRC emacs-lisp
+ (use-package evil-org
+   :ensure t
+   :after org
+   :config
+   (add-hook 'org-mode-hook 'evil-org-mode)
+   (add-hook 'evil-org-mode-hook
+             (lambda ()
+               (evil-org-set-key-theme)))
+   (require 'evil-org-agenda)
+   (evil-org-agenda-set-keys))
+ #+END_SRC
 
 ** Plantuml
 *** Plantuml Mode
@@ -958,52 +1033,10 @@
 
       (add-to-list 'flycheck-checkers 'plantuml)
     #+END_SRC
-** Go
-   #+BEGIN_SRC emacs-lisp
-     (use-package go-mode
-       :hook (go-mode . lsp)
-       :config
-       (require 'dap-go)
-       (add-hook 'before-save-hook 'gofmt-before-save))
-   #+END_SRC
-*** Keybindings
-    #+BEGIN_SRC emacs-lisp
-
-      (nri/major-leader
-        :states '(normal visual motion emacs)
-        :keymaps 'go-mode-map
-        "c" 'rust-run
-        )
-    #+END_SRC
-
-** Json
-   #+BEGIN_SRC emacs-lisp
-     (use-package json-mode
-       :hook (json-mode . prettier-js-mode))
-   #+END_SRC
-
-** Yaml
-   #+BEGIN_SRC emacs-lisp
-     (use-package yaml-mode)
-   #+END_SRC
 ** Prettier
    Auto Format supported languages
    #+BEGIN_SRC emacs-lisp
      (use-package prettier-js)
-   #+END_SRC
-** TODO Bash
-   #+BEGIN_SRC emacs-lisp
-     (use-package sh-script
-       :config
-       (dolist (pattern '("\\.zsh\\'"
-                          "zlogin\\'"
-                          "zlogout\\'"
-                          "zpreztorc\\'"
-                          "zprofile\\'"
-                          "zshenv\\'"
-                          "zshrc\\'"))
-         (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
-       :hook (sh-mode . lsp))
    #+END_SRC
 ** Python
    #+BEGIN_SRC emacs-lisp
@@ -1012,6 +1045,53 @@
        (python-mode . lsp))
    #+END_SRC
 
+** Rust
+*** Rust Mode
+    https://github.com/rust-lang/rust-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package rust-mode
+        :hook
+        (rust-mode . lsp)
+        :config
+        (setq rust-format-on-save t)
+        (setq lsp-rust-analyzer-server-command "rust-analyzer") ;; installed from AUR
+      (setq lsp-rust-server 'rust-analyzer)
+        (nri/major-leader
+          :states '(normal visual motion emacs)
+          :keymaps 'rust-mode-map
+          "r" 'rust-run
+          )
+        :general
+        (:keymaps 'rust-mode-map
+         :states '(normal visual motion emacs)
+                  "J" 'lsp-rust-analyzer-join-lines))
+    #+END_SRC
+
+*** Rust Flycheck
+    Improved Flycheck config for Rust.
+    https://github.com/flycheck/flycheck-rust
+    #+BEGIN_SRC emacs-lisp
+      ;; (use-package flycheck-rust
+      ;;   :config
+      ;;   (with-eval-after-load 'rust-mode
+      ;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+    #+END_SRC
+** Typescript
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
+
+
+** TOML
+   https://github.com/dryman/toml-mode.el
+   #+BEGIN_SRC emacs-lisp
+     (use-package toml-mode)
+   #+END_SRC
+** Yaml
+   #+BEGIN_SRC emacs-lisp
+     (use-package yaml-mode
+       :hook (yaml-mode . lsp))
+   #+END_SRC
 * Snippets
 ** Yasnippet
    #+BEGIN_SRC emacs-lisp
@@ -1081,10 +1161,24 @@
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
-    (use-package vterm)
+    (use-package vterm
+      :config
+      ;; always start in insert mode
+      (add-hook 'vterm-mode-hook (lambda () (display-line-numbers-mode -1)))
+      (add-hook 'vterm-toggle-show-hook 'evil-insert-state))
   #+END_SRC
   #+BEGIN_SRC emacs-lisp
-    (use-package vterm-toggle)
+        (use-package vterm-toggle
+    :config
+    (setq vterm-toggle-fullscreen-p nil)
+    (add-to-list 'display-buffer-alist
+                 '((lambda(bufname _) (with-current-buffer bufname (equal major-mode 'vterm-mode)))
+                    (display-buffer-reuse-window display-buffer-in-side-window)
+                    (side . right)
+                    (dedicated . t) ;dedicated is supported in emacs27
+                    (reusable-frames . visible)
+                    (window-height . 0.3)))
+    )
   #+END_SRC
 
 * Misc
@@ -1226,4 +1320,13 @@
   (use-package treemacs-projectile)
 
 #+END_SRC
+
+* Tree Sitter
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package tree-sitter
+  ;;   :straight
+  ;;   (tree-sitter :type git :host github :repo "ubolonton/emacs-tree-sitter"))
+  ;; (use-package tree-sitter-langs)
+#+END_SRC
+
 

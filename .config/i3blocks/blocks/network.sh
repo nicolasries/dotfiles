@@ -26,7 +26,8 @@ network_print() {
             echo "{\"full_text\": \"${icon} ${description}\", \"short_text\": \"${icon}\"}"
         done
     else
-        echo "#3"
+        icon=""
+        echo "{\"full_text\": \"${icon} ${description}\", \"short_text\": \"${icon}\"}"
     fi
 }
 

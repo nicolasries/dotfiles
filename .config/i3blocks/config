@@ -52,7 +52,7 @@ signal=5
 [updates.sh]
 label=
 format=json
-interval=600
+interval=60
 signal=6
 
 [disk.sh]
