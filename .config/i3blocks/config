@@ -30,7 +30,7 @@ separator_block_width=25
 # markup=pango
 align=center
 
-[mpris-tail.py]
+[mpris]
 command=$HOME/Projects/status/target/release/status mpris Spotify
 interval=persist
 format=json
@@ -55,13 +55,12 @@ format=json
 interval=60
 signal=6
 
-[disk.sh]
+[disk]
 command=$HOME/Projects/status/target/release/status disk
 interval=persist
 format=json
 
-
-[disk.sh]
+[cpu]
 command=$HOME/Projects/status/target/release/status cpu
 interval=persist
 format=json
