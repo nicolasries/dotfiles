@@ -2,3 +2,8 @@
 !/.emacs.d/
 /.emacs.d/*
 !/.emacs.d/snippets/
+!/.config/
+/.config/*
+!/.config/emacs/
+/.config/emacs/*
+!/.config/emacs/snippets
